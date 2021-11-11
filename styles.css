@@ -64,18 +64,14 @@
     background-image: url(background.jpg);
     /* background-size: 900px auto */
     background-repeat: no-repeat;
-    background-size: 1800px 900px;
+    background-size: 1800px 900px
   }
-
-  #menu {
-    display: flex;
-    text-align: center;
+  #menu{
     position: absolute;
-    justify-content: center;
-    min-height: 100vh;
-    top: 50%
+    top: 50%;
+    left: 50%;
     margin-top: -50px;
-  
+    margin-left: -50px;
+    width: 100px;
     height: 100px;
-
-  }
+}​
