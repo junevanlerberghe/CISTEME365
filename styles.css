@@ -59,7 +59,6 @@
   display: inline-block;
   width: 60px !important;
   height: 34px;
-
   margin: 0 5px;
 }
 .switch input { 
@@ -109,4 +108,13 @@ input:checked + .slider:before {
 }
 .slider.round:before {
   border-radius: 50%;
+}
+
+select {
+  margin: 20px;
+  width: 140px;
+  padding: 5px 3px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #CCC;
+  height: 34px;
 }
