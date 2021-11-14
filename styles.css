@@ -1,54 +1,22 @@
 /***********************************************************
- * structural
+ * design: overall / structural
  ***********************************************************/
 /* Containers */
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#everything_wrapper {
+  height: 100vh;  
 
-  height: 100vh;
-}
-#menu{
-  display: flex;
-  
-  padding: 5%;
-  width: 70%;
-  height: auto;
-
-  background: rgba(217,220,214, 0.7);
-  border-radius: 15px;
-}​
-
-/* Flexbox */
-.col {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-}
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-}
-#instructions_col {
-}
-#options_col {
-}
-
-
-/***********************************************************
- * design: overall
- ***********************************************************/
- body {
   background-image: url(background.jpg);
-  /* background-size: 900px auto */
   background-repeat: no-repeat;
   /*background-size: 1800px 900px;*/
   background-size: cover;
   background-position: center;
+}
+#menu {
+  background: rgba(255, 255, 255, 0.9);
+}​
+
+body {
+
 }
 
 /***********************************************************

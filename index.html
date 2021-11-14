@@ -10,53 +10,50 @@
 </head>
 
 <body>
-  <!--this container holds all the content of the screen-->
-  <div class="container">
-    <div id="menu">
-        <!--this col holds the tutorial for how to play the game-->
-        <div class = "col" id = "instruction_col">
-          <div class = "row">
-            <h2>Instructions</h2>
-            <ol>
-              <li>Select your difficulty level.</li>
-              <li>Use the up and down arrow keys to steer your ship.</li>
-              <li>Avoid the icebergs and see the power of PID control.</li>
-              <li>Good luck and have fun!</li>
-            </ol>
+<!--this container wraps the entire screen-->
+<div class="container-fluid" id="everything_wrapper">
+  <div class="row h-100">
+  <!-- this holds the menu (so the content) -->
+  <div class ="col col-sm-12 w-50 m-auto">
+    <div class = "row p-4 rounded" id="menu">
+      <!--this col holds the tutorial for how to play the game-->
+      <div class = "col-7" id = "instruction_col">
+          <h2>Instructions</h2>
+          <ol>
+            <li>Select your difficulty level.</li>
+            <li>Use the up and down arrow keys to steer your ship.</li>
+            <li>Avoid the icebergs and see the power of PID control.</li>
+            <li>Good luck and have fun!</li>
+          </ol>
+      </div>
+      <!--this column holds all buttons and options (e.g. start, difficulty, etc.)-->
+      <div class="col" id = "options_col">
+          <h2>Options</h2>
+          <div class="dropdown">
+              <!--difficulty drop down menu-->
+              <button id = "difficulty" style = "margin:10px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Choose Difficulty
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">1</a>
+                <a class="dropdown-item" href="#">2</a>
+                <a class="dropdown-item" href="#">3</a>
+              </div>
           </div>
-        </div>
-        <!--this column holds all buttons and options (e.g. start, difficulty, etc.)-->
-        <div class="col" id = "options_col">
-          <div class="row">
-            <h2>Options</h2>
-            <div class="dropdown">
-                <!--difficulty drop down menu-->
-                <button id = "difficulty" style = "margin:10px;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Choose Difficulty
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">1</a>
-                  <a class="dropdown-item" href="#">2</a>
-                  <a class="dropdown-item" href="#">3</a>
-                </div>
-            </div>
+          <!--ghostmode switch -->
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>Ghost mode
+          <div id = "buttons">
+            <!--start button-->
+            <a href="game.html"><button id = "start" style = "margin:10px;"type="button" class="btn btn-primary">Start</button></a>
           </div>
-          <div class = "row">
-            <!--ghostmode switch -->
-            <label class="switch">
-              <input type="checkbox">
-              <span class="slider round"></span>
-            </label>Ghost mode
-          </div>
-          <div class = "row">
-            <div id = "buttons">
-              <!--start button-->
-              <a href="game.html"><button id = "start" style = "margin:10px;"type="button" class="btn btn-primary">Start</button></a>
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
   </div>
+</div>
+</div>
 
   <script defer src = "index.js" charset="utf-8"></script>
 </body>
