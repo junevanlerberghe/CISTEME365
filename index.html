@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir=""ltr">
+<html lang="en" dir="" ltr">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charser = "utf-8">
+  <meta charser="utf-8">
   <title> Titanic </title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,51 +11,52 @@
 </head>
 
 <body>
-<!--this container wraps the entire screen-->
-<div class="container-fluid" id="everything_wrapper">
-  <div class="row h-100">
-  <!-- this holds the menu (so the content) -->
-  <div class ="col col-sm-12 w-50 m-auto">
-    <div class = "row p-4 rounded" id="menu">
-      <!--this col holds the tutorial for how to play the game-->
-      <div class = "col-7" id = "instruction_col">
-          <h2>Instructions</h2>
-          <ol>
-            <li>Select your difficulty level.</li>
-            <li>Selecting Ghost mode will allow you to see what the computer is doing.</li>
-            <li>Use the up and down arrow keys to steer your ship.</li>
-            <li>Avoid the icebergs and see the power of PID control.</li>
-            <li>Good luck and have fun!</li>
-          </ol>
-      </div>
-      <!--this column holds all buttons and options (e.g. start, difficulty, etc.)-->
-      <div class="col" id = "options_col">
-          <h2>Options</h2>
-          <div class="dropdown">
+  <!--this container wraps the entire screen-->
+  <div class="container-fluid" id="everything_wrapper">
+    <div class="row h-100">
+      <!-- this holds the menu (so the content) -->
+      <div class="col col-sm-12 w-50 m-auto">
+        <div class="row p-4 rounded" id="menu">
+          <!--this col holds the tutorial for how to play the game-->
+          <div class="col-7" id="instruction_col">
+            <h2>Instructions</h2>
+            <ol>
+              <li>Select your difficulty level.</li>
+              <li>Selecting Ghost Mode will allow you to see what the computer is doing.</li>
+              <li>Use the up and down arrow keys to steer your ship.</li>
+              <li>Avoid the icebergs and see the power of PID control.</li>
+              <li>Good luck and have fun!</li>
+            </ol>
+          </div>
+          <!--this column holds all buttons and options (e.g. start, difficulty, etc.)-->
+          <div class="col" id="options_col">
+            <h2>Options</h2>
+            <div class="dropdown">
               <!--difficulty drop down menu-->
               <label>Select Difficulty:</label>
-              <select name="difficulty" id="difficulty" style = "margin:7px">
+              <select name="difficulty" id="difficulty" style="margin:7px">
                 <option>Easy</option>
                 <option>Medium</option>
                 <option>Hard</option>
               </select>
+            </div>
+            <!--ghostmode switch -->
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>Ghost Mode
+            <div id="buttons">
+              <!--start button-->
+              <a href="game.html"><button id="start" style="margin-top:10px;" type="button"
+                  class="btn btn-primary">Start</button></a>
+            </div>
           </div>
-          <!--ghostmode switch -->
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-          </label>Ghost mode
-          <div id = "buttons">
-            <!--start button-->
-            <a href="game.html"><button id = "start" style = "margin-top:10px;" type="button" class="btn btn-primary">Start</button></a>
-          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
 
-  <script defer src = "index.js" charset="utf-8"></script>
-
+  <script defer src="index.js" charset="utf-8"></script>
 </body>
+
 </html>
