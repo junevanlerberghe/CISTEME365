@@ -1,10 +1,13 @@
 
 export default class Ship {
     constructor(gameWidth, gameHeight) {
+        const img = new Image();
+        img.src = "shipicon.png";
+        this.image = img;
         this.gameHeight = gameHeight
         this.gameWidth = gameWidth
-        this.width = 20
-        this.height = 20
+        this.width = 80
+        this.height = 80
         this.position = {
             x: 20,
             y: 20
@@ -26,8 +29,9 @@ export default class Ship {
     }
 
     draw(ctx) {
-        ctx.fillStyle = '#0ff'
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        // ctx.fillStyle = '#0ff'
+        // ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
 
     update(dt) {
