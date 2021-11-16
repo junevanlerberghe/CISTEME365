@@ -1,6 +1,7 @@
 import Ship from './ship.js'
 import InputHandler from './input.js'
 import glacier from './glacier.js';
+import Wind from './wind.js'
 
 let canvas = document.getElementById('gameScreen');
 let ctx = canvas.getContext('2d');
@@ -10,8 +11,10 @@ const GAME_HEIGHT = 600;
 
 ctx.clearRect(0, 0, 800, 600)
 
-let ship = new Ship(GAME_WIDTH, GAME_HEIGHT)
+let wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
+let ship = new Ship(GAME_WIDTH, GAME_HEIGHT, wind)
 let glaciers = new glacier(GAME_WIDTH, GAME_HEIGHT);
+let gameObjects = [ship, glaciers];
 new InputHandler(ship);
 
 ship.draw(ctx)
@@ -23,16 +26,19 @@ ctx.fillRect(100, 100, 200, 200);
 function gameLoop(timeStamp) {
     let dt = timeStamp - lastTime;
     lastTime = timeStamp
+
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    ship.update(dt);
-    ship.draw(ctx);
-    glaciers.update(dt);
-    glaciers.draw(ctx);
+    update(dt, timeStamp);
+    draw(ctx);
     requestAnimationFrame(gameLoop)
 }
 
+function update(dt, timeStamp) {
+    wind.update(timeStamp);
+    gameObjects.forEach(x => x.update(dt));
+}
+function draw(ctx) {
+    gameObjects.forEach(x => x.draw(ctx));
+}
+
 gameLoop();
-ctx.fillStyle = '#0ff'
-ctx.fillRect(100, 100, 200, 200);
-
-

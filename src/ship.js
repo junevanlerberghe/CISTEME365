@@ -1,5 +1,5 @@
 export default class Ship {
-    constructor(gameWidth, gameHeight) {
+    constructor(gameWidth, gameHeight, wind) {
         const img = new Image();
         img.src = "assets/shipicon.png";
         this.image = img;
@@ -9,10 +9,12 @@ export default class Ship {
         this.height = 80
         this.position = {
             x: 20,
-            y: 20
+            y: (gameHeight - this.height) / 2
         }
         this.maxSpeed = 4
         this.speed = 0
+
+        this.wind = wind;
     }
 
     stop() {
@@ -35,11 +37,9 @@ export default class Ship {
 
     update(dt) {
         if(!dt) return;
-        this.position.y += this.speed;
+        this.position.y += this.speed + this.wind.currentVelocity;
 
         if(this.position.y < 0) this.position.y = 0;
         if(this.position.y + this.height > this.gameHeight) this.position.y = this.gameHeight - this.height
-
-
     }
 }
