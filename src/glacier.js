@@ -13,7 +13,7 @@ export default class glacier {
             y: 200
         }
         this.maxSpeed = 5;
-        this.speed = 10;
+        this.speed = 9;
     }
     update(dt) {
         if(!dt) return;
