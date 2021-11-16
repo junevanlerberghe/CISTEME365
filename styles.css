@@ -86,3 +86,10 @@ select {
   border: 1px solid #CCC;
   height: 34px;
 }
+
+/* summary button */
+#summary{
+  position: relative;
+  text-align: center;
+  padding: 20px;
+}

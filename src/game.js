@@ -17,6 +17,7 @@ export default class Game {
     }
 
     start() {
+        document.getElementById('summary').style.display = 'none';
         this.gamestate = GAMESTATE.RUNNING;
         this.wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
         this.ship = new Ship(this, this.wind)
@@ -36,14 +37,17 @@ export default class Game {
         this.gameObjects.forEach(x => x.draw(ctx));
 
         if(this.gameState == GAMESTATE.GAMEOVER) {
-            ctx.rect(0, 0, this.gameWidth, this.gameHeight);
-            ctx.fillStyle = "rgba(0,0,0,1)";
+            ctx.rect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
+            ctx.fillStyle = "rgba(0,0,0,0.65)";
             ctx.fill();
 
             ctx.font = "30px Arial";
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
             ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
+            document.getElementById('summary').style.display = 'block';
+            document.getElementById('summary').style.left = this.gameWidth/2 - 60;
+            document.getElementById('summary').style.top = -280;
         }
     }
 }
