@@ -10,6 +10,5 @@ export default class Wind {
     update(timeStamp) {
         // note we wnat timestamp rather than dt bc we want wind's velocity to by cyclical
         this.currentVelocity = this.baseline + this.amplitude * Math.sin(timeStamp/this.period);
-        // console.log(this.currentVelocity);
     }
 }

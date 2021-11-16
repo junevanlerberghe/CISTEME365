@@ -1,6 +1,6 @@
 import Ship from './ship.js'
 import InputHandler from './input.js'
-import glacier from './glacier.js';
+import glacier from './glacier_pair.js';
 import Wind from './wind.js'
 
 let canvas = document.getElementById('gameScreen');
@@ -14,8 +14,8 @@ ctx.clearRect(0, 0, 800, 600)
 let wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
 let ship = new Ship(GAME_WIDTH, GAME_HEIGHT, wind)
 let glacier_1 = new glacier(GAME_WIDTH, GAME_HEIGHT);
-let glacier_2 = new glacier(GAME_WIDTH, GAME_HEIGHT);
-let gameObjects = [ship, glacier_1, glacier_2];
+//let glacier_2 = new glacier(GAME_WIDTH, GAME_HEIGHT);
+let gameObjects = [ship, glacier_1];
 new InputHandler(ship);
 
 ship.draw(ctx)
