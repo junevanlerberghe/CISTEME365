@@ -13,7 +13,7 @@ export default class Game {
     constructor(gameWidth, gameHeight) {
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.lives = 2;
+        this.lives = 1;
     }
 
     start() {
@@ -27,7 +27,7 @@ export default class Game {
     }
 
     update(dt, timeStamp) {
-        if(this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
+        if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
@@ -37,6 +37,7 @@ export default class Game {
         this.gameObjects.forEach(x => x.draw(ctx));
 
         if(this.gameState == GAMESTATE.GAMEOVER) {
+            document.getElementById('summary').style.display = 'block';
             ctx.rect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
             ctx.fillStyle = "rgba(0,0,0,0.65)";
             ctx.fill();
@@ -45,7 +46,6 @@ export default class Game {
             ctx.fillStyle = "white";
             ctx.textAlign = "center";
             ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
-            document.getElementById('summary').style.display = 'block';
             document.getElementById('summary').style.left = this.gameWidth/2 - 60;
             document.getElementById('summary').style.top = -280;
         }
