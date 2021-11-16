@@ -5,7 +5,7 @@
 #everything_wrapper {
   height: 100vh;  
 
-  background-image: url(background.jpg);
+  background-image: url(./assets/background.jpg);
   background-repeat: no-repeat;
   /*background-size: 1800px 900px;*/
   background-size: cover;

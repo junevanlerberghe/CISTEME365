@@ -1,7 +1,7 @@
 export default class glacier {
     constructor(gameWidth, gameHeight) {
         const img = new Image();
-            img.src = "iceberg.png";
+            img.src = "./assets/iceberg.png";
 
         this.image = img;
         this.gameHeight = gameHeight
