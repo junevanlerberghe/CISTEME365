@@ -1,20 +1,20 @@
 export default class glacier_pair {
-    constructor(gameWidth, gameHeight) {
+    constructor(game) {
         const img = new Image();
             img.src = "./assets/iceberg.png";
 
         this.image = img;
-        this.gameHeight = gameHeight
-        this.gameWidth = gameWidth
+        this.gameHeight = game.gameHeight
+        this.gameWidth = game.gameWidth
         this.width = 50
         this.height = 50
         this.position1 = {
-            x:  50,
-            y: 200
+            x:  this.gameWidth + 50,
+            y: 100
         }
         this.position2 = {
-            x:  50,
-            y: 300
+            x:  this.gameWidth + 50,
+            y: 400
         }
         this.maxSpeed = 5;
         this.speed = 9;

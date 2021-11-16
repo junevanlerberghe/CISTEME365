@@ -3,44 +3,47 @@ import InputHandler from './input.js'
 import glacier from './glacier_pair.js';
 import Wind from './wind.js'
 
-let canvas = document.getElementById('gameScreen');
-let ctx = canvas.getContext('2d');
+const GAMESTATE = {
+    GAMEOVER: 0,
+    RUNNING: 1
+};
 
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 600;
+export default class Game {
 
-ctx.clearRect(0, 0, 800, 600)
+    constructor(gameWidth, gameHeight) {
+        this.gameHeight = gameHeight;
+        this.gameWidth = gameWidth;
+        this.lives = 2;
+    }
 
-let wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
-let ship = new Ship(GAME_WIDTH, GAME_HEIGHT, wind)
-let glacier_1 = new glacier(GAME_WIDTH, GAME_HEIGHT);
-//let glacier_2 = new glacier(GAME_WIDTH, GAME_HEIGHT);
-let gameObjects = [ship, glacier_1];
-new InputHandler(ship);
+    start() {
+        this.gamestate = GAMESTATE.RUNNING;
+        this.wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
+        this.ship = new Ship(this, this.wind)
+        this.glacier_pair = new glacier(this);
+        this.gameObjects = [this.ship, this.glacier_pair];
+        new InputHandler(this.ship);
+    }
 
-ship.draw(ctx)
+    update(dt, timeStamp) {
+        if(this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
+        if(this.gameState === GAMESTATE.GAMEOVER) return;
+        this.wind.update(timeStamp);
+        this.gameObjects.forEach(x => x.update(dt));
+    }
 
-let lastTime = 0
+    draw(ctx) {
+        this.gameObjects.forEach(x => x.draw(ctx));
 
-ctx.fillStyle = '#0ff'
-ctx.fillRect(100, 100, 200, 200);
+        if(this.gameState == GAMESTATE.GAMEOVER) {
+            ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+            ctx.fillStyle = "rgba(0,0,0,1)";
+            ctx.fill();
 
-function gameLoop(timeStamp) {
-    let dt = timeStamp - lastTime;
-    lastTime = timeStamp
-
-    ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    update(dt, timeStamp);
-    draw(ctx);
-    requestAnimationFrame(gameLoop)
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
+        }
+    }
 }
-
-function update(dt, timeStamp) {
-    wind.update(timeStamp);
-    gameObjects.forEach(x => x.update(dt));
-}
-function draw(ctx) {
-    gameObjects.forEach(x => x.draw(ctx));
-}
-
-gameLoop();
