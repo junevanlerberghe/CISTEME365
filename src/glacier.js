@@ -18,9 +18,9 @@ export default class glacier {
     update(dt) {
         if(!dt) return;
         this.position.x -= this.speed;
-        if (this.position.x < 0) {
+        if (this.position.x + this.width < 0) {
             this.position.x = this.gameWidth + 10;
-            this.position.y = Math.random() * (this.gameHeight);
+            this.position.y = Math.random() * (this.gameHeight - 2*this.height);
         }
     }
     draw(ctx) {
@@ -28,6 +28,5 @@ export default class glacier {
         // ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
         // ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
         ctx.drawImage(this.image, this.position.x, this.position.y, 100, 100);
-
     }
 }

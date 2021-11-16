@@ -13,8 +13,9 @@ ctx.clearRect(0, 0, 800, 600)
 
 let wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
 let ship = new Ship(GAME_WIDTH, GAME_HEIGHT, wind)
-let glaciers = new glacier(GAME_WIDTH, GAME_HEIGHT);
-let gameObjects = [ship, glaciers];
+let glacier_1 = new glacier(GAME_WIDTH, GAME_HEIGHT);
+let glacier_2 = new glacier(GAME_WIDTH, GAME_HEIGHT);
+let gameObjects = [ship, glacier_1, glacier_2];
 new InputHandler(ship);
 
 ship.draw(ctx)
@@ -23,6 +24,7 @@ let lastTime = 0
 
 ctx.fillStyle = '#0ff'
 ctx.fillRect(100, 100, 200, 200);
+
 function gameLoop(timeStamp) {
     let dt = timeStamp - lastTime;
     lastTime = timeStamp
