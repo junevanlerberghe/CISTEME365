@@ -14,6 +14,8 @@ export default class Game {
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
         this.lives = 1;
+        this.icebergCount = 0;
+        this.totalTime = 0;
     }
 
     start() {
@@ -24,6 +26,8 @@ export default class Game {
         this.glacier_pair = new glacier(this);
         this.gameObjects = [this.ship, this.glacier_pair];
         new InputHandler(this.ship);
+        this.icebergCount = 0;
+        this.totalTime = 0;
     }
 
     update(dt, timeStamp) {
@@ -31,6 +35,8 @@ export default class Game {
         if(this.gameState === GAMESTATE.GAMEOVER) return;
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
+        this.totalTime += dt/1000;
+        console.log(this.totalTime);
     }
 
     draw(ctx) {

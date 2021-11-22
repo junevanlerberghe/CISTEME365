@@ -18,6 +18,7 @@ export default class glacier_pair {
         }
         this.maxSpeed = 5;
         this.speed = 9;
+        this.game = game;
     }
     update(dt) {
         if(!dt) return;
@@ -31,6 +32,7 @@ export default class glacier_pair {
             //second glacier is a minimum of 200px away from first plus random dist up to 80
             //this is to make sure the distance is never less than the height of the ship
             this.position2.y = this.position1.y + 4*this.height + Math.random()*80
+            this.game.icebergCount += 1;
         }
     }
     draw(ctx) {

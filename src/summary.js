@@ -19,16 +19,16 @@ export default class Summary {
 
     drawBasicStats(ctx) {
         this.toTitleFontStyle(ctx);
-        ctx.fillText("Summary", this.gameWidth / 2, 100);
+        ctx.fillText("Summary", this.gameWidth / 2, 80);
 
         this.toHeaderFontStyle(ctx);
-        ctx.fillText("General Overview", 0, 100);
+        ctx.fillText("General Overview", 10, 130);
 
         this.toBodyFontStyle(ctx);
 
         // experimentation; fix later
-        let textList = ["Time: ", "Icebergs dodged: ", "Total miles traversed: "]
-        this.drawTextList(ctx, textList, 0, 200, 24);
+        let textList = [`Time: ${this.game.totalTime}`, `Icebergs dodged: ${this.game.icebergCount}`, "Total miles traversed: "]
+        this.drawTextList(ctx, textList, 10, 170, 30);
     }
 
 
@@ -38,7 +38,7 @@ export default class Summary {
         }
     }
     toTitleFontStyle(ctx) {
-        ctx.font = "64px Arial";
+        ctx.font = "55px Arial";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
     }
