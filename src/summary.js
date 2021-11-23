@@ -1,63 +1,64 @@
-import Game from './game.js'
+import { FontStyles } from "./fontstyles.js";
 
 export default class Summary {
-    constructor(gameWidth, gameHeight, game) {
+    constructor(gameWidth, gameHeight) {
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.game = game;
     }
     
     start() {
-        document.getElementById('indexButton').style.display = 'none';
     }
 
 
     draw(ctx) {
         this.drawBasicStats(ctx);
         this.drawPIDGraph(ctx);
+        this.drawHomeButton();
     }
 
     drawBasicStats(ctx) {
-        this.toTitleFontStyle(ctx);
+        FontStyles.toTitleFontStyle(ctx);
         ctx.fillText("Summary", this.gameWidth / 2, 80);
 
-        this.toHeaderFontStyle(ctx);
+        FontStyles.toHeaderFontStyle(ctx);
         ctx.fillText("General Overview", 10, 130);
 
-        this.toBodyFontStyle(ctx);
-
-        // experimentation; fix later
-        let textList = [`Time: ${this.game.totalTime}`, `Icebergs dodged: ${this.game.icebergCount}`, "Total miles traversed: "]
-        this.drawTextList(ctx, textList, 10, 170, 30);
+        FontStyles.toBodyFontStyle(ctx);
+        let textList = [`Time: ${this.parseTime(2)}`,
+                        `Icebergs dodged: ${sessionStorage.getItem("icebergCount")}`,
+                        "Total miles traversed: decide how/if to do this"]
+        FontStyles.drawTextList(ctx, textList, 10, 170, 30);
     }
 
 
-    drawTextList(ctx, textList, x, yInitial, lineSpacing) {
-        for (let i = 0; i < textList.length; i++) {
-            ctx.fillText(textList[i], x, yInitial + lineSpacing * i);
+    
+
+    parseTime(digitsAfterDecimal) {
+        digitsAfterDecimal = 3;
+        let rawTimeStr = sessionStorage.getItem("totalTime");
+        let strSplit = rawTimeStr.split('.');
+
+        // rounds x places after hte decimal point (adds 0's to end if needed)
+        if (strSplit.length == 1) {
+            return strSplit[0] + "." + "0".repeat(digitsAfterDecimal);
+        } else {
+            return strSplit[0] + "." + (strSplit[1].length >= digitsAfterDecimal ?
+                                        strSplit[1].substr(0, digitsAfterDecimal) :
+                                        strSplit[1] + "0".repeat(digitsAfterDecimal - strSplit[1].length));
         }
     }
-    toTitleFontStyle(ctx) {
-        ctx.font = "55px Arial";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "center";
-    }
-    toHeaderFontStyle(ctx) {
-        ctx.font = "24px Arial";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "left";
-    }
-    toBodyFontStyle(ctx) {
-        ctx.font = "16px Arial";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "left";
-    }
-
-
 
     
     
     drawPIDGraph(ctx) {
         // todo
+    }
+
+    drawHomeButton() {
+        // fix this later
+        // button to index page
+        document.getElementById('indexButton').style.display = "block";
+        document.getElementById('indexButton').style.left = this.gameWidth/2 - 60;
+        document.getElementById('indexButton').style.top = -280;
     }
 }

@@ -24,7 +24,7 @@ function gameLoop(timeStamp) {
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     
     game.update(dt, timeStamp);
-    console.log('game updating')
+    // console.log('game updating')
     game.draw(ctx);
 
     requestAnimationFrame(gameLoop)

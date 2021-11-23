@@ -12,8 +12,7 @@ const GAME_HEIGHT = 600;
 
 ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT)
 
-//figure out how to get the game object from game_screen here
-let summary = new Summary(GAME_WIDTH, GAME_HEIGHT, 0);
+let summary = new Summary(GAME_WIDTH, GAME_HEIGHT);
 
 summary.start();
 summary.draw(ctx);

@@ -2,6 +2,7 @@ import Ship from './ship.js'
 import InputHandler from './input.js'
 import glacier from './glacier_pair.js';
 import Wind from './wind.js'
+import { FontStyles } from "./fontstyles.js";
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -14,12 +15,11 @@ export default class Game {
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
         this.lives = 1;
-        this.icebergCount = 0;
         this.totalTime = 0;
+        this.icebergCount = 0;
     }
 
     start() {
-        document.getElementById('summary').style.display = 'none';
         this.gamestate = GAMESTATE.RUNNING;
         this.wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
         this.ship = new Ship(this, this.wind)
@@ -36,13 +36,18 @@ export default class Game {
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
         this.totalTime += dt/1000;
-        console.log(this.totalTime);
+        // console.log(this.totalTime);
     }
 
     draw(ctx) {
         this.drawRunning(ctx);
 
         if(this.gameState == GAMESTATE.GAMEOVER) {
+            // store data in local storage for summary page to access
+            sessionStorage.setItem("totalTime", this.totalTime);
+            sessionStorage.setItem("icebergCount", this.icebergCount);
+
+            // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
         }
     }
@@ -51,27 +56,28 @@ export default class Game {
         // draw each item (boat, glaciers)
         this.gameObjects.forEach(x => x.draw(ctx));
 
-        // draw stats (wind)
+        // draw stats
+        // wind
         let windSpeedText = "" + Math.round(Math.abs(this.wind.currentVelocity) * 100)/100;
         let windDirectionText = "mph " + (this.wind.currentVelocity > 0 ? "S" : "N");
-        ctx.font = "16px Arial";
-        ctx.fillStyle = "black";
-        ctx.textAlign = "left";
+        FontStyles.toBodyFontStyle(ctx);
         ctx.fillText(windSpeedText, this.gameWidth - 100, 30);
         ctx.textAlign = "right";
         ctx.fillText(windDirectionText, this.gameWidth - 15, 30);
     }
 
     drawGameOverWindow(ctx) {
-        document.getElementById('summary').style.display = 'block';
+        // window
         ctx.rect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
         ctx.fillStyle = "rgba(0,0,0,0.65)";
         ctx.fill();
 
-        ctx.font = "30px Arial";
-        ctx.fillStyle = "white";
-        ctx.textAlign = "center";
+        // gmae over text
+        FontStyles.toGameHeaderFontStyle(ctx);
         ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
+
+        // button to summary page
+        document.getElementById('summary').style.display = 'block';
         document.getElementById('summary').style.left = this.gameWidth/2 - 60;
         document.getElementById('summary').style.top = -280;
     }
