@@ -54,8 +54,7 @@ export default class Summary {
         // todo
     }
 
-    drawHomeButton() {
-        // fix this later
+    drawHomeButton(ctx) {
         // button to index page
         document.getElementById('indexButton').style.display = "block";
         document.getElementById('indexButton').style.left = this.gameWidth/2 - 60;

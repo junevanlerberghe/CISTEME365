@@ -20,9 +20,9 @@ export default class Game {
     }
 
     start() {
-        this.gamestate = GAMESTATE.RUNNING;
+        this.gameState = GAMESTATE.RUNNING;
         this.wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
-        this.ship = new Ship(this, this.wind)
+        this.ship = new Ship(this)
         this.glacier_pair = new glacier(this);
         this.gameObjects = [this.ship, this.glacier_pair];
         new InputHandler(this.ship);
@@ -42,7 +42,7 @@ export default class Game {
     draw(ctx) {
         this.drawRunning(ctx);
 
-        if(this.gameState == GAMESTATE.GAMEOVER) {
+        if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
             sessionStorage.setItem("icebergCount", this.icebergCount);

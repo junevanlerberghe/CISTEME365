@@ -13,10 +13,6 @@ let game = new Game(GAME_WIDTH, GAME_HEIGHT);
 game.start()
 
 let lastTime = 0
-
-ctx.fillStyle = '#0ff'
-ctx.fillRect(100, 100, 200, 200);
-
 function gameLoop(timeStamp) {
     let dt = timeStamp - lastTime;
     lastTime = timeStamp
@@ -30,7 +26,4 @@ function gameLoop(timeStamp) {
     requestAnimationFrame(gameLoop)
 }
 
-//gameLoop();
-requestAnimationFrame(gameLoop)
-//tried to export game object 
-//export default {game};
+requestAnimationFrame(gameLoop);
