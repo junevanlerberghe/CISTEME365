@@ -92,6 +92,7 @@ export default class Ship {
         if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y + glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier2_position.y + glacier_pair.height/2) {
             this.game.lives--;
         }
+    
 
         if (this.infiniteLivesMode) this.game.lives = 99;
     }

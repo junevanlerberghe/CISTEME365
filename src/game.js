@@ -3,6 +3,7 @@ import InputHandler from './input.js'
 import glacier from './glacier_pair.js';
 import Wind from './wind.js'
 import { FontStyles } from "./fontstyles.js";
+import wave from "./waves.js";
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -24,7 +25,8 @@ export default class Game {
         this.wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
         this.ship = new Ship(this)
         this.glacier_pair = new glacier(this);
-        this.gameObjects = [this.ship, this.glacier_pair];
+        this.wave = new wave(this);
+        this.gameObjects = [this.ship, this.glacier_pair, this.wave];
         new InputHandler(this.ship);
         this.icebergCount = 0;
         this.totalTime = 0;
@@ -53,7 +55,7 @@ export default class Game {
     }
 
     drawRunning(ctx) {
-        // draw each item (boat, glaciers)
+        // draw each item (boat, glaciers, waves)
         this.gameObjects.forEach(x => x.draw(ctx));
 
         // draw stats
