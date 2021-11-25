@@ -30,7 +30,7 @@ export default class Game {
         this.wave = new wave(this);
         this.wave2 = new wave2(this)
         this.wave3 = new wave3(this)
-        this.gameObjects = [this.ship, this.glacier_pair, this.wave, this.wave2, this.wave3];
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
         new InputHandler(this.ship);
         this.icebergCount = 0;
         this.totalTime = 0;
