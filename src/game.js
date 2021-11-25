@@ -4,6 +4,8 @@ import glacier from './glacier_pair.js';
 import Wind from './wind.js'
 import { FontStyles } from "./fontstyles.js";
 import wave from "./waves.js";
+import wave2 from "./waves2.js";
+import wave3 from "./waves3.js"
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -26,7 +28,9 @@ export default class Game {
         this.ship = new Ship(this)
         this.glacier_pair = new glacier(this);
         this.wave = new wave(this);
-        this.gameObjects = [this.ship, this.glacier_pair, this.wave];
+        this.wave2 = new wave2(this)
+        this.wave3 = new wave3(this)
+        this.gameObjects = [this.ship, this.glacier_pair, this.wave, this.wave2, this.wave3];
         new InputHandler(this.ship);
         this.icebergCount = 0;
         this.totalTime = 0;

@@ -24,7 +24,7 @@ export default class glacier_pair {
         if(!dt) return;
         this.position1.x -= this.speed;
         this.position2.x -= this.speed;
-        if (this.position1.x + this.width < 0) {
+        if (this.position1.x + this.width < -10) {
             this.position1.x = this.gameWidth + 10;
             this.position2.x = this.gameWidth + 10;
             //first glacier can only be in first half of screen
