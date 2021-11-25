@@ -34,7 +34,7 @@ export default class wave3 {
         if (this.position2.x < this.position5.x){
             this.position2.x = Math.random()*400 + 600
             this.position2.y = Math.random()*100 + 450
-            this.position5.x = Math.random()*400
+            this.position5.x = Math.random()*400 - 200
             this.image = img
             if (Math.random() > 0.5){
                 this.image = imag

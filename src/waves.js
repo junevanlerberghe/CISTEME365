@@ -30,19 +30,39 @@ export default class wave {
         img.src = "./assets/wave3.png"
         const imag = new Image()
         imag.src = "./assets/wave2.png"
-        
+        const img2 = new Image()
+        img2.src = "./assets/wave3light.png"
+        const imag2 = new Image()
+        imag2.src = "./assets/wave2light.png"
+
         this.position1.x -= this.speed
+        //places new wave randomly and sets end point for wave randomly
         if (this.position1.x < this.position4.x){
             this.position1.x = Math.random()*400 + 600
             this.position1.y = Math.random()*100 + 50
-            this.position4.x = Math.random()*400
-            this.image = img
+            this.position4.x = Math.random()*400 - 200
+            this.image = imag //imag2
             if (Math.random() > 0.5){
-                this.image = imag
+                this.image = img //img2
             }    
         }
+        //*So this was my attempt at making the waves fade in and out with the light wave png...
+        //but I'm struggling to get the And Statement to work. I have a feeling that a similar problem is happening ...
+        //with the collision detection thing for the ship. I might comeback to this later, but staring at it is giving me a headache....
+        //To anyone, feel free to tackle this
 
-    }
+        //if (this.position1.x - this.position4.x <= 500 && this.image === img2){
+            //if (this.image == img2){
+             //   this.image = img
+           // }
+          //  }
+            //else if (this.image == imag2){
+            //    this.image = imag
+            //}
+        }
+        
+        
+    
     draw(ctx){
         ctx.drawImage(this.image, this.position1.x, this.position1.y, 40, 40)
     }
