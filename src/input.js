@@ -28,5 +28,3 @@ export default class InputHandler {
         });
     }
 }
-
-//hellow rodl

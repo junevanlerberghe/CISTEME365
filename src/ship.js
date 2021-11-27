@@ -24,7 +24,7 @@ export default class Ship {
         this.game = game;
 
 
-        this.infiniteLivesMode = true;
+        this.infiniteLivesMode = false;
     }
 
     stop() {
@@ -70,30 +70,34 @@ export default class Ship {
 
         //if ship hits middle of glacier 1
         if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y && (ship.position.y - ship.height/2) < glacier1_position.y) {
-            this.game.lives--;
+            this.loseLife();
         }
         //if ship hits middle of glacier 2
         if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y && (ship.position.y - ship.height/2) < glacier2_position.y) {
-            this.game.lives--;
+            this.loseLife();
         }
         //if ship hits top of glacier 1
         if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y - glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier1_position.y - glacier_pair.height/2) {
-            this.game.lives--;
+            this.loseLife();
         }
         //if ship hits top of glacier 2
         if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y - glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier2_position.y - glacier_pair.height/2) {
-            this.game.lives--;
+            this.loseLife();
         }
         //if ship hits bottom of glacier 1
         if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y + glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier1_position.y + glacier_pair.height/2) {
-            this.game.lives--;
+            this.loseLife();
         }
         //if ship hits bottom of glacier 2
         if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y + glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier2_position.y + glacier_pair.height/2) {
-            this.game.lives--;
+            this.loseLife();
         }
     
 
         if (this.infiniteLivesMode) this.game.lives = 99;
+    }
+    
+    loseLife() {
+        if (this.game.lives > 0) this.game.lives--;
     }
 }

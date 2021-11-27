@@ -2,6 +2,7 @@ import Ship from './ship.js'
 import InputHandler from './input.js'
 import glacier from './glacier_pair.js';
 import Wind from './wind.js'
+import Levels from './levels.js'
 import { FontStyles } from "./fontstyles.js";
 import wave from "./waves.js";
 import wave2 from "./waves2.js";
@@ -14,26 +15,34 @@ const GAMESTATE = {
 
 export default class Game {
 
-    constructor(gameWidth, gameHeight) {
+    constructor(gameWidth, gameHeight, gameLevel) {
+        // basic game information
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.lives = 1;
+
+        // difficulty level + properties
+        this.level = Levels.getLevel(gameLevel);
+        this.lives = this.level.lives;
+        this.wind = this.level.wind;
+
+        // stats to track for summary screen
         this.totalTime = 0;
         this.icebergCount = 0;
-    }
 
-    start() {
-        this.gameState = GAMESTATE.RUNNING;
-        this.wind = new Wind(0, 2, 5000); // note that these numbers are placeholder for testing
+        // game objects (note wind is not a gameObject since it updates differently and stuff)
         this.ship = new Ship(this)
         this.glacier_pair = new glacier(this);
         this.wave = new wave(this);
         this.wave2 = new wave2(this)
         this.wave3 = new wave3(this)
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
+
+        // game state!
+        this.gameState = GAMESTATE.RUNNING;
+    }
+
+    start() {
         new InputHandler(this.ship);
-        this.icebergCount = 0;
-        this.totalTime = 0;
     }
 
     update(dt, timeStamp) {
@@ -64,12 +73,20 @@ export default class Game {
 
         // draw stats
         // wind
+        let windSpeedY = 30;
         let windSpeedText = "" + Math.round(Math.abs(this.wind.currentVelocity) * 100)/100;
         let windDirectionText = "mph " + (this.wind.currentVelocity > 0 ? "S" : "N");
         FontStyles.toBodyFontStyle(ctx);
-        ctx.fillText(windSpeedText, this.gameWidth - 100, 30);
+        ctx.fillText(windSpeedText, this.gameWidth - 100, windSpeedY);
         ctx.textAlign = "right";
-        ctx.fillText(windDirectionText, this.gameWidth - 15, 30);
+        ctx.fillText(windDirectionText, this.gameWidth - 15, windSpeedY);
+
+        // lives
+        let livesY = windSpeedY * 2;
+        FontStyles.toBodyFontStyle(ctx);
+        ctx.fillText("lives: ", this.gameWidth - 100, livesY);
+        ctx.textAlign = "right";
+        ctx.fillText(this.lives, this.gameWidth - 15, livesY);
     }
 
     drawGameOverWindow(ctx) {

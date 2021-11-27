@@ -4,7 +4,7 @@ export default class wave2 {
         const img = new Image()
         img.src = "./assets/wave3.png"
         const imag = new Image()
-        imag.src = "./assets/wave.png"
+        imag.src = "./assets/wave3.png"
         this.image = img;    
         this.gameHeight = game.gameHeight
         this.gameWidth = game.gameWidth        
