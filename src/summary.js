@@ -13,7 +13,7 @@ export default class Summary {
     draw(ctx) {
         this.drawBasicStats(ctx);
         this.drawPIDGraph(ctx);
-        this.drawHomeButton();
+        this.drawHomeButton(ctx);
     }
 
     drawBasicStats(ctx) {

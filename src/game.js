@@ -4,9 +4,7 @@ import glacier from './glacier_pair.js';
 import Wind from './wind.js'
 import Levels from './levels.js'
 import { FontStyles } from "./fontstyles.js";
-import wave from "./waves.js";
-import wave2 from "./waves2.js";
-import wave3 from "./waves3.js"
+import Wave from "./wave.js";
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -29,13 +27,11 @@ export default class Game {
         this.totalTime = 0;
         this.icebergCount = 0;
 
-        // game objects (note wind is not a gameObject since it updates differently and stuff)
+        // game objects (note wind is not a gameObject since it updates differently)
         this.ship = new Ship(this)
         this.glacier_pair = new glacier(this);
-        this.wave = new wave(this);
-        this.wave2 = new wave2(this)
-        this.wave3 = new wave3(this)
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
+        this.waveList = [new Wave(this), new Wave(this), new Wave(this)]; // concise this
+        this.gameObjects = [...this.waveList, this.ship, this.glacier_pair];
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
@@ -48,8 +44,10 @@ export default class Game {
     update(dt, timeStamp) {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
+
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
+        
         this.totalTime += dt/1000;
         // console.log(this.totalTime);
     }
