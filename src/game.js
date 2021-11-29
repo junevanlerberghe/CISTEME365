@@ -7,6 +7,7 @@ import { FontStyles } from "./fontstyles.js";
 import wave from "./waves.js";
 import wave2 from "./waves2.js";
 import wave3 from "./waves3.js"
+import Canal from "./Canal.js"
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -35,7 +36,8 @@ export default class Game {
         this.wave = new wave(this);
         this.wave2 = new wave2(this)
         this.wave3 = new wave3(this)
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
+        this.canal = new Canal(this);
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.canal];//, this.glacier_pair];
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
