@@ -19,6 +19,7 @@ export default class glacier_pair {
         this.maxSpeed = 5;
         this.speed = 9;
         this.game = game;
+        this.alpha = 1;
     }
     update(dt) {
         if(!dt) return;
@@ -39,7 +40,9 @@ export default class glacier_pair {
         // ctx.fillStyle = '#0ff'
         // ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
         // ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+        ctx.globalAlpha = this.alpha
         ctx.drawImage(this.image, this.position1.x, this.position1.y, 100, 100);
         ctx.drawImage(this.image, this.position2.x, this.position2.y, 100, 100);
+        
     }
 }

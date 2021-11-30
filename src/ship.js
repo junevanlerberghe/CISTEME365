@@ -4,6 +4,7 @@ export default class Ship {
         const img = new Image();
         img.src = "assets/shipicon.png";
         this.image = img;
+        this.alpha = 1;
 
         // sizing
         this.gameHeight = game.gameHeight;
@@ -46,7 +47,9 @@ export default class Ship {
     }
 
     draw(ctx) {
+        ctx.globalAlpha = this.alpha
         ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+
     }
 
     update(dt) {

@@ -1,25 +1,26 @@
 import Game from "./game.js";
 
 export default class Wave {
-
+    
     constructor(game){
         // graphics
         const img = new Image();
         img.src = this.generateWaveImagePath();
         this.image = img;
         this.alpha = 1;
-
+        
         // positioning + sizing
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;       
         this.width = 40;
         this.height = 40;
         this.startPosition = this.generateStartPosition();
-        this.endPosition = {
-            x: -this.width,
-            y: this.startPosition.y
-        };
+        this.endPosition = this.generateEndPosition();
         this.currentPosition = this.startPosition;
+        this.midPosition = {
+            x: (this.startPosition.x + this.endPosition.x)/2,
+            y: (this.startPosition.y + this.endPosition.y)/2
+        };
 
         // movement
         this.speed = 5;
@@ -29,7 +30,7 @@ export default class Wave {
         if (!dt) return;
 
         this.currentPosition.x -= this.speed;
-        
+        this.opacityControl()
         // when object hits endPosition delete it
         if (this.currentPosition.x < this.endPosition.x) {
             this.generateWave();
@@ -39,7 +40,6 @@ export default class Wave {
     draw(ctx){
         ctx.globalAlpha = this.alpha;
         ctx.drawImage(this.image, this.currentPosition.x, this.currentPosition.y, this.width, this.height);
-        ctx.globalAlpha = 1;
     }
 
     // wave creation
@@ -48,6 +48,7 @@ export default class Wave {
     generateWave() {
         this.generateWaveImage();
         this.startPosition = this.generateStartPosition();
+        this.endPosition = this.generateEndPosition();
         this.currentPosition = this.startPosition;
     }
     generateWaveImage() {
@@ -62,5 +63,26 @@ export default class Wave {
     }
     generateStartPosition() {
         return { x: this.gameWidth + Math.random() * 600, y: Math.random() * (this.gameHeight - this.height) }
+    }
+    generateEndPosition() {
+        return {x: 0 - Math.random() * 600, y: this.startPosition.y}
+    }
+
+    opacityControl() {
+        if (this.currentPosition.x > this.midPosition.x){
+            this.alpha += 0.015
+            //this is to prevent a glitch. weird glitch happens when opacity is greater than 1 (this.alpha < 0)
+            if (this.alpha > 0.95){
+                this.alpha = 1
+            }
+        }
+        if (this.currentPosition.x < this.midPosition.x){
+            this.alpha -= 0.015
+            //this is to prevent a glitch. weird glitch happens when opacity is less than 0 (this.alpha < 0)
+            if (this.alpha < 0.05){
+                this.alpha = 0
+            }
+        }
+        
     }
 }
