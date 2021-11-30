@@ -1,7 +1,8 @@
 import Ship from './ship.js'
 import InputHandler from './input.js'
-// import glacier from './glacier_pair.js';
-// import Wind from './wind.js'
+import glacier from './glacier_pair.js';
+import Wave from './wave.js'
+import Wind from './wind.js'
 import Levels from './levels.js'
 import { FontStyles } from "./fontstyles.js";
 
@@ -31,13 +32,13 @@ export default class Game {
 
         // game objects (note wind is not a gameObject since it updates differently)
         this.ship = new Ship(this)
-        // this.glacier_pair = new glacier(this);
-        // this.wave = new wave(this);
-        // this.wave2 = new wave2(this)
-        // this.wave3 = new wave3(this)
-        this.canal = new Canal(this);
-        //this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.canal];//, this.glacier_pair];
-        this.gameObjects = [this.ship, this.canal];
+        this.glacier_pair = new glacier(this);
+        this.wave = new Wave(this);
+        this.wave2 = new Wave(this)
+        this.wave3 = new Wave(this)
+        // this.canal = new Canal(this);
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
+        // this.gameObjects = [this.ship, this.canal];
 
 
         // game state!

@@ -7,6 +7,7 @@ export default class Wave {
         const img = new Image();
         img.src = this.generateWaveImagePath();
         this.image = img;
+        this.alpha = 1;
 
         // positioning + sizing
         this.gameHeight = game.gameHeight;
@@ -36,7 +37,9 @@ export default class Wave {
     }
         
     draw(ctx){
+        ctx.globalAlpha = this.alpha;
         ctx.drawImage(this.image, this.currentPosition.x, this.currentPosition.y, this.width, this.height);
+        ctx.globalAlpha = 1;
     }
 
     // wave creation
