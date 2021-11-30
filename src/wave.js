@@ -62,7 +62,7 @@ export default class Wave {
         return Math.random() < 0.5 ? "./assets/wave2.png" : "./assets/wave3.png";
     }
     generateStartPosition() {
-        return { x: this.gameWidth + Math.random() * 600, y: Math.random() * (this.gameHeight - this.height) }
+        return { x: this.gameWidth + Math.random() * 600 - 200, y: Math.random() * (this.gameHeight - this.height) }
     }
     generateEndPosition() {
         return {x: 0 - Math.random() * 600, y: this.startPosition.y}
