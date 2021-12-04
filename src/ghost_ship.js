@@ -55,7 +55,7 @@ export default class GhostShip {
         let Ki = 0.01;
         let Kd = 0.01;
 
-        let curr_err = Math.sqrt(Math.pow(target_pos_x - curr_x, 2) + Math.pow(target_pos_y - curr_y,2))
+        let curr_err = target_pos_y - curr_y
         this.errors.push(curr_err);
 
         let sum_error = 0;
@@ -74,7 +74,6 @@ export default class GhostShip {
         //console.log(output);
         //not sure how to use output to change velocity/acceleration
         this.position.y += (this.speed + this.wind.currentVelocity + output);
-        console.log(ui);
 
         if(this.position.y < 0) this.position.y = 0;
         if(this.position.y + this.height > this.gameHeight) this.position.y = this.gameHeight - this.height;
