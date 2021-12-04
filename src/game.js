@@ -1,6 +1,7 @@
 import Ship from './ship.js'
 import InputHandler from './input.js'
 import glacier from './glacier_pair.js';
+import GhostShip from './ghost_ship.js'
 import Wave from './wave.js'
 import Wind from './wind.js'
 import Levels from './levels.js'
@@ -32,12 +33,13 @@ export default class Game {
 
         // game objects (note wind is not a gameObject since it updates differently)
         this.ship = new Ship(this)
+        this.ghost_ship = new GhostShip(this)
         this.glacier_pair = new glacier(this);
         this.wave = new Wave(this);
         this.wave2 = new Wave(this)
         this.wave3 = new Wave(this)
         // this.canal = new Canal(this);
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair, this.ghost_ship];
         // this.gameObjects = [this.ship, this.canal];
 
 
