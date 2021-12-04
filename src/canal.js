@@ -9,7 +9,7 @@ export default class Canal {
         this.endx = 800;
         this.endy =  400;
 
-    
+        this.game = game;
 
         this.cp1x2 = this.endx + 300;
         if (this.endy - this.cp1y < 0) {
@@ -46,8 +46,6 @@ export default class Canal {
         this.endx4 = this.endx3 + 800;
         this.endy4 = 250;
     }
-
-
     draw(ctx) {
 
         ctx.beginPath();
@@ -65,8 +63,8 @@ export default class Canal {
         
 
         ctx.bezierCurveTo(this.cp1x4, this.cp1y4, this.cp2x4,  this.cp2y4, this.endx4, this.endy4);
-        // ctx.fillStyle = "#000000";
-        // ctx.fill();
+        //ctx.fillStyle = "#000000";
+        //ctx.fill();
         ctx.stroke();
 
 
@@ -96,10 +94,60 @@ export default class Canal {
         ctx.moveTo(0, 550);
         ctx.lineTo(900, 550);
 
-        ctx.stroke();
+        ctx.stroke();      
+    }
+    //we could explore creating two different sin waves on top of each other to represent the canal
+    /*
+    plotSine1(ctx) { 
+        let height = this.game.gameHeight;
+        let width = this.game.gameWidth;
+
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "rgb(66,44,255)";
         
+        var x = 0;
+        var y = 0;
+        var amplitude = 40;
+        var frequency = 60;
+        ctx.moveTo(x, y);
+        while (x < width) {
+            y = height/2 + amplitude * Math.sin(x/frequency);
+            ctx.lineTo(x, y);
+            x = x + 1;
+            console.log(y)
+        }
+        ctx.stroke();
+    }
+    plotSine2(ctx) { 
+        let height = this.game.gameHeight;
+        let width = this.game.gameWidth;
+
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "rgb(66,44,255)";
+        
+        var x = 0;
+        var y = 100;
+        var amplitude = 100;
+        var frequency = 80;
+        ctx.moveTo(x, y);
+        while (x < width) {
+            y = height/2 + amplitude * Math.sin(x/frequency);
+            ctx.lineTo(x, y);
+            x = x + 1;
+            console.log(y)
+        }
+        ctx.stroke();
+    }
+    draw(ctx) {
+        ctx.clearRect(0, 0, 500, 500);
+        this.plotSine1(ctx);
+        this.plotSine2(ctx);
 
     }
+    */
+
     update(dt, ctx) {
         if(!dt) return;
             this.startx -= 5;
@@ -119,6 +167,5 @@ export default class Canal {
             this.cp2x4 -= 5;
             this.endx4 -= 5;
     }
-
 
 }
