@@ -48,12 +48,12 @@ export default class GhostShip {
 
         let target_pos_x = glacier1_position.x;
         let target_pos_y = (glacier1_position.y + glacier2_position.y)/2;
-        let curr_x = this.game.ship.position.x;
-        let curr_y = this.game.ship.position.y;
+        let curr_x = this.game.ghost_ship.position.x;
+        let curr_y = this.game.ghost_ship.position.y;
 
-        let Kp = 0.01;
-        let Ki = 0.01;
-        let Kd = 0.01;
+        let Kp = 0.015;
+        let Ki = 0.004;
+        let Kd = 0.3;
 
         let curr_err = target_pos_y - curr_y
         this.errors.push(curr_err);
@@ -69,11 +69,11 @@ export default class GhostShip {
         let output = up + ui + ud
 
         if(this.position.y > target_pos_y){
-            output = -1*output;
+            output = 1*output;
         }
         //console.log(output);
         //not sure how to use output to change velocity/acceleration
-        this.position.y += (this.speed + this.wind.currentVelocity + output);
+        this.position.y += (output + this.speed + this.wind.currentVelocity)//this.wind.currentVelocity + output);
 
         if(this.position.y < 0) this.position.y = 0;
         if(this.position.y + this.height > this.gameHeight) this.position.y = this.gameHeight - this.height;
