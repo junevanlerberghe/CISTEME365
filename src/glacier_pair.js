@@ -16,6 +16,8 @@ export default class glacier_pair {
             x:  this.gameWidth + 50,
             y: 400
         }
+        this.position3 = this.position1
+        this.position4 = this.position2
         this.maxSpeed = 5;
         this.speed = 9;
         this.game = game;
@@ -25,7 +27,7 @@ export default class glacier_pair {
         if(!dt) return;
         this.position1.x -= this.speed;
         this.position2.x -= this.speed;
-        if (this.position1.x + this.width < -10) {
+        if (this.position1.x + this.width < -30) {
             this.position1.x = this.gameWidth + 10;
             this.position2.x = this.gameWidth + 10;
             //first glacier can only be in first half of screen
@@ -35,6 +37,27 @@ export default class glacier_pair {
             this.position2.y = this.position1.y + 4*this.height + Math.random()*80
             this.game.icebergCount += 1;
         }
+    }
+
+    //When the iceberg dissappears off the side of the screen, finds random y positions, and reappear, the pid controller...
+    //causes the boat to jump. With this slow function, I was trying to make the icebergs slowly change to its new y positions ...
+    //while off screen, so that the ghost boat slowly adjusts to the new y-mid point, rather than having the inital small jump.
+    slow(){
+        if (this.position1.x + this.width < -25 && this.position1.x + this.width > -40){
+            this.position3.y = Math.random() * (this.gameHeight/2 - this.height)
+            this.position4.y = this.position1.y + 4*this.height + Math.random()*80
+            positionDifference1 = this.position3.y - this.position1.y
+            positionDifference2 = this.position4.y - this.position2.y}
+        if (this.position1.x + this.width < -40 && this.position1.x + this.width > -100 ){
+            this.position1.y += positionDifference1/60
+            this.position2.y += positionDifference2/60}
+        if (this.position1.x + this.width < -110){
+            this.position1.x = this.gameWidth + 10
+            this.position2.x = this.gameWidth + 10
+            this.position1.y = this.position3.y
+            this.position2.y = this.position4.y
+        }
+        
     }
     draw(ctx) {
         // ctx.fillStyle = '#0ff'
