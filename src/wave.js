@@ -1,9 +1,10 @@
 import Game from "./game.js";
 
 export default class Wave {
-    
     constructor(game){
         // graphics
+        this.wavePaths = ["./assets/wave2.png", "./assets/wave3.png"];
+        this.waveType = 0;
         const img = new Image();
         img.src = this.generateWaveImagePath();
         this.image = img;
@@ -12,8 +13,8 @@ export default class Wave {
         // positioning + sizing
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;       
-        this.width = 40;
-        this.height = 40;
+        this.width = this.generateWidth();
+        this.height = 12;
         this.startPosition = this.generateStartPosition();
         this.endPosition = this.generateEndPosition();
         this.currentPosition = this.startPosition;
@@ -50,6 +51,7 @@ export default class Wave {
         this.startPosition = this.generateStartPosition();
         this.endPosition = this.generateEndPosition();
         this.currentPosition = this.startPosition;
+        this.width = this.generateWidth();
     }
     generateWaveImage() {
         // 50% chance of short wave image or long wave image
@@ -59,7 +61,8 @@ export default class Wave {
         this.image = img;
     }
     generateWaveImagePath() {
-        return Math.random() < 0.5 ? "./assets/wave2.png" : "./assets/wave3.png";
+        this.waveType = Math.round(Math.random());
+        return this.wavePaths[this.waveType];
     }
     generateStartPosition() {
         return { x: this.gameWidth + Math.random() * 600 - 200, y: Math.random() * (this.gameHeight - this.height) }
@@ -67,7 +70,9 @@ export default class Wave {
     generateEndPosition() {
         return {x: 0 - Math.random() * 600, y: this.startPosition.y}
     }
-
+    generateWidth() {
+        return (this.waveType === 0) ? (909/158) * this.height : (605/158) * this.height;
+    }
     opacityControl() {
         if (this.currentPosition.x > this.midPosition.x){
             this.alpha += 0.015
