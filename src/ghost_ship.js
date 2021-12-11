@@ -10,22 +10,21 @@ export default class GhostShip {
         // sizing
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;
-        this.width = 80;
-        this.height = 80;
+        this.width = game.ship.width;
+        this.height = game.ship.height;
 
         // kinematics
-        this.position = {
-            x: 20,
-            y: (this.gameHeight - this.height) / 2
-        };
-        this.maxSpeed = 4;
-        this.speed = 2;
+        this.position = JSON.parse(JSON.stringify(game.ship.position));
+        this.maxSpeed = game.ship.maxSpeed;
+        this.velocity = game.ship.velocity;
+
+        this.maxAcceleration = game.ship.maxAcceleration;
+        this.acceleration = game.ship.acceleration;
+        this.deltaAcceleration = game.ship.deltaAcceleration;
 
         // game variables
         this.wind = game.wind;
         this.game = game;
-        this.immunityTime = 0;
-        this.infiniteLivesMode = false; // make sure to set to false before exporting
 
         //PID variables
         this.errors = [0];
@@ -71,9 +70,18 @@ export default class GhostShip {
         if(this.position.y > target_pos_y){
             output = 1*output;
         }
-        //console.log(output);
-        //not sure how to use output to change velocity/acceleration
-        this.position.y += (output + this.speed + this.wind.currentVelocity)//this.wind.currentVelocity + output);
+        console.log(output);
+        console.log("y: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
+        
+        // attempted acceleration-based change
+        this.acceleration += (output > 0  ? (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0)
+                                                 : (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0));
+        this.velocity += (this.acceleration > 0  ? (this.velocity < this.maxSpeed ? this.acceleration : 0)
+                                                 : (this.velocity > -this.maxSpeed ? this.acceleration : 0));
+        this.position.y += this.velocity + this.wind.currentVelocity;
+
+        // og code
+        // this.position.y += (output + this.speed + this.wind.currentVelocity)//this.wind.currentVelocity + output);
 
         if(this.position.y < 0) this.position.y = 0;
         if(this.position.y + this.height > this.gameHeight) this.position.y = this.gameHeight - this.height;

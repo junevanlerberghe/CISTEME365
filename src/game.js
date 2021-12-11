@@ -33,15 +33,14 @@ export default class Game {
         this.icebergCount = 0;
 
         // game objects (note wind is not a gameObject since it updates differently)
-        this.ship = new Ship(this)
-        this.ghost_ship = new GhostShip(this)
+        this.ship = new Ship(this);
+        this.ghost_ship = new GhostShip(this);
         this.glacier_pair = new glacier(this);
         this.wave = new Wave(this);
         this.wave2 = new Wave(this)
         this.wave3 = new Wave(this)
         this.canal = new Canal(this);
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
-        //this.gameObjects = [this.ship, this.canal];
 
 
         // game state!
