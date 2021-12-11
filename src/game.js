@@ -8,6 +8,7 @@ import Levels from './levels.js'
 import { FontStyles } from "./fontstyles.js";
 
 import Canal from "./Canal.js"
+import Gates from './Gates.js';
 
 
 const GAMESTATE = {
@@ -40,7 +41,8 @@ export default class Game {
         this.wave2 = new Wave(this)
         this.wave3 = new Wave(this)
         this.canal = new Canal(this);
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];
+        this.gate = new Gates(this);
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair, this.gate];
 
 
         // game state!
