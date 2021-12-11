@@ -101,30 +101,37 @@ export default class Ship {
         let glacier2_position = this.game.glacier_pair.position2;
         let ship = this.game.ship;
 
-        //if ship hits middle of glacier 1
-        if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y && (ship.position.y - ship.height/2) < glacier1_position.y) {
-            return true;
+        // if ship is in same x as glacier
+        if (ship.position.x > glacier1_position.x && ship.position.x + ship.width < glacier1_position.x + glacier_pair.width) {
+            // if ship is not in-between the two glaciers
+            if (ship.position.y < glacier1_position.y + glacier_pair.height || ship.position.y + ship.height > glacier2_position.y) {
+                return true;
+            }
         }
-        //if ship hits middle of glacier 2
-        if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y && (ship.position.y - ship.height/2) < glacier2_position.y) {
-            return true;
-        }
-        //if ship hits top of glacier 1
-        if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y - glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier1_position.y - glacier_pair.height/2) {
-            return true;
-        }
-        //if ship hits top of glacier 2
-        if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y - glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier2_position.y - glacier_pair.height/2) {
-            return true;
-        }
-        //if ship hits bottom of glacier 1
-        if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y + glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier1_position.y + glacier_pair.height/2) {
-            return true;
-        }
-        //if ship hits bottom of glacier 2
-        if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y + glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier2_position.y + glacier_pair.height/2) {
-            return true;
-        }
+        // //if ship hits middle of glacier 1
+        // if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y && (ship.position.y - ship.height/2) < glacier1_position.y) {
+        //     return true;
+        // }
+        // //if ship hits middle of glacier 2
+        // if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y && (ship.position.y - ship.height/2) < glacier2_position.y) {
+        //     return true;
+        // }
+        // //if ship hits top of glacier 1
+        // if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y - glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier1_position.y - glacier_pair.height/2) {
+        //     return true;
+        // }
+        // //if ship hits top of glacier 2
+        // if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y - glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier2_position.y - glacier_pair.height/2) {
+        //     return true;
+        // }
+        // //if ship hits bottom of glacier 1
+        // if(ship.position.x > glacier1_position.x && (ship.position.y + ship.height/2) > glacier1_position.y + glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier1_position.y + glacier_pair.height/2) {
+        //     return true;
+        // }
+        // //if ship hits bottom of glacier 2
+        // if(ship.position.x > glacier2_position.x && (ship.position.y + ship.height/2) > glacier2_position.y + glacier_pair.height/2 && (ship.position.y - ship.height/2) < glacier2_position.y + glacier_pair.height/2) {
+        //     return true;
+        // }
         // ship didn't hit anything
         return false;
     }

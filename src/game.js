@@ -21,7 +21,7 @@ export default class Game {
         // basic game information
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.ghostMode = false;
+        this.ghostMode = true;
 
         // difficulty level + properties
         this.level = Levels.getLevel(gameLevel);
@@ -61,7 +61,6 @@ export default class Game {
         this.gameObjects.forEach(x => x.update(dt));
         
         this.totalTime += dt/1000;
-        // console.log(this.totalTime);
     }
 
     draw(ctx) {
