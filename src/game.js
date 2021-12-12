@@ -16,6 +16,11 @@ const GAMESTATE = {
     RUNNING: 1
 };
 
+const OBSTACLE_TYPE = {
+    GLACIER: 0,
+    ROCK: 1
+};
+
 export default class Game {
 
     constructor(gameWidth, gameHeight, gameLevel, ghostModeOn) {
@@ -31,6 +36,9 @@ export default class Game {
         this.level = Levels.getLevel(gameLevel);
         this.lives = this.level.lives;
         this.wind = this.level.wind;
+        this.goal = this.level.goal;
+        this.width = this.level.width;
+        this.speed = this.level.speed;
 
         // stats to track for summary screen
         this.totalTime = 0;
@@ -39,7 +47,7 @@ export default class Game {
         // game objects (note wind is not a gameObject since it updates differently)
         this.ship = new Ship(this);
         this.ghost_ship = new GhostShip(this);
-        this.glacier_pair = new ObstaclePair(this);
+        this.glacier_pair = new ObstaclePair(this, OBSTACLE_TYPE.GLACIER, this.level);
         this.wave = new Wave(this);
         this.wave2 = new Wave(this)
         this.wave3 = new Wave(this)

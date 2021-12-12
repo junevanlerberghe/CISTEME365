@@ -3,7 +3,7 @@ const OBSTACLE_TYPE = {
     ROCK: 1
 };
 export default class ObstaclePair {
-    constructor(game, obstacleType) {
+    constructor(game, obstacleType, level) {
         // graphics
         const img = obstacleType == null ? this.generateRandomImage() : this.generateImage(obstacleType);
         this.image = img;
@@ -15,6 +15,8 @@ export default class ObstaclePair {
         this.game = game;
 
         // positioning, dimensions
+        this.level = level;
+        this.passageWidth = this.level.width;
         this.width = 100;
         this.height = this.width * 2403 / 801;
         this.minimumDistanceBetweenGlaciers = 200;
@@ -24,7 +26,7 @@ export default class ObstaclePair {
         };
         this.position2 = {
             x: this.gameWidth + 50,
-            y: this.position1.y + this.height + this.minimumDistanceBetweenGlaciers
+            y: this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth
         };
         this.position3 = this.position1;
         this.position4 = this.position2;
@@ -42,9 +44,8 @@ export default class ObstaclePair {
             this.position2.x = this.gameWidth + 10;
             //first glacier must be at lowest y=0 and at highest low enough so the bottom glacier covers bottom of screen
             this.position1.y = Math.random() * (this.gameHeight - (2 * this.height + this.minimumDistanceBetweenGlaciers));
-            //second glacier is a minimum of 200px away from first plus random dist up to 80
-            //this is to make sure the distance is never less than the height of the ship
-            this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers + Math.random()*80;
+            //got rid of the random for the bottom glacier, since w the levels its gonna be a set passage width
+            this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
             this.game.icebergCount += 1;
 
             if (this.position1.y > 0) console.log("iceberg 1 too low");
