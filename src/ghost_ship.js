@@ -71,7 +71,7 @@ export default class GhostShip {
             output = 1*output;
         }
         */
-        console.log(curr_y);
+        // console.log(curr_y);
         //console.log("y: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
         
         // attempted acceleration-based change

@@ -18,11 +18,14 @@ const GAMESTATE = {
 
 export default class Game {
 
-    constructor(gameWidth, gameHeight, gameLevel) {
+    constructor(gameWidth, gameHeight, gameLevel, ghostModeOn) {
+        console.log("level: " + gameLevel + ", ghost mode: " + ghostModeOn);
+
+
         // basic game information
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.ghostMode = true;
+        this.ghostMode = ghostModeOn;
 
         // difficulty level + properties
         this.level = Levels.getLevel(gameLevel);
@@ -51,7 +54,7 @@ export default class Game {
 
     start() {
         new InputHandler(this.ship);
-        if (this.ghostMode) this.gameObjects.push(this.ghost_ship);
+        if (this.ghostMode == "true") this.gameObjects.push(this.ghost_ship);
     }
 
     update(dt, timeStamp) {

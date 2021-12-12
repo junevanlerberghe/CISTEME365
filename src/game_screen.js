@@ -6,24 +6,23 @@ let ctx = canvas.getContext('2d');
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
 
-ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT)
+ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
-let game = new Game(GAME_WIDTH, GAME_HEIGHT, sessionStorage.getItem("level"));
+let game = new Game(GAME_WIDTH, GAME_HEIGHT, sessionStorage.getItem("level"), sessionStorage.getItem("ghostMode"));
 
-game.start()
+game.start();
 
 let lastTime = 0
 function gameLoop(timeStamp) {
     let dt = timeStamp - lastTime;
-    lastTime = timeStamp
+    lastTime = timeStamp;
 
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
     
     game.update(dt, timeStamp);
-    // console.log('game updating')
     game.draw(ctx);
 
-    requestAnimationFrame(gameLoop)
+    requestAnimationFrame(gameLoop);
 }
 
 requestAnimationFrame(gameLoop);
