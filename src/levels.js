@@ -16,8 +16,6 @@ export default class Levels {
 
 
     static getLevel(level) {
-        console.log(level);
-
         if (level == null) return this.level1();
         if (level == 1) return this.level1();
         if (level == 2) return this.level2();

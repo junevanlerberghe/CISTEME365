@@ -1,6 +1,6 @@
 import Ship from './ship.js'
 import InputHandler from './input.js'
-import glacier from './glacier_pair.js';
+import ObstaclePair from './obstacle_pair.js';
 import GhostShip from './ghost_ship.js'
 import Wave from './wave.js'
 import Wind from './wind.js'
@@ -39,13 +39,12 @@ export default class Game {
         // game objects (note wind is not a gameObject since it updates differently)
         this.ship = new Ship(this);
         this.ghost_ship = new GhostShip(this);
-        this.glacier_pair = new glacier(this);
+        this.glacier_pair = new ObstaclePair(this);
         this.wave = new Wave(this);
         this.wave2 = new Wave(this)
         this.wave3 = new Wave(this)
-        this.canal = new Canal(this);
         this.gate = new Gates(this);
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair, this.gate];
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.glacier_pair];//, this.gate];
 
 
         // game state!
@@ -116,5 +115,10 @@ export default class Game {
         document.getElementById('summary').style.display = 'block';
         document.getElementById('summary').style.left = this.gameWidth/2 - 60;
         document.getElementById('summary').style.top = -280;
+    }
+
+    // helper methods
+    generateObstacle() {
+        return new ObstaclePair(this, OBSTACLE_TYPE.ROCK);
     }
 }

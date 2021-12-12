@@ -74,13 +74,15 @@ export default class GhostShip {
         // console.log(curr_y);
         //console.log("y: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
         
-        // attempted acceleration-based change
-        //i'm confused by this, can we make the code a little more clear?
-        
-        this.acceleration += (output > 0  ? (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0)
-                                                 : (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0));
-        this.velocity += (this.acceleration > 0  ? (this.velocity < this.maxSpeed ? this.acceleration : 0)
-                                                 : (this.velocity > -this.maxSpeed ? this.acceleration : 0));
+        // no idea if this is right
+        console.log(output);
+        // update accel to hit target y, but don't go past maxAccel
+        if (output > 0 && this.acceleration < this.maxAcceleration) { this.acceleration += this.deltaAcceleration; }
+        else if (output < 0 &&  this.acceleration > -this.maxAcceleration) { this.acceleration -= this.deltaAcceleration; }
+        // update velocity w/ respect to accel, but don't go past maxSpeed
+        if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
+        else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
+        // update position w/ respect to velocity (including wind)
         this.position.y += this.velocity + this.wind.currentVelocity;
         
         // og code

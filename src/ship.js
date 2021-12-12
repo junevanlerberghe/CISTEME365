@@ -33,7 +33,7 @@ export default class Ship {
         this.immunityTime = 0;
         this.blinkOnPhase = false; // if true, ship is not drawn (so a flashing effect is created)
         this.blinkPhaseLength = 7;
-        this.infiniteLivesMode = true; // make sure to set to false before exporting
+        this.infiniteLivesMode = false; // make sure to set to false before exporting
     }
 
     stop() {
@@ -76,8 +76,10 @@ export default class Ship {
         }
     }
     updateMovement() {
-        this.velocity += (this.acceleration > 0  ? (this.velocity < this.maxSpeed ? this.acceleration : 0)
-                                                 : (this.velocity > -this.maxSpeed ? this.acceleration : 0));
+        // update velocity w/ respect to accel, but don't go past maxSpeed
+        if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
+        else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
+        // update position w/ respect to velocity (including wind)
         this.position.y += this.velocity + this.wind.currentVelocity;
         // console.log("x: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
 
@@ -88,7 +90,7 @@ export default class Ship {
         if (this.shipCollided() && !this.isCurrentlyImmune()) {
             if (!this.infiniteLivesMode) this.loseLife();
             this.immunityTime = this.defaultImmunityTime;
-            this.velocity = 0; // consider physical/visual ways to notify player of being hit
+            this.velocity = 0;
             this.acceleration = 0;
         }
     }
@@ -99,7 +101,7 @@ export default class Ship {
         let glacier_pair = this.game.glacier_pair;
         let glacier1_position = this.game.glacier_pair.position1;
         let glacier2_position = this.game.glacier_pair.position2;
-        let ship = this.game.ship;
+        let ship = this;
 
         // if ship is in same x as glacier
         if (ship.position.x > glacier1_position.x && ship.position.x + ship.width < glacier1_position.x + glacier_pair.width) {
