@@ -43,7 +43,7 @@ export default class ObstaclePair {
             this.position1.x = this.gameWidth + 10;
             this.position2.x = this.gameWidth + 10;
             //first glacier must be at lowest y=0 and at highest low enough so the bottom glacier covers bottom of screen
-            this.position1.y = Math.random() * (this.gameHeight - (2 * this.height + this.minimumDistanceBetweenGlaciers));
+            this.position1.y = Math.random() * (this.gameHeight - (2 * this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth));
             //got rid of the random for the bottom glacier, since w the levels its gonna be a set passage width
             this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
             this.game.icebergCount += 1;
