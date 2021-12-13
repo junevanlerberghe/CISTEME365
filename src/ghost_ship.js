@@ -42,10 +42,10 @@ export default class GhostShip {
     }
 
     updateMovement() {
-        let glacier1_position = this.game.glacier_pair.position1;
-        let glacier2_position = this.game.glacier_pair.position2;
+        let obstacle1_position = this.game.obstacle_pair.position1;
+        let obstacle2_position = this.game.obstacle_pair.position2;
 
-        let target_pos_y = (glacier1_position.y + glacier2_position.y + this.game.glacier_pair.height/2)/2;
+        let target_pos_y = (obstacle1_position.y + obstacle2_position.y + this.game.obstacle_pair.height/2)/2;
         //this isn't working, curr_y is NaN
         //let curr_y = this.game.ghost_ship.position.y;
         let curr_y = this.position.y

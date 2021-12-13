@@ -6,7 +6,7 @@ document.getElementById("ghostmode").onclick = ghost_mode;
 
 function start_game() {
     console.log("Game Started");
-    sessionStorage.setItem("level", document.getElementById("difficulty").selectedIndex + 1); // +1 bc levels are 1-indexed
+    sessionStorage.setItem("difficulty", document.getElementById("difficulty").selectedIndex + 1); // +1 bc difficulties are 1-indexed
     sessionStorage.setItem("ghostMode", document.getElementById("ghostmode").checked);
 }
 

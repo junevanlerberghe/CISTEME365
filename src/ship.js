@@ -98,15 +98,15 @@ export default class Ship {
     // We need to modify this function to detect collision with shore of canal instead----------------------------------------------
 
     shipCollided() {
-        let glacier_pair = this.game.glacier_pair;
-        let glacier1_position = this.game.glacier_pair.position1;
-        let glacier2_position = this.game.glacier_pair.position2;
+        let obstacle_pair = this.game.obstacle_pair;
+        let obstacle1_position = obstacle_pair.position1;
+        let obstacle2_position = obstacle_pair.position2;
         let ship = this;
 
         // if ship is in same x as glacier
-        if (ship.position.x > glacier1_position.x && ship.position.x + ship.width < glacier1_position.x + glacier_pair.width) {
+        if (ship.position.x > obstacle1_position.x && ship.position.x + ship.width < obstacle1_position.x + obstacle_pair.width) {
             // if ship is not in-between the two glaciers
-            if (ship.position.y < glacier1_position.y + glacier_pair.height || ship.position.y + ship.height > glacier2_position.y) {
+            if (ship.position.y < obstacle1_position.y + obstacle_pair.height || ship.position.y + ship.height > obstacle2_position.y) {
                 return true;
             }
         }
