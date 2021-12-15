@@ -53,26 +53,7 @@ export default class ObstaclePair {
         }
     }
 
-    //When the iceberg disappears off the side of the screen, finds random y positions, and reappear, the pid controller...
-    //causes the boat to jump. With this slow function, I was trying to make the icebergs slowly change to its new y positions ...
-    //while off screen, so that the ghost boat slowly adjusts to the new y-mid point, rather than having the inital small jump.
-    slow(){
-        if (this.position1.x + this.width < -25 && this.position1.x + this.width > -40){
-            this.position3.y = Math.random() * (this.gameHeight/2 - this.height)
-            this.position4.y = this.position1.y + 4*this.height + Math.random()*80
-            positionDifference1 = this.position3.y - this.position1.y
-            positionDifference2 = this.position4.y - this.position2.y}
-        if (this.position1.x + this.width < -40 && this.position1.x + this.width > -100 ){
-            this.position1.y += positionDifference1/60
-            this.position2.y += positionDifference2/60}
-        if (this.position1.x + this.width < -110){
-            this.position1.x = this.gameWidth + 10
-            this.position2.x = this.gameWidth + 10
-            this.position1.y = this.position3.y
-            this.position2.y = this.position4.y
-        }
-        
-    }
+    
     draw(ctx) {
         ctx.globalAlpha = this.alpha
         ctx.drawImage(this.image, this.position1.x, this.position1.y, this.width, this.height);
