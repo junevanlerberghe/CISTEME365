@@ -1,47 +1,45 @@
-export default class GhostShip {
+import Ship from './ship.js'
+
+/**************************************************************
+ * GHOST SHIP
+ * ------------------------------------------------------------
+ * ship which uses PID control to move smartly.
+ * extends ship class, rewrites p much all major functions
+ **************************************************************/
+export default class GhostShip extends Ship {
     constructor(game) {
-        // graphics
-        const img = new Image();
-        img.src = "assets/ghost_ship.png";
-        this.image = img;
-        this.image.style.opacity = '0.1';
-        this.alpha = 1;
+        super(game);
 
-        // sizing
-        this.gameHeight = game.gameHeight;
-        this.gameWidth = game.gameWidth;
-        this.width = game.ship.width;
-        this.height = game.ship.height;
-
-        // kinematics
-        this.position = JSON.parse(JSON.stringify(game.ship.position));
-        this.maxSpeed = game.ship.maxSpeed;
-        this.velocity = game.ship.velocity;
-
-        this.maxAcceleration = game.ship.maxAcceleration;
-        this.acceleration = game.ship.acceleration;
-        this.deltaAcceleration = game.ship.deltaAcceleration;
-
-        // game variables
-        this.wind = game.wind;
-        this.game = game;
+        // graphical differences
+        this.alpha = 0.5;
 
         //PID variables
         this.errors = [0];
     }
 
     draw(ctx) {
-        ctx.globalAlpha = this.alpha
+        ctx.globalAlpha = this.alpha;
         ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
 
     update(dt) {
         if(!dt) return;
         this.updateMovement();
-        
     }
 
     updateMovement() {
+        let output = this.getPID();
+        // console.log(output);
+
+        // no idea if this is right        
+        // update accel to hit target y, but don't go past maxAccel
+        if (output > 0 && this.acceleration < this.maxAcceleration) { this.acceleration += this.deltaAcceleration; }
+        else if (output < 0 &&  this.acceleration > -this.maxAcceleration) { this.acceleration -= this.deltaAcceleration; }
+        // copy basic ship's movemnet
+        super.updateMovement();
+    }
+
+    getPID() {
         let obstacle1_position = this.game.obstacle_pair.position1;
         let obstacle2_position = this.game.obstacle_pair.position2;
 
@@ -66,6 +64,8 @@ export default class GhostShip {
         let ui = Ki*sum_error
         let ud = Kd*(curr_err - this.errors.at(-2))
         let output = up + ui + ud
+        
+        return output;
         /*
         if(this.position.y < target_pos_y){
             output = 1*output;
@@ -73,22 +73,5 @@ export default class GhostShip {
         */
         // console.log(curr_y);
         //console.log("y: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
-        
-        // no idea if this is right
-        console.log(output);
-        // update accel to hit target y, but don't go past maxAccel
-        if (output > 0 && this.acceleration < this.maxAcceleration) { this.acceleration += this.deltaAcceleration; }
-        else if (output < 0 &&  this.acceleration > -this.maxAcceleration) { this.acceleration -= this.deltaAcceleration; }
-        // update velocity w/ respect to accel, but don't go past maxSpeed
-        if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
-        else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
-        // update position w/ respect to velocity (including wind)
-        this.position.y += this.velocity + this.wind.currentVelocity;
-        
-        // og code
-        //this.position.y += (output + this.speed + this.wind.currentVelocity)//this.wind.currentVelocity + output);
-
-        if(this.position.y < 0) this.position.y = 0;
-        if(this.position.y + this.height > this.gameHeight) this.position.y = this.gameHeight - this.height;
     }
 }

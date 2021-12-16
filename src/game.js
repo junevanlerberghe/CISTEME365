@@ -103,7 +103,8 @@ export default class Game {
         let windSpeedY = this.gameHeight / 2;
         let windSpeedText = "" + Math.round(Math.abs(this.wind.currentVelocity) * 100)/100;
         let windDirectionText = "mph " + (this.wind.currentVelocity > 0 ? "S" : "N");
-        GraphicsUtility.drawStat(ctx, this, windSpeedY, windSpeedText, windDirectionText);
+        GraphicsUtility.drawStat(ctx, this, windSpeedY - 30, "wind: ", ""); // draws: "wind:""
+        GraphicsUtility.drawStat(ctx, this, windSpeedY, windSpeedText, windDirectionText); // draws: "x mph"
 
         let arrowXMargin = 130;
         let arrowLengthStretch = 125; // arrow will be drawn to length of windVelocity * this
