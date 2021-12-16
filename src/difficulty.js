@@ -10,11 +10,12 @@ import Wind from './wind.js'
  * difficulty w/ difficulty number
  **************************************************************/
 export default class Difficulty {
-    constructor(lives, wind, goal, width, speed) {
+    constructor(label, lives, wind, goal, width, speed) {
         //goal = number of icebergs to pass to complete level
         //width = percent * how wide the passage is (200), so if we want it smaller, width < 1
         //there's def a better way to implement this ^ but I can't think of anything better rn so feel free to change ofc
         //speed = horizontal speed of game, ex: 0.2x current speed
+        this.label = label;
         this.lives = lives;
         this.wind = wind;
         this.goal = goal;
@@ -31,27 +32,30 @@ export default class Difficulty {
     }
 
     static difficulty1() {
+        let label = "Easy";
         let lives = 3;
         let wind = new Wind(0, 0, 0);
         let goal = 1;
         let width = 1; //keeping dist the same
         let speed = 0.2;
-        return new Difficulty(lives, wind, goal, width, speed);
+        return new Difficulty(label, lives, wind, goal, width, speed);
     }
     static difficulty2() {
+        let label = "Med";
         let lives = 3;
         let wind = new Wind(0, 0.5, 5000);
         let goal= 1;
         let width = 1;
         let speed = 0.2;
-        return new Difficulty(lives, wind, goal, width, speed);
+        return new Difficulty(label, lives, wind, goal, width, speed);
     }
     static ldifficulty3() {
+        let label = "Hard";
         let lives = 3;
         let wind = new Wind(0, 1, 4000);
         let goal = 2;
         let width = 0.8; //passage is a little smaller
         let speed = 0.2;
-        return new Difficulty(lives, wind, goal, width, speed);
+        return new Difficulty(label, lives, wind, goal, width, speed);
     }
 }

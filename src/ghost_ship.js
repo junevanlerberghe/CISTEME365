@@ -8,10 +8,7 @@ import Ship from './ship.js'
  **************************************************************/
 export default class GhostShip extends Ship {
     constructor(game) {
-        super(game);
-
-        // graphical differences
-        this.alpha = 0.5;
+        super(game, 0.5);
 
         //PID variables
         this.errors = [0];
@@ -20,6 +17,7 @@ export default class GhostShip extends Ship {
     draw(ctx) {
         ctx.globalAlpha = this.alpha;
         ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+        ctx.globalAlpha = 1;
     }
 
     update(dt) {

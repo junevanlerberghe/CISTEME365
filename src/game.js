@@ -6,6 +6,7 @@ import Wave from './wave.js'
 import Wind from './wind.js'
 import Difficulty from './difficulty.js'
 import { GraphicsUtility } from "./graphics_utility.js";
+import { LevelUtility } from "./level_utility.js";
 
 import Canal from "./Canal.js"
 import Gates from './Gates.js';
@@ -31,8 +32,12 @@ export default class Game {
         this.gameWidth = gameWidth;
         this.ghostMode = ghostModeOn;
 
-        // difficulty + properties
+        // difficulty/level
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
+        this.level = 1;
+        this.nextLevelScore = this.level + LevelUtility.getFibonacci(this.level); // when score hits this #, level goes up
+
+        // properites
         this.lives = this.difficulty.lives;
         this.wind = this.difficulty.wind;
         this.goal = this.difficulty.goal;
@@ -71,10 +76,22 @@ export default class Game {
         this.gameObjects.forEach(x => x.update(dt));
         
         this.totalTime += dt/1000;
+
+        this.updateLevel();
+    }
+
+    updateLevel() {
+        // if score is enough for next level
+        if (this.icebergCount === this.nextLevelScore) {
+            this.level++;
+            this.nextLevelScore = this.level + LevelUtility.getFibonacci(this.level);
+            console.log(this.nextLevelScore);
+        }
     }
 
     draw(ctx) {
         this.drawRunning(ctx);
+        this.drawStats(ctx);
 
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
@@ -89,15 +106,22 @@ export default class Game {
     drawRunning(ctx) {
         // draw each item (boat, glaciers, waves)
         this.gameObjects.forEach(x => x.draw(ctx));
+    }
 
-        // draw stats
+    drawStats(ctx) {
+        // draw stats that are all in a row in upper right corner
+        let lineHeight = 30;
+        let toWrite = [];
+        // difficulty + level
+        toWrite.push([this.difficulty.label + " Lvl: ", this.level]);
         // score (iceberg count)
-        let icebergCountY = 30;
-        GraphicsUtility.drawStat(ctx, this, icebergCountY, "score:", this.icebergCount);
-
+        toWrite.push(["score:", this.icebergCount]);
         // lives
-        let livesY = icebergCountY * 2;
-        GraphicsUtility.drawStat(ctx, this, livesY, "lives:", this.lives);
+        toWrite.push(["lives:", this.lives]);
+        // write em out
+        for (let i = 0; i < toWrite.length; i++) {
+            GraphicsUtility.drawStat(ctx, this, lineHeight * (i + 1), toWrite[i][0], toWrite[i][1]);
+        }
 
         // wind
         let windSpeedY = this.gameHeight / 2;

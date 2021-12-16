@@ -1,10 +1,10 @@
 export default class Ship {
-    constructor(game) {
+    constructor(game, alpha = 1) {
         // graphics
         const img = new Image();
         img.src = "assets/shipicon.png";
         this.image = img;
-        this.alpha = 1;
+        this.alpha = alpha;
 
         // sizing
         this.gameHeight = game.gameHeight;
@@ -57,6 +57,8 @@ export default class Ship {
         if (!this.isCurrentlyImmune() || (this.isCurrentlyImmune() && this.blinkOnPhase)) {
             ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
         }
+
+        ctx.globalAlpha = 1;
     }
 
     update(dt) {
