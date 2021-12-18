@@ -28,7 +28,7 @@ export default class Difficulty {
         if (difficulty == null) return this.difficulty1();
         if (difficulty == 1) return this.difficulty1();
         if (difficulty == 2) return this.difficulty2();
-        if (difficulty == 3) return this.ldifficulty3();
+        if (difficulty == 3) return this.difficulty3();
     }
 
     static difficulty1() {
@@ -43,16 +43,16 @@ export default class Difficulty {
     static difficulty2() {
         let label = "Med";
         let lives = 3;
-        let wind = new Wind(0, 0.5, 5000);
+        let wind = new Wind(0, 0.5, 0);
         let goal= 1;
         let width = 1;
         let speed = 0.2;
         return new Difficulty(label, lives, wind, goal, width, speed);
     }
-    static ldifficulty3() {
+    static difficulty3() {
         let label = "Hard";
         let lives = 3;
-        let wind = new Wind(0, 1, 4000);
+        let wind = new Wind(0, 1, 0);
         let goal = 2;
         let width = 0.8; //passage is a little smaller
         let speed = 0.2;

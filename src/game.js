@@ -83,9 +83,13 @@ export default class Game {
     updateLevel() {
         // if score is enough for next level
         if (this.icebergCount === this.nextLevelScore) {
+            // augment level number, reset number of icebergs needed to pass until next level
             this.level++;
             this.nextLevelScore = this.level + LevelUtility.getFibonacci(this.level);
             console.log(this.nextLevelScore);
+
+            // augment game variables to increase difficulty
+            LevelUtility.augmentWind(this.level, this.wind);
         }
     }
 
@@ -131,7 +135,7 @@ export default class Game {
         GraphicsUtility.drawStat(ctx, this, windSpeedY, windSpeedText, windDirectionText); // draws: "x mph"
 
         let arrowXMargin = 130;
-        let arrowLengthStretch = 125; // arrow will be drawn to length of windVelocity * this
+        let arrowLengthStretch = 100; // arrow will be drawn to length of windVelocity * this
         GraphicsUtility.drawArrow(ctx, this.gameWidth - arrowXMargin, this.gameHeight / 2,
             this.gameWidth - arrowXMargin, this.gameHeight / 2 + this.wind.currentVelocity * arrowLengthStretch);
     }

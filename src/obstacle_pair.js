@@ -39,6 +39,8 @@ export default class ObstaclePair {
         if(!dt) return;
         this.position1.x -= this.speed;
         this.position2.x -= this.speed;
+
+        // resetting/updating when iceberg hits end of screen (player passes iceberg)
         if (this.position1.x + this.width < -30) {
             this.position1.x = this.gameWidth + 10;
             this.position2.x = this.gameWidth + 10;
@@ -46,6 +48,8 @@ export default class ObstaclePair {
             this.position1.y = Math.random() * (this.gameHeight - (2 * this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth));
             //got rid of the random for the bottom glacier, since w the levels its gonna be a set passage width
             this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
+            
+            
             this.game.icebergCount += 1;
 
             if (this.position1.y > 0) console.log("iceberg 1 too low");
