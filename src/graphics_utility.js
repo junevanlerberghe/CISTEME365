@@ -81,5 +81,13 @@ export var GraphicsUtility = {
         ctx.stroke();
         ctx.fillStyle = color;
         ctx.fill();
+    },
+
+    newLevelEffectDefaultLength: 75, // default length for the new level text
+    newLevelEffectCount: 75, // counter used to write text for correct length
+    drawNewLevelEffect: function (ctx, game) {
+        this.toTitleFontStyle(ctx);
+        ctx.fillText("Level " + game.level, game.gameWidth / 2, game.gameHeight / 2);
+        this.newLevelEffectCount--;
     }
 }

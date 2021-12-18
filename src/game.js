@@ -58,7 +58,6 @@ export default class Game {
         this.gate = new Gates(this);
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
 
-
         // game state!
         this.gameState = GAMESTATE.RUNNING;
     }
@@ -90,13 +89,19 @@ export default class Game {
 
             // augment game variables to increase difficulty
             LevelUtility.augmentWind(this.level, this.wind);
+
+            // set up so "Level x" effect shows on screen
+            GraphicsUtility.newLevelEffectCount = GraphicsUtility.newLevelEffectDefaultLength;
         }
     }
 
     draw(ctx) {
         this.drawRunning(ctx);
         this.drawStats(ctx);
-
+        
+        // draw "Level x" as needed
+        if (GraphicsUtility.newLevelEffectCount > 0) GraphicsUtility.drawNewLevelEffect(ctx, this);
+        
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
