@@ -53,8 +53,8 @@ export default class Game {
         this.ghost_ship = new GhostShip(this);
         this.obstacle_pair = new ObstaclePair(this, null, this.difficulty);
         this.wave = new Wave(this);
-        this.wave2 = new Wave(this)
-        this.wave3 = new Wave(this)
+        this.wave2 = new Wave(this);
+        this.wave3 = new Wave(this);
         this.gate = new Gates(this);
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
 
