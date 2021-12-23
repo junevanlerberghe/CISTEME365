@@ -7,9 +7,11 @@ import Wind from './wind.js'
 import Difficulty from './difficulty.js'
 import { GraphicsUtility } from "./graphics_utility.js";
 import { LevelUtility } from "./level_utility.js";
+import BarGraph from './pid_graph.js';
 
 import Canal from "./Canal.js"
 import Gates from './Gates.js';
+//import barGraph from './pid_graph.js';
 
 
 const GAMESTATE = {
@@ -56,7 +58,8 @@ export default class Game {
         this.wave2 = new Wave(this);
         this.wave3 = new Wave(this);
         this.gate = new Gates(this);
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
+        this.graph_frame = new BarGraph(this);
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair, this.graph_frame];//, this.gate];
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
