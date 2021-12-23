@@ -1,4 +1,5 @@
 import Game from "./game.js";
+import Wind from "./wind.js";
 
 export default class Wave {
     constructor(game){
@@ -25,11 +26,15 @@ export default class Wave {
 
         // movement
         this.speed = 5;
+
+        // wind
+        this.wind = game.wind;
     }
 
     update(dt) {
         if (!dt) return;
-
+        // The multiplier (0.6) serves as a buffer for visual purposes.
+        this.currentPosition.y += (0.6)*this.wind.currentVelocity;
         this.currentPosition.x -= this.speed;
         this.opacityControl()
         // when object hits endPosition delete it
