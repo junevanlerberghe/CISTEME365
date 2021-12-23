@@ -59,7 +59,7 @@ export default class Game {
         this.wave3 = new Wave(this);
         this.gate = new Gates(this);
         this.graph_frame = new BarGraph(this);
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair, this.graph_frame];//, this.gate];
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
@@ -67,8 +67,12 @@ export default class Game {
 
     start() {
         new InputHandler(this.ship);
-        if (this.ghostMode == "true") this.gameObjects.push(this.ghost_ship);
+        if (this.ghostMode == "true") {
+            this.gameObjects.push(this.ghost_ship);
+            this.gameObjects.push(this.graph_frame);
+        }
     }
+
 
     update(dt, timeStamp) {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
