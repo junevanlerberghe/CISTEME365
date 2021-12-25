@@ -33,5 +33,10 @@ export var LevelUtility = {
         if (!wind.isCyclical()) wind.reverseDirection();
 
         console.log("amp: " + wind.amplitude + ", period: " + wind.period);
+    },
+
+    // returns the fraction of level completed
+    getFractionOfLevelCompleted: function (game) {
+        return (game.icebergCount - game.currLevelScore) / (game.nextLevelScore - game.currLevelScore);
     }
 }

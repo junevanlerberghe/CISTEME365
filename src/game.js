@@ -36,6 +36,7 @@ export default class Game {
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
         this.level = 1;
         this.nextLevelScore = this.level + LevelUtility.getFibonacci(this.level); // when score hits this #, level goes up
+        this.currLevelScore = 0; // score needed to achieve this current level
 
         // properites
         this.lives = this.difficulty.lives;
@@ -91,6 +92,7 @@ export default class Game {
         if (this.icebergCount === this.nextLevelScore) {
             // augment level number, reset number of icebergs needed to pass until next level
             this.level++;
+            this.currLevelScore = this.nextLevelScore;
             this.nextLevelScore = this.level + LevelUtility.getFibonacci(this.level);
             console.log(this.nextLevelScore);
 
@@ -126,6 +128,7 @@ export default class Game {
 
     drawStats(ctx) {
         // draw stats that are all in a row in upper right corner
+        let firstStatY = 60;
         let lineHeight = 30;
         let toWrite = [];
         // difficulty + level
@@ -136,7 +139,7 @@ export default class Game {
         toWrite.push(["lives:", this.lives]);
         // write em out
         for (let i = 0; i < toWrite.length; i++) {
-            GraphicsUtility.drawStat(ctx, this, lineHeight * (i + 1), toWrite[i][0], toWrite[i][1]);
+            GraphicsUtility.drawStat(ctx, this, firstStatY + (lineHeight * i), toWrite[i][0], toWrite[i][1]);
         }
 
         // wind
@@ -150,6 +153,9 @@ export default class Game {
         let arrowLengthStretch = 100; // arrow will be drawn to length of windVelocity * this
         GraphicsUtility.drawArrow(ctx, this.gameWidth - arrowXMargin, this.gameHeight / 2,
             this.gameWidth - arrowXMargin, this.gameHeight / 2 + this.wind.currentVelocity * arrowLengthStretch);
+
+        // level progress bar
+        GraphicsUtility.drawLevelBar(ctx, this);
     }
 
     drawGameOverWindow(ctx) {

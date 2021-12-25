@@ -1,3 +1,5 @@
+import { LevelUtility } from "./level_utility.js";
+
 /**************************************************************
  * GRAPHICS UTILITY
  * ------------------------------------------------------------
@@ -5,7 +7,9 @@
  * drawing specific shapes, etc.)
  **************************************************************/
 export var GraphicsUtility = {
-    // fonts
+    /**********************************************************
+     * fonts
+     **********************************************************/
     drawTextList: function (ctx, textList, x, yInitial, lineSpacing) {
         for (let i = 0; i < textList.length; i++) {
             ctx.fillText(textList[i], x, yInitial + lineSpacing * i);
@@ -33,7 +37,9 @@ export var GraphicsUtility = {
         ctx.textAlign = "center";
     },
 
-    // drawing
+    /**********************************************************
+     * basic drawing templates
+     **********************************************************/
     drawStat: function (ctx, game, y, label, value) {
         // note: this function is specifically made for drawing stats (eg. lives, score, etc.)
         // during the game phase. as such, it may need adjusting to be used elsewhere
@@ -89,5 +95,44 @@ export var GraphicsUtility = {
         this.toTitleFontStyle(ctx);
         ctx.fillText("Level " + game.level, game.gameWidth / 2, game.gameHeight / 2);
         this.newLevelEffectCount--;
+    },
+
+    /**********************************************************
+     * drawing level bar
+     **********************************************************/
+    // default stats
+    levelBarX: 30, // default x start
+    levelBarY: 15, // default y start
+    levelBarDefaultWidth: 800 - 30 * 2, // dfeault width
+    levelBarHeight: 10, // default height
+    // draws the entire level bar (transparent total bar, opaque progress bar, and numerical stat)
+    drawLevelBar: function (ctx, game) {
+        this.drawLevelProgressBar(ctx, this.levelBarDefaultWidth, game);
+        this.drawLevelTotalBar(ctx, this.levelBarDefaultWidth)
+        this.drawLevelStats(ctx, game, this.levelBarDefaultWidth);
+    },
+    // this func draws a bar at the correct x, y, and height w/ options to change opacity and width
+    drawLevelBarBaseFunction: function (ctx, opacity, width) {
+        ctx.rect(this.levelBarX, this.levelBarY,
+            width, this.levelBarHeight);
+        ctx.fillStyle = "rgba(0, 0, 0, " + opacity + ")";
+        ctx.fill();
+    },
+    // draws opaque bar showing fractional progress towards next level
+    drawLevelProgressBar: function (ctx, levelBarFullWidth, game) {
+        let fractionCompleted = LevelUtility.getFractionOfLevelCompleted(game);
+        this.drawLevelBarBaseFunction(ctx, 1, levelBarFullWidth * fractionCompleted);
+    },
+    // draws full-width transparent bar showing total needed to get to next level
+    drawLevelTotalBar: function (ctx, width) {
+        this.drawLevelBarBaseFunction(ctx, 0.5, width);
+    },
+    // draws numerical number showing how many icebergs need to be passed for next level (eg.: 1/2)
+    drawLevelStats: function (ctx, game, totalBarWidth) {
+        let text = (game.icebergCount - game.currLevelScore) + "/" + (game.nextLevelScore - game.currLevelScore);
+        this.toBodyFontStyle(ctx);
+        ctx.textAlign = "center";
+        ctx.fillText(text, this.levelBarX + totalBarWidth / 2, this.levelBarY + this.levelBarHeight * 3);
     }
 }
+        
