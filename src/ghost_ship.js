@@ -12,6 +12,7 @@ export default class GhostShip extends Ship {
 
         //PID variables
         this.errors = [0];
+        this.historicPID = [[]]; // keeps track of PID values for each frame
     }
 
     draw(ctx) {
@@ -63,6 +64,9 @@ export default class GhostShip extends Ship {
         let ud = Kd*(curr_err - this.errors.at(-2))
         let output = up + ui + ud
         
+        this.historicPID.push([up, ui, ud]);
+        console.log(this.historicPID);
+
         return output;
         /*
         if(this.position.y < target_pos_y){

@@ -1,3 +1,10 @@
+/**************************************************************
+ * SHIP
+ * ------------------------------------------------------------
+ * base class for ship! note that this class is both the class
+ * for the player's movable ship AND serves as parent class for
+ * the ghost ship
+ **************************************************************/
 export default class Ship {
     constructor(game, alpha = 1) {
         // graphics
@@ -36,6 +43,9 @@ export default class Ship {
         this.infiniteLivesMode = false; // make sure to set to false before exporting
     }
 
+    /**********************************************************
+     * kinematics
+     **********************************************************/
     stop() {
         // this.speed = 0;
         this.acceleration = 0;
@@ -51,6 +61,9 @@ export default class Ship {
         this.acceleration += (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0);
     }
 
+    /**********************************************************
+     * game object (draw/update)
+     **********************************************************/
     draw(ctx) {
         ctx.globalAlpha = this.alpha;
 
@@ -77,6 +90,7 @@ export default class Ship {
             }
         }
     }
+
     updateMovement() {
         // update velocity w/ respect to accel, but don't go past maxSpeed
         if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
@@ -88,6 +102,10 @@ export default class Ship {
         if(this.position.y < 0) this.position.y = 0;
         if(this.position.y + this.height > this.gameHeight) this.position.y = this.gameHeight - this.height;
     }
+
+    /**********************************************************
+     * collisions
+     **********************************************************/
     checkCollisions() {
         if (this.shipCollided() && !this.isCurrentlyImmune()) {
             if (!this.infiniteLivesMode) this.loseLife();
@@ -96,9 +114,7 @@ export default class Ship {
             this.acceleration = 0;
         }
     }
-
-    // We need to modify this function to detect collision with shore of canal instead----------------------------------------------
-
+    
     shipCollided() {
         let obstacle_pair = this.game.obstacle_pair;
         let obstacle1_position = obstacle_pair.position1;
