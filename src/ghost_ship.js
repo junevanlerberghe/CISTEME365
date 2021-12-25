@@ -65,7 +65,6 @@ export default class GhostShip extends Ship {
         let output = up + ui + ud
         
         this.historicPID.push([up, ui, ud]);
-        console.log(this.historicPID);
 
         return output;
         /*
