@@ -8,11 +8,9 @@ import Difficulty from './difficulty.js'
 import { GraphicsUtility } from "./graphics_utility.js";
 import { LevelUtility } from "./level_utility.js";
 import BarGraph from './pid_graph.js';
-
 import Canal from "./Canal.js"
 import Gates from './Gates.js';
-//import barGraph from './pid_graph.js';
-
+import Bars from './graph_bars.js';
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -59,6 +57,7 @@ export default class Game {
         this.wave3 = new Wave(this);
         this.gate = new Gates(this);
         this.graph_frame = new BarGraph(this);
+        this.graph_bar = new Bars(this);
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
 
         // game state!
@@ -70,6 +69,7 @@ export default class Game {
         if (this.ghostMode == "true") {
             this.gameObjects.push(this.ghost_ship);
             this.gameObjects.push(this.graph_frame);
+            this.gameObjects.push(this.graph_bar);
         }
     }
 
