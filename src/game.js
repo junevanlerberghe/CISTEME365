@@ -57,8 +57,7 @@ export default class Game {
         this.wave2 = new Wave(this);
         this.wave3 = new Wave(this);
         this.gate = new Gates(this);
-        this.graph_frame = new BarGraph(this);
-        this.graph_bar = new Bars(this);
+        this.pidGraph = new BarGraph(this);
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
 
         // game state!
@@ -69,8 +68,7 @@ export default class Game {
         new InputHandler(this.ship);
         if (this.ghostMode == "true") {
             this.gameObjects.push(this.ghost_ship);
-            this.gameObjects.push(this.graph_frame);
-            this.gameObjects.push(this.graph_bar);
+            this.gameObjects.push(this.pidGraph);
         }
     }
 
