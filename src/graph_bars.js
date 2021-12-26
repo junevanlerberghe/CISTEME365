@@ -1,10 +1,4 @@
 import GhostShip from "./ghost_ship.js";
-//import BarGraph from "./pid_graph";
-
-/*
-I'm trying to get the bar of the bar graph to have a height that is dependent on the up component of the PID controller
-in the ghost ship file
-*/
 
 // template bar struct thing--idk if this is a good way of doing this lol
 var individualBar = {
@@ -28,9 +22,6 @@ function MakeIndividualBar(x, y = 600 - 146, width = 20, height = 0, color = "rg
 export default class Bars {
     constructor(game, pidGraph){
         //sizing
-        //this.BarGraphHeight = BarGraph.height
-        //this.BarGraphWidth = BarGraph.width
-        //let bar_graph_position = this.game.graph_frame.position
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;
 
@@ -44,15 +35,6 @@ export default class Bars {
         this.heightLimit = pidGraph.graphHeight / 2;
     }
     
-    /*
-    currently the positioning is based on hard coded numbers. I was trying to based the positioning on the location
-    of the frame of the bar graph.
-    */
-    // findPosition(){
-    //     let bar_graph_position = this.game.graph_frame.position;
-    //     this.position.x = bar_graph_position.x
-    // }
-
     update(dt){
         if (!dt) return;
         this.updateHeight();
