@@ -50,31 +50,53 @@ export default class Summary {
     }
 
     
-    
+    // note: this very well could be completely broken lol
+    // consider: have summary screen on same page as game?
     drawPIDGraph(ctx) {
+        // visual properties of graph
         const graphX = 250;
         const graphY = 250;
         const graphWidth = 500;
         const graphHeight = 300;
-
-        // graph outline
         ctx.strokeRect(graphX, graphY, graphWidth, graphHeight);
 
-        const pidHistory = sessionStorage.getItem("pidHistory");
-        console.log(pidHistory[1]);
+        // get the pidHistory
+        const pidHistory = this.parsePIDHistory(sessionStorage.getItem("pidHistory"));
         const xIncrement = graphWidth / pidHistory.length; // pixels between two data points in graph in x-axis
-        const yScale = 10000; // fix this later
-
-        ctx.moveTo(graphX, yScale * pidHistory[0][1]);
+        const yScale = 0.01; // y-scale to fit data within the graph; fix this later
+        const lineColors = ["rgb(255, 0, 0)", "rgb(0, 255, 0)", "rgb(0, 0, 255)"];
         
-        for (let i = 1; i < pidHistory.length; i++) { // start at the second value
-            ctx.lineTo(xIncrement * i, pidHistory[i][1] * yScale);
+        // for each of P, I, and D
+        for (let pidIndex = 0; pidIndex < 3; pidIndex++) {
+            // begin drawing hte line graph at the y value of the first data point
+            ctx.beginPath();
+            ctx.moveTo(graphX, graphY + yScale * pidHistory[0][1]);
+            
+            // for each data point
+            for (let i = 1; i < pidHistory.length; i++) { // we started at first value, so iterate from i = 1
+                ctx.lineTo(graphX + xIncrement * i, graphY + pidHistory[i][pidIndex] * yScale);
+            }
+            ctx.strokeStyle = lineColors[pidIndex];
+            ctx.stroke();
+            // consider: are negative values being drawn upwards right now ?
         }
+        
 
-        ctx.stroke();
+        
+    }
 
+    parsePIDHistory(pidHistory) {
+        let pidHistorySplit = pidHistory.split(',');
 
+        console.log(pidHistorySplit);
+        let twoDimensionalPIDHistory = [[]];
 
+        // group every 3 values in pidHistorySplit into an array to create a 2D array
+        for (let i = 1; i < pidHistorySplit.length; i += 3) { // start at i=1 bc first value in PID History is blank
+            twoDimensionalPIDHistory.push([parseInt(pidHistorySplit[i]),
+                parseInt(pidHistorySplit[i + 1]), parseInt(pidHistorySplit[i + 2])]);
+        }
+        return twoDimensionalPIDHistory;
     }
 
     drawHomeButton(ctx) {

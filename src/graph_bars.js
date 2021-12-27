@@ -42,7 +42,7 @@ export default class Bars {
     updateHeight(){
         for (let idx = 0; idx < 3; idx++) {
             let up = this.ghostShip.historicPID.at(-1)[idx];
-            let height = up * 30000  // play w/ multipler ?
+            let height = up * (30000/1000000)  // play w/ multipler ?
             this.bars[idx].height = Math.abs(height) < this.heightLimit ? height : Math.sign(height) * this.heightLimit;
         }
     }

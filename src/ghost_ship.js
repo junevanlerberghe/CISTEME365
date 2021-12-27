@@ -64,7 +64,8 @@ export default class GhostShip extends Ship {
         let ud = Kd*(curr_err - this.errors.at(-2))
         let output = up + ui + ud
         
-        this.historicPID.push([up, ui, ud]);
+        let historicPIDScale = 1000000; // testing to see if this works better for summary page
+        this.historicPID.push([up * historicPIDScale, ui * historicPIDScale, ud * historicPIDScale]);
 
         return output;
         /*
