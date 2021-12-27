@@ -9,7 +9,7 @@ var individualBar = {
     color: ""
 }
 // template bar struct constructor
-function MakeIndividualBar(x, y = 600 - 146, width = 20, height = 0, color = "rgb(0, 0, 0)") {
+function MakeIndividualBar(x, y = 600 - 146, width = 20, height = 0, color = "rgba(0, 0, 0, 1)") {
     let tmp = JSON.parse(JSON.stringify(individualBar));
     tmp.x = x;
     tmp.y = y;
@@ -49,8 +49,7 @@ export default class Bars {
 
     draw(ctx){
         this.bars.forEach(bar => {
-            ctx.rect(bar.x, bar.y, bar.width, bar.height);
             ctx.fillStyle = bar.color;
-            ctx.fill()});
+            ctx.fillRect(bar.x, bar.y, bar.width, bar.height);});
     }
 }

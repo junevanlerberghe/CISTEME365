@@ -158,9 +158,8 @@ export default class Game {
 
     drawGameOverWindow(ctx) {
         // window
-        ctx.rect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
         ctx.fillStyle = "rgba(0,0,0,0.65)";
-        ctx.fill();
+        ctx.fillRect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
 
         // gmae over text
         GraphicsUtility.toGameHeaderFontStyle(ctx);

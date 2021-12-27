@@ -55,7 +55,7 @@ export var GraphicsUtility = {
     drawArrow: function (ctx, fromx, fromy, tox, toy){
         // from: https://stackoverflow.com/questions/808826/draw-arrow-on-canvas-tag
         const width = 5;
-        const color = "#000000";
+        const color = "rgba(0, 0, 0, 1)";
         var headlen = 15; // length of head in pixels
         var dx = tox - fromx;
         var dy = toy - fromy;
@@ -113,10 +113,9 @@ export var GraphicsUtility = {
     },
     // this func draws a bar at the correct x, y, and height w/ options to change opacity and width
     drawLevelBarBaseFunction: function (ctx, opacity, width) {
-        ctx.rect(this.levelBarX, this.levelBarY,
-            width, this.levelBarHeight);
         ctx.fillStyle = "rgba(0, 0, 0, " + opacity + ")";
-        ctx.fill();
+        ctx.fillRect(this.levelBarX, this.levelBarY,
+            width, this.levelBarHeight);
     },
     // draws opaque bar showing fractional progress towards next level
     drawLevelProgressBar: function (ctx, levelBarFullWidth, game) {
