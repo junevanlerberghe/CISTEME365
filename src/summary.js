@@ -1,4 +1,5 @@
 import { GraphicsUtility } from "./graphics_utility.js";
+import Difficulty from "./difficulty.js";
 
 export default class Summary {
     constructor(gameWidth, gameHeight) {
@@ -8,7 +9,6 @@ export default class Summary {
     
     start() {
     }
-
 
     draw(ctx) {
         this.drawBasicStats(ctx);
@@ -24,7 +24,7 @@ export default class Summary {
         ctx.fillText("General Overview", 10, 130);
 
         GraphicsUtility.toBodyFontStyle(ctx);
-        let textList = [`Level: ${sessionStorage.getItem("difficulty")} ${sessionStorage.getItem("level")}`,
+        let textList = [`Level: ${Difficulty.getDifficulty(sessionStorage.getItem("difficulty")).label} ${sessionStorage.getItem("level")}`,
                         `Time: ${this.parseTime(2)}`,
                         `Obstacles dodged: ${sessionStorage.getItem("score")}`,
                         ]
@@ -52,7 +52,29 @@ export default class Summary {
     
     
     drawPIDGraph(ctx) {
-        // todo
+        const graphX = 250;
+        const graphY = 250;
+        const graphWidth = 500;
+        const graphHeight = 300;
+
+        // graph outline
+        ctx.strokeRect(graphX, graphY, graphWidth, graphHeight);
+
+        const pidHistory = sessionStorage.getItem("pidHistory");
+        console.log(pidHistory[1]);
+        const xIncrement = graphWidth / pidHistory.length; // pixels between two data points in graph in x-axis
+        const yScale = 10000; // fix this later
+
+        ctx.moveTo(graphX, yScale * pidHistory[0][1]);
+        
+        for (let i = 1; i < pidHistory.length; i++) { // start at the second value
+            ctx.lineTo(xIncrement * i, pidHistory[i][1] * yScale);
+        }
+
+        ctx.stroke();
+
+
+
     }
 
     drawHomeButton(ctx) {

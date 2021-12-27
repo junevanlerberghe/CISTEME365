@@ -114,6 +114,7 @@ export default class Game {
             sessionStorage.setItem("totalTime", this.totalTime);
             sessionStorage.setItem("score", this.score);
             sessionStorage.setItem("level", this.level);
+            sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
