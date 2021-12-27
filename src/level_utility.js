@@ -9,15 +9,11 @@ import Wind from './wind.js'
 export var LevelUtility = {
     // gets the nth number in the fibonacci sequence. used for determining how many icebergs need to pass until
     // hitting the next level
-    memo: [],
-    getFibonacci: function (num, memo = this.memo) {
-        // from: https://medium.com/developers-writing/fibonacci-sequence-algorithm-in-javascript-b253dc7e320e
-        memo = memo || {};
-
-        if (memo[num]) return memo[num];
-        if (num <= 1) return 1;
-
-        return memo[num] = this.getFibonacci(num - 1, memo) + this.getFibonacci(num - 2, memo);
+    getFibonacci: function (n) {
+        // from: https://stackoverflow.com/questions/7944239/generating-fibonacci-sequence
+        return n < 1 ? 0
+        : n <= 2 ? 1
+        : this.getFibonacci(n - 1) + this.getFibonacci(n - 2);
     },
 
     // increases strength of wind based on the level
@@ -37,6 +33,6 @@ export var LevelUtility = {
 
     // returns the fraction of level completed
     getFractionOfLevelCompleted: function (game) {
-        return (game.icebergCount - game.currLevelScore) / (game.nextLevelScore - game.currLevelScore);
+        return (game.score - game.currLevelScore) / (game.nextLevelScore - game.currLevelScore);
     }
 }

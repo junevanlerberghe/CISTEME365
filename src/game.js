@@ -35,7 +35,8 @@ export default class Game {
         // difficulty/level
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
         this.level = 1;
-        this.nextLevelScore = this.level + LevelUtility.getFibonacci(this.level); // when score hits this #, level goes up
+        this.score = 0;
+        this.nextLevelScore = this.score + LevelUtility.getFibonacci(this.level); // when score hits this #, level goes up
         this.currLevelScore = 0; // score needed to achieve this current level
 
         // properites
@@ -47,7 +48,6 @@ export default class Game {
 
         // stats to track for summary screen
         this.totalTime = 0;
-        this.icebergCount = 0;
 
         // game objects (note wind is not a gameObject since it updates differently)
         this.ship = new Ship(this);
@@ -87,11 +87,11 @@ export default class Game {
 
     updateLevel() {
         // if score is enough for next level
-        if (this.icebergCount === this.nextLevelScore) {
+        if (this.score === this.nextLevelScore) {
             // augment level number, reset number of icebergs needed to pass until next level
             this.level++;
             this.currLevelScore = this.nextLevelScore;
-            this.nextLevelScore = this.level + LevelUtility.getFibonacci(this.level);
+            this.nextLevelScore = this.score + LevelUtility.getFibonacci(this.level);
             console.log(this.nextLevelScore);
 
             // augment game variables to increase difficulty
@@ -112,7 +112,8 @@ export default class Game {
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
-            sessionStorage.setItem("icebergCount", this.icebergCount);
+            sessionStorage.setItem("score", this.score);
+            sessionStorage.setItem("level", this.level);
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
@@ -132,7 +133,7 @@ export default class Game {
         // difficulty + level
         toWrite.push([this.difficulty.label + " Lvl: ", this.level]);
         // score (iceberg count)
-        toWrite.push(["score:", this.icebergCount]);
+        toWrite.push(["score:", this.score]);
         // lives
         toWrite.push(["lives:", this.lives]);
         // write em out

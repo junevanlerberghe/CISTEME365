@@ -1,4 +1,4 @@
-import { FontStyles } from "./fontstyles.js";
+import { GraphicsUtility } from "./graphics_utility.js";
 
 export default class Summary {
     constructor(gameWidth, gameHeight) {
@@ -17,17 +17,18 @@ export default class Summary {
     }
 
     drawBasicStats(ctx) {
-        FontStyles.toTitleFontStyle(ctx);
+        GraphicsUtility.toTitleFontStyle(ctx);
         ctx.fillText("Summary", this.gameWidth / 2, 80);
 
-        FontStyles.toHeaderFontStyle(ctx);
+        GraphicsUtility.toHeaderFontStyle(ctx);
         ctx.fillText("General Overview", 10, 130);
 
-        FontStyles.toBodyFontStyle(ctx);
-        let textList = [`Time: ${this.parseTime(2)}`,
-                        `Icebergs dodged: ${sessionStorage.getItem("icebergCount")}`,
-                        "Total miles traversed: decide how/if to do this"]
-        FontStyles.drawTextList(ctx, textList, 10, 170, 30);
+        GraphicsUtility.toBodyFontStyle(ctx);
+        let textList = [`Level: ${sessionStorage.getItem("difficulty")} ${sessionStorage.getItem("level")}`,
+                        `Time: ${this.parseTime(2)}`,
+                        `Obstacles dodged: ${sessionStorage.getItem("score")}`,
+                        ]
+        GraphicsUtility.drawTextList(ctx, textList, 10, 170, 30);
     }
 
 

@@ -50,7 +50,7 @@ export default class ObstaclePair {
             this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
             
             
-            this.game.icebergCount += 1;
+            this.game.score += 1;
 
             if (this.position1.y > 0) console.log("iceberg 1 too low");
             if (this.position2.y + this.height < this.gameHeight) console.log("iceberg 2 too high");

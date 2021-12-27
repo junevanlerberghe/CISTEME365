@@ -128,7 +128,7 @@ export var GraphicsUtility = {
     },
     // draws numerical number showing how many icebergs need to be passed for next level (eg.: 1/2)
     drawLevelStats: function (ctx, game, totalBarWidth) {
-        let text = (game.icebergCount - game.currLevelScore) + "/" + (game.nextLevelScore - game.currLevelScore);
+        let text = (game.score - game.currLevelScore) + "/" + (game.nextLevelScore - game.currLevelScore);
         this.toBodyFontStyle(ctx);
         ctx.textAlign = "center";
         ctx.fillText(text, this.levelBarX + totalBarWidth / 2, this.levelBarY + this.levelBarHeight * 3);
