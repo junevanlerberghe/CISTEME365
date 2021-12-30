@@ -143,7 +143,7 @@ export default class Game {
         }
 
         // wind
-        let windSpeedY = this.gameHeight / 2;
+        let windSpeedY = this.gameHeight*(2/5);
         let windSpeedText = "" + Math.round(Math.abs(this.wind.currentVelocity) * 100)/100;
         let windDirectionText = "mph " + (this.wind.currentVelocity > 0 ? "S" : "N");
         GraphicsUtility.drawStat(ctx, this, windSpeedY - 30, "wind: ", ""); // draws: "wind:""
@@ -151,8 +151,8 @@ export default class Game {
 
         let arrowXMargin = 130;
         let arrowLengthStretch = 100; // arrow will be drawn to length of windVelocity * this
-        GraphicsUtility.drawArrow(ctx, this.gameWidth - arrowXMargin, this.gameHeight / 2,
-            this.gameWidth - arrowXMargin, this.gameHeight / 2 + this.wind.currentVelocity * arrowLengthStretch);
+        GraphicsUtility.drawArrow(ctx, this.gameWidth - arrowXMargin, this.gameHeight*(2/5),
+            this.gameWidth - arrowXMargin, this.gameHeight*(2/5) + this.wind.currentVelocity * arrowLengthStretch);
 
         // level progress bar
         GraphicsUtility.drawLevelBar(ctx, this);
