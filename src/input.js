@@ -15,7 +15,7 @@ export default class InputHandler {
                     break
 
                 case 'Escape':
-                    alert("game paused")
+                    alert("Game Paused")
                     break
             }
         });
