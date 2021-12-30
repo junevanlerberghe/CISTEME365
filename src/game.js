@@ -72,6 +72,10 @@ export default class Game {
         }
     }
 
+    pause() {
+        this.gameState = GAMESTATE.GAMEOVER
+    }
+
 
     update(dt, timeStamp) {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;

@@ -4,6 +4,7 @@ export default class InputHandler {
 
     constructor(ship) {
         document.addEventListener("keydown", event => {
+            
             switch(event.key) {
                 case 'ArrowUp':
                     ship.moveUp()
@@ -11,6 +12,10 @@ export default class InputHandler {
 
                 case 'ArrowDown':
                     ship.moveDown()
+                    break
+
+                case 'Escape':
+                    alert("game paused")
                     break
             }
         });
@@ -26,5 +31,14 @@ export default class InputHandler {
                     break
             }
         });
+        
     }
+    /*constructor(ship) {
+        document.addEventListener("keydown", event =>{
+            alert(event.keycode);
+            /*switch(event.key) {
+            
+            }
+        })*/
+    
 }
