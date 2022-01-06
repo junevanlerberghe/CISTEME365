@@ -11,6 +11,7 @@ import BarGraph from './pid_graph.js';
 import Canal from "./Canal.js"
 import Gates from './Gates.js';
 import Bars from './graph_bars.js';
+import { Score } from './score.js'
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -36,6 +37,7 @@ export default class Game {
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
         this.level = 1;
         this.score = 0;
+        this.score1 = 0; // score1 is new scoring system and 0 is place holder
         this.nextLevelScore = this.score + LevelUtility.getFibonacci(this.level); // when score hits this #, level goes up
         this.currLevelScore = 0; // score needed to achieve this current level
 
@@ -75,7 +77,7 @@ export default class Game {
     update(dt, timeStamp) {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
-
+        this.score1 = Score.getShipPosition1();
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
         
