@@ -27,6 +27,7 @@ export default class Summary {
         let textList = [`Level: ${Difficulty.getDifficulty(sessionStorage.getItem("difficulty")).label} ${sessionStorage.getItem("level")}`,
                         `Time: ${this.parseTime(2)}`,
                         `Obstacles dodged: ${sessionStorage.getItem("score")}`,
+                        `Score: ${sessionStorage.getItem("score1")}`
                         ]
         GraphicsUtility.drawTextList(ctx, textList, 10, 170, 30);
     }

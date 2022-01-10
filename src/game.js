@@ -115,9 +115,11 @@ export default class Game {
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
-            sessionStorage.setItem("score", this.score);
+            // "-2" because score counts the number of obstacles that passed including ones that hit except the last one.
+            sessionStorage.setItem("score", this.score - 2);
             sessionStorage.setItem("level", this.level);
             sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
+            sessionStorage.setItem("score1", this.score1);
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
