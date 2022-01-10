@@ -1,3 +1,4 @@
+import {Score} from './score.js'
 const OBSTACLE_TYPE = {
     GLACIER: 0,
     ROCK: 1
@@ -40,6 +41,17 @@ export default class ObstaclePair {
         this.position1.x -= this.speed;
         this.position2.x -= this.speed;
 
+        //obstaining position of obstacle for new score
+        if (this.position1.x < 45 && this.position1.x > 35){
+            let upperbound = (this.position2.y - this.minimumDistanceBetweenGlaciers*this.passageWidth)
+            let lowerbound = this.position2.y
+            let midpoint = (lowerbound + upperbound/2) 
+            let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
+            if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
+                this.game.score1 = Score.getShipPosition1(midpoint, positionShip, this.game.score1);
+            }
+        }
+
         // resetting/updating when iceberg hits end of screen (player passes iceberg)
         if (this.position1.x + this.width < -30) {
             this.position1.x = this.gameWidth + 10;
@@ -51,6 +63,7 @@ export default class ObstaclePair {
             
             
             this.game.score += 1;
+            
 
             if (this.position1.y > 0) console.log("iceberg 1 too low");
             if (this.position2.y + this.height < this.gameHeight) console.log("iceberg 2 too high");

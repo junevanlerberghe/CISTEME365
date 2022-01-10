@@ -22,15 +22,14 @@ export var Score = {
         } 
         
     }*/
-    getShipPosition1: function(){
-        /*positionShip.x = this.ship.position.x + (this.ship.width)/2;
-        positionShip.y = this.ship.position.y + (this.ship.height)/2;
-        positionObstacle1.y = this.obstacle_pair.position2.y - (200 * this.obstacle_pair.passageWidth);
-        positionObstacle2.y = this.obstacle_pair.position2.y;
+    getShipPosition1: function(midpoint, positionShip, score1){
+        /*positionShip.x = game.ship.position.x + (game.ship.width)/2;
+        positionShip.y = game.ship.position.y + (game.ship.height)/2;
+        positionObstacle1.y = game.obstacle_pair.position2.y - (200 * game.obstacle_pair.passageWidth);
+        positionObstacle2.y = game.obstacle_pair.position2.y;
         midpoint = (positionObstacle1.y + positionObstacle2.y)/2;
-        this.score = this.score + 10 - 0.1 * (midpoint-positionShip.y);*/
-        //this.score = 1 
-        return 1;
+        probably do this in parameters*/
+        return score1 + 10 - Math.round(0.01 * Math.abs(midpoint-positionShip)); 
         
     }
    

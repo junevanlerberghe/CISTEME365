@@ -77,7 +77,6 @@ export default class Game {
     update(dt, timeStamp) {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
-        this.score1 = Score.getShipPosition1();
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
         
@@ -87,7 +86,10 @@ export default class Game {
     }
 
     updateLevel() {
-        // if score is enough for next level
+        //let midpoint = 1
+        //let positionShip = 1
+        //this.score1 = Score.getShipPosition1(midpoint, positionShip, this.score1);
+        //if score is engouth for next level
         if (this.score === this.nextLevelScore) {
             // augment level number, reset number of icebergs needed to pass until next level
             this.level++;
@@ -135,9 +137,11 @@ export default class Game {
         // difficulty + level
         toWrite.push([this.difficulty.label + " Lvl: ", this.level]);
         // score (iceberg count)
-        toWrite.push(["score:", this.score]);
+        toWrite.push(["obstacles:", this.score]);
         // lives
         toWrite.push(["lives:", this.lives]);
+        // score (new)
+        toWrite.push(["score:", this.score1]);
         // write em out
         for (let i = 0; i < toWrite.length; i++) {
             GraphicsUtility.drawStat(ctx, this, firstStatY + (lineHeight * i), toWrite[i][0], toWrite[i][1]);
