@@ -22,14 +22,14 @@ export var Score = {
         } 
         
     }*/
-    getShipPosition1: function(midpoint, positionShip, score1){
+    getScore1: function(midpoint, positionShip, score1){
         /*positionShip.x = game.ship.position.x + (game.ship.width)/2;
         positionShip.y = game.ship.position.y + (game.ship.height)/2;
         positionObstacle1.y = game.obstacle_pair.position2.y - (200 * game.obstacle_pair.passageWidth);
         positionObstacle2.y = game.obstacle_pair.position2.y;
         midpoint = (positionObstacle1.y + positionObstacle2.y)/2;
         probably do this in parameters*/
-        return score1 + 10 - Math.round(0.01 * Math.abs(midpoint-positionShip)); 
+        return score1 + 11 - Math.round(0.01 * Math.abs(midpoint-positionShip)); 
         
     }
    

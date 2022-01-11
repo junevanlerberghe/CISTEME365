@@ -1,3 +1,4 @@
+import { GraphicsUtility } from './graphics_utility.js';
 import {Score} from './score.js'
 const OBSTACLE_TYPE = {
     GLACIER: 0,
@@ -14,6 +15,7 @@ export default class ObstaclePair {
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;
         this.game = game;
+        this.scoreChange = 0
 
         // positioning, dimensions
         this.level = level;
@@ -43,13 +45,17 @@ export default class ObstaclePair {
 
         //obstaining position of obstacle for new score
         if (this.position1.x < 45 && this.position1.x > 35){
-            let upperbound = (this.position2.y - this.minimumDistanceBetweenGlaciers*this.passageWidth)
-            let lowerbound = this.position2.y
-            let midpoint = (lowerbound + upperbound/2) 
+            let upperbound = (this.position2.y - this.minimumDistanceBetweenGlaciers*this.passageWidth);
+            let lowerbound = this.position2.y;
+            let midpoint = (lowerbound + upperbound/2); 
             let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
+            let oldScore = this.game.score1
             if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
-                this.game.score1 = Score.getShipPosition1(midpoint, positionShip, this.game.score1);
+                this.game.score1 = Score.getScore1(midpoint, positionShip, this.game.score1);
             }
+            let newScore = this.game.score1
+            this.scoreChange = newScore - oldScore
+            GraphicsUtility.wordEffectCount = 40
         }
 
         // resetting/updating when iceberg hits end of screen (player passes iceberg)
@@ -70,7 +76,12 @@ export default class ObstaclePair {
         }
     }
 
-    
+    /*displayMessage(scoreChange){
+        if (scoreChange == 9){
+            alert ('changed by 9')
+        }
+    }*/
+
     draw(ctx) {
         ctx.globalAlpha = this.alpha
         ctx.drawImage(this.image, this.position1.x, this.position1.y, this.width, this.height);

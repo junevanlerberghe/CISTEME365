@@ -111,7 +111,7 @@ export default class Game {
         
         // draw "Level x" as needed
         if (GraphicsUtility.newLevelEffectCount > 0) GraphicsUtility.drawNewLevelEffect(ctx, this);
-        
+        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawWord(ctx, this, this.obstacle_pair.scoreChange)
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);

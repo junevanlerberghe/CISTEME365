@@ -132,6 +132,13 @@ export var GraphicsUtility = {
         this.toBodyFontStyle(ctx);
         ctx.textAlign = "center";
         ctx.fillText(text, this.levelBarX + totalBarWidth / 2, this.levelBarY + this.levelBarHeight * 3);
+    },
+    // draws the word associated how the boat is in between the gap
+    wordEffectCount: 40, //counter
+    drawWord: function (ctx, game, scoreChange){
+        this.toBodyFontStyle(ctx);
+        ctx.fillText("Great" + scoreChange, game.ship.position.x, game.ship.position.y);
+        this.wordEffectCount--;
     }
 }
         
