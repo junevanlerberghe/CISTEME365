@@ -137,7 +137,14 @@ export var GraphicsUtility = {
     wordEffectCount: 40, //counter
     drawWord: function (ctx, game, scoreChange){
         this.toBodyFontStyle(ctx);
-        ctx.fillText("Great" + scoreChange, game.ship.position.x, game.ship.position.y);
+        var dict = {
+            1: "",
+            0: "Hit!",
+            8: "Good",
+            9: "Great",
+            10: "Perfect!"
+        }
+        ctx.fillText(dict[scoreChange], game.ship.position.x, game.ship.position.y);
         this.wordEffectCount--;
     }
 }

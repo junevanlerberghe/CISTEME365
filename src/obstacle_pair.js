@@ -15,7 +15,9 @@ export default class ObstaclePair {
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;
         this.game = game;
-        this.scoreChange = 0
+
+        //score variables
+        this.scoreChange = 1
 
         // positioning, dimensions
         this.level = level;
