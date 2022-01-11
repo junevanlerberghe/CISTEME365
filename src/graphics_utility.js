@@ -138,7 +138,7 @@ export var GraphicsUtility = {
     drawWord: function (ctx, game, scoreChange){
         this.toBodyFontStyle(ctx);
         var dict = {
-            1: "",
+            1: "Start!",
             0: "Hit!",
             8: "Good",
             9: "Great",

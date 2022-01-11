@@ -21,7 +21,7 @@ export default class Summary {
         ctx.fillText("Summary", this.gameWidth / 2, 80);
 
         GraphicsUtility.toHeaderFontStyle(ctx);
-        ctx.fillText("General Overview", 10, 130);
+        ctx.fillText("Stats", 10, 130);
 
         GraphicsUtility.toBodyFontStyle(ctx);
         let textList = [`Level: ${Difficulty.getDifficulty(sessionStorage.getItem("difficulty")).label} ${sessionStorage.getItem("level")}`,
