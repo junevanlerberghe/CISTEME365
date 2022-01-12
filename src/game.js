@@ -36,10 +36,10 @@ export default class Game {
         // difficulty/level
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
         this.level = 1;
+        this.obstaclesPassed = 0;
+        this.nextLevelObstaclesPassed = this.obstaclesPassed + LevelUtility.getFibonacci(this.level); // when obstacles passed hits this #, level goes up
+        this.currLevelObstaclesPassed = 0; // obstacles needed to pass to achieve this current level
         this.score = 0;
-        this.score1 = 0; // score1 is new scoring system and 0 is place holder
-        this.nextLevelScore = this.score + LevelUtility.getFibonacci(this.level); // when score hits this #, level goes up
-        this.currLevelScore = 0; // score needed to achieve this current level
 
         // properites
         this.lives = this.difficulty.lives;
@@ -88,14 +88,15 @@ export default class Game {
     updateLevel() {
         //let midpoint = 1
         //let positionShip = 1
-        //this.score1 = Score.getShipPosition1(midpoint, positionShip, this.score1);
-        //if score is engouth for next level
-        if (this.score === this.nextLevelScore) {
-            // augment level number, reset number of icebergs needed to pass until next level
+        //this.score = Score.getShipPosition1(midpoint, positionShip, this.score);
+
+        //if enough obstacles have been passed to reach next level
+        if (this.obstaclesPassed === this.nextLevelObstaclesPassed) {
+            // augment level number, reset number of obstacles needed to pass until next level
             this.level++;
-            this.currLevelScore = this.nextLevelScore;
-            this.nextLevelScore = this.score + LevelUtility.getFibonacci(this.level);
-            console.log(this.nextLevelScore);
+            this.currLevelObstaclesPassed = this.nextLevelObstaclesPassed;
+            this.nextLevelObstaclesPassed = this.obstaclesPassed + LevelUtility.getFibonacci(this.level);
+            // console.log(this.nextLevelObstaclesPassed);
 
             // augment game variables to increase difficulty
             LevelUtility.augmentWind(this.level, this.wind);
@@ -115,11 +116,11 @@ export default class Game {
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
-            // "-2" because score counts the number of obstacles that passed including ones that hit except the last one.
-            sessionStorage.setItem("score", this.score - 2);
+            // "-2" because obstaclesPassed counts the number of obstacles that passed including ones that hit except the last one.
+            sessionStorage.setItem("obstaclesPassed", this.obstaclesPassed - 2);
             sessionStorage.setItem("level", this.level);
             sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
-            sessionStorage.setItem("score1", this.score1);
+            sessionStorage.setItem("score", this.score);
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
@@ -139,11 +140,11 @@ export default class Game {
         // difficulty + level
         toWrite.push([this.difficulty.label + " Lvl: ", this.level]);
         // score (iceberg count)
-        toWrite.push(["obstacles:", this.score]);
+        toWrite.push(["obstacles:", this.obstaclesPassed]);
         // lives
         toWrite.push(["lives:", this.lives]);
         // score (new)
-        toWrite.push(["score:", this.score1]);
+        toWrite.push(["score:", this.score]);
         // write em out
         for (let i = 0; i < toWrite.length; i++) {
             GraphicsUtility.drawStat(ctx, this, firstStatY + (lineHeight * i), toWrite[i][0], toWrite[i][1]);

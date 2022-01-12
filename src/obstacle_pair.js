@@ -51,11 +51,11 @@ export default class ObstaclePair {
             let lowerbound = this.position2.y;
             let midpoint = (lowerbound + upperbound/2); 
             let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
-            let oldScore = this.game.score1
+            let oldScore = this.game.score;
             if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
-                this.game.score1 = Score.getScore1(midpoint, positionShip, this.game.score1);
+                this.game.score = Score.getScore(midpoint, positionShip, this.game.score);
             }
-            let newScore = this.game.score1
+            let newScore = this.game.score
             this.scoreChange = newScore - oldScore
             GraphicsUtility.wordEffectCount = 40
         }
@@ -70,7 +70,7 @@ export default class ObstaclePair {
             this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
             
             
-            this.game.score += 1;
+            this.game.obstaclesPassed += 1;
             
 
             if (this.position1.y > 0) console.log("iceberg 1 too low");

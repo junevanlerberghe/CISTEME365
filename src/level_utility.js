@@ -33,6 +33,6 @@ export var LevelUtility = {
 
     // returns the fraction of level completed
     getFractionOfLevelCompleted: function (game) {
-        return (game.score - game.currLevelScore) / (game.nextLevelScore - game.currLevelScore);
+        return (game.obstaclesPassed - game.currLevelObstaclesPassed) / (game.nextLevelObstaclesPassed - game.currLevelObstaclesPassed);
     }
 }
