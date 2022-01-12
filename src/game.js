@@ -116,8 +116,7 @@ export default class Game {
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
-            // "-2" because obstaclesPassed counts the number of obstacles that passed including ones that hit except the last one.
-            sessionStorage.setItem("obstaclesPassed", this.obstaclesPassed - 2);
+            sessionStorage.setItem("obstaclesPassed", this.obstaclesPassed);
             sessionStorage.setItem("level", this.level);
             sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
             sessionStorage.setItem("score", this.score);
@@ -139,7 +138,7 @@ export default class Game {
         let toWrite = [];
         // difficulty + level
         toWrite.push([this.difficulty.label + " Lvl: ", this.level]);
-        // score (iceberg count)
+        // obstacles passed
         toWrite.push(["obstacles:", this.obstaclesPassed]);
         // lives
         toWrite.push(["lives:", this.lives]);

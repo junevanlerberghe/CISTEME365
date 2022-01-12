@@ -45,13 +45,13 @@ export default class GhostShip extends Ship {
         let target_pos_y = (obstacle1_position.y + obstacle2_position.y + this.game.obstacle_pair.height/2)/2;
         //this isn't working, curr_y is NaN
         //let curr_y = this.game.ghost_ship.position.y;
-        let curr_y = this.position.y
+        let curr_y = this.position.y;
 
         let Kp = 0.000005;
         let Ki = 0.0000001;
         let Kd = 0.0005;
 
-        let curr_err = target_pos_y - curr_y
+        let curr_err = target_pos_y - curr_y;
         this.errors.push(curr_err);
 
         let sum_error = 0;
@@ -59,12 +59,12 @@ export default class GhostShip extends Ship {
             sum_error += this.errors[i];
         }
 
-        let up = Kp*curr_err
-        let ui = Ki*sum_error
-        let ud = Kd*(curr_err - this.errors.at(-2))
-        let output = up + ui + ud
+        let up = Kp*curr_err;
+        let ui = Ki*sum_error;
+        let ud = Kd*(curr_err - this.errors.at(-2));
+        let output = up + ui + ud;
         
-        let historicPIDScale = 1000000; // testing to see if this works better for summary page
+        let historicPIDScale = 1000000; // test to see if this works better for summary page
         this.historicPID.push([up * historicPIDScale, ui * historicPIDScale, ud * historicPIDScale]);
 
         return output;

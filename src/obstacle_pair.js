@@ -15,6 +15,7 @@ export default class ObstaclePair {
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;
         this.game = game;
+        this.nLivesLastCycle = game.lives; // number of lives the last time the ship went through the obstacles
 
         //score variables
         this.scoreChange = 1
@@ -62,6 +63,7 @@ export default class ObstaclePair {
 
         // resetting/updating when iceberg hits end of screen (player passes iceberg)
         if (this.position1.x + this.width < -30) {
+            // update position for "new" obstacle
             this.position1.x = this.gameWidth + 10;
             this.position2.x = this.gameWidth + 10;
             //first glacier must be at lowest y=0 and at highest low enough so the bottom glacier covers bottom of screen
@@ -69,9 +71,12 @@ export default class ObstaclePair {
             //got rid of the random for the bottom glacier, since w the levels its gonna be a set passage width
             this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
             
-            
-            this.game.obstaclesPassed += 1;
-            
+            // update number of obstacles passed
+            if (this.game.lives != this.nLivesLastCycle) {
+                this.nLivesLastCycle = this.game.lives;
+            } else {
+                this.game.obstaclesPassed += 1;
+            }
 
             if (this.position1.y > 0) console.log("iceberg 1 too low");
             if (this.position2.y + this.height < this.gameHeight) console.log("iceberg 2 too high");
