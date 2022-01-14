@@ -135,7 +135,7 @@ export var GraphicsUtility = {
         ctx.fillText(text, this.levelBarX + totalBarWidth / 2, this.levelBarY + this.levelBarHeight * 3);
     },
     // draws the word associated how the boat is in between the gap
-    wordEffectCount: 40, //counter
+    wordEffectCount: 80, //counter
     drawWord: function (ctx, game, scoreChange){
         this.toBodyFontStyle(ctx);
         var dict = {
@@ -146,6 +146,20 @@ export var GraphicsUtility = {
             10: "Perfect!"
         }
         ctx.fillText(dict[scoreChange], game.ship.position.x, game.ship.position.y);
+        this.wordEffectCount--;
+    },
+    //same as drawWord function but for ghost so player can compare while playing.
+    drawGhostWord: function (ctx, game, scoreChange){
+        this.toBodyFontStyle(ctx);
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+        var dict = {
+            1: "",
+            0: "Hit!",
+            8: "Good",
+            9: "Great",
+            10: "Perfect!"
+        }
+        ctx.fillText(dict[scoreChange], game.ghost_ship.position.x, game.ghost_ship.position.y);
         this.wordEffectCount--;
     }
 }

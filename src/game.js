@@ -40,6 +40,7 @@ export default class Game {
         this.nextLevelObstaclesPassed = this.obstaclesPassed + LevelUtility.getFibonacci(this.level); // when obstacles passed hits this #, level goes up
         this.currLevelObstaclesPassed = 0; // obstacles needed to pass to achieve this current level
         this.score = 0;
+        this.scoreGhost = 0;
 
         // properites
         this.lives = this.difficulty.lives;
@@ -112,7 +113,8 @@ export default class Game {
         
         // draw "Level x" as needed
         if (GraphicsUtility.newLevelEffectCount > 0) GraphicsUtility.drawNewLevelEffect(ctx, this);
-        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawWord(ctx, this, this.obstacle_pair.scoreChange)
+        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawWord(ctx, this, this.obstacle_pair.scoreChange);
+        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawGhostWord(ctx, this, this.obstacle_pair.scoreChangeGhost);
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
@@ -120,6 +122,8 @@ export default class Game {
             sessionStorage.setItem("level", this.level);
             sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
             sessionStorage.setItem("score", this.score);
+            //to be used in comparison bar graph in summary page
+            sessionStorage.setItem("scoreGhost", this.scoreGhost);
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);

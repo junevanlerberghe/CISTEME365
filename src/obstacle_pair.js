@@ -19,6 +19,7 @@ export default class ObstaclePair {
 
         //score variables
         this.scoreChange = 1
+        this.scoreChangeGhost = 1
 
         // positioning, dimensions
         this.level = level;
@@ -52,12 +53,19 @@ export default class ObstaclePair {
             let lowerbound = this.position2.y;
             let midpoint = (lowerbound + upperbound/2); 
             let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
+            let positionGhost = (2*(this.game.ghost_ship.position.y)+this.game.ghost_ship.height)/2;
+            let oldScoreGhost = this.game.scoreGhost;
             let oldScore = this.game.score;
+            if (!(lowerbound < this.game.ghost_ship.position.y + this.game.ship.height) && !(upperbound > this.game.ghost_ship.position.y)){
+                this.game.scoreGhost = Score.getScore(midpoint, positionGhost, this.game.scoreGhost);
+            }
             if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
                 this.game.score = Score.getScore(midpoint, positionShip, this.game.score);
             }
             let newScore = this.game.score
+            let newScoreGhost = this.game.scoreGhost
             this.scoreChange = newScore - oldScore
+            this.scoreChangeGhost = newScoreGhost - oldScoreGhost
             GraphicsUtility.wordEffectCount = 40
         }
 
