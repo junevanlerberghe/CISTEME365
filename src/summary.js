@@ -5,6 +5,29 @@ export default class Summary {
     constructor(gameWidth, gameHeight) {
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
+
+        this.graph = {
+            x: 250,
+            y: 250,
+            width: 500,
+            height: 300,
+            axisY: 250 + 300 / 2, // y of xAxis relative to upper left
+            yScale: 0.05, // play around with this
+            
+            lineColors: ["rgb(255, 0, 0)", "rgb(0, 255, 0)", "rgb(0, 0, 255)"]
+        };
+        this.graphKey = {
+            x: this.graph.x - 57,
+            y: this.graph.y,
+            width: 50,
+            height: 80,
+            padding: 8,
+
+            iconWidth: 15,
+            iconTextDistance: 4,
+
+            text: ["P", "I", "D"]
+        };
     }
     
     start() {
@@ -54,36 +77,80 @@ export default class Summary {
     // note: this very well could be completely broken lol
     // consider: have summary screen on same page as game?
     drawPIDGraph(ctx) {
-        // visual properties of graph
-        const graphX = 250;
-        const graphY = 250;
-        const graphWidth = 500;
-        const graphHeight = 300;
-        ctx.strokeRect(graphX, graphY, graphWidth, graphHeight);
+        this.drawGraphBox(ctx);
+        this.drawGraphKey(ctx);
 
         // get the pidHistory
         const pidHistory = this.parsePIDHistory(sessionStorage.getItem("pidHistory"));
-        const xIncrement = graphWidth / pidHistory.length; // pixels between two data points in graph in x-axis
-        const yScale = 0.01; // y-scale to fit data within the graph; fix this later
-        const lineColors = ["rgb(255, 0, 0)", "rgb(0, 255, 0)", "rgb(0, 0, 255)"];
+        const xIncrement = this.graph.width / pidHistory.length; // pixels between two data points in graph in x-axis
         
         // for each of P, I, and D
         for (let pidIndex = 0; pidIndex < 3; pidIndex++) {
             // begin drawing hte line graph at the y value of the first data point
             ctx.beginPath();
-            ctx.moveTo(graphX, graphY + yScale * pidHistory[0][1]);
+            ctx.moveTo(this.graph.x, this.findGraphBoundedY(pidHistory[0][1]));
             
             // for each data point
             for (let i = 1; i < pidHistory.length; i++) { // we started at first value, so iterate from i = 1
-                ctx.lineTo(graphX + xIncrement * i, graphY + pidHistory[i][pidIndex] * yScale);
+                ctx.lineTo(this.graph.x + xIncrement * i, this.findGraphBoundedY(pidHistory[i][pidIndex]));
             }
-            ctx.strokeStyle = lineColors[pidIndex];
+            ctx.strokeStyle = this.graph.lineColors[pidIndex];
             ctx.stroke();
             // consider: are negative values being drawn upwards right now ?
         }
-        
+    }
 
+    drawGraphBox(ctx) {
+        // draw box
+        ctx.strokeRect(this.graph.x, this.graph.y, this.graph.width, this.graph.height);
         
+        // draw axis
+        ctx.beginPath();
+        ctx.moveTo(this.graph.x, this.graph.axisY);
+        ctx.lineTo(this.graph.x + this.graph.width, this.graph.axisY);
+        ctx.stroke();
+    }
+
+    drawGraphKey(ctx) {
+        // set up font style
+        GraphicsUtility.toBodyFontStyle(ctx);
+        ctx.textBaseline = "middle";
+
+        // constants
+        const iconX = this.graphKey.x + this.graphKey.padding;
+        const startingY = this.graphKey.y + this.graphKey.padding;
+        const lineHeight = this.graphKey.iconWidth + (this.graphKey.height - 2 * this.graphKey.padding - 3 * this.graphKey.iconWidth) / (this.graphKey.text.length - 1);
+
+        // draw surrounding box rectangle
+        ctx.strokeRect(this.graphKey.x, this.graphKey.y, this.graphKey.width, this.graphKey.height);
+
+        // draw each of P, I, and D
+        for (let i = 0; i < 3; i++) {
+            let currentY = startingY + lineHeight * i;
+            
+            ctx.fillStyle = this.graph.lineColors[i];
+            ctx.fillRect(iconX, currentY, this.graphKey.iconWidth, this.graphKey.iconWidth);
+            ctx.fillStyle = "#000000";
+            ctx.fillText(this.graphKey.text[i],
+                iconX + this.graphKey.iconWidth + this.graphKey.iconTextDistance,
+                currentY + this.graphKey.iconWidth / 2);
+        }
+
+
+        this.graphKey = {
+            x: 0,
+            y: 0,
+            width: 50,
+            height: 100,
+            padding: 5
+        };
+    }
+
+    findGraphBoundedY(pidValue) {
+        let unboundedValue = this.graph.axisY + pidValue * this.graph.yScale;
+        if (unboundedValue < this.graph.y) return this.graph.y;
+        if (unboundedValue > this.graph.y + this.graph.height) return this.graph.y + this.graph.height;
+        return unboundedValue;
     }
 
     parsePIDHistory(pidHistory) {

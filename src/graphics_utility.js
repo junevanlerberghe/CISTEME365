@@ -19,22 +19,26 @@ export var GraphicsUtility = {
         ctx.font = "55px Arial";
         ctx.fillStyle = "black";
         ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
     },
     toHeaderFontStyle: function (ctx) {
         ctx.font = "24px Arial";
         ctx.fillStyle = "black";
         ctx.textAlign = "left";
+        ctx.textBaseline = "bottom";
     },
     toBodyFontStyle: function (ctx) {
         ctx.font = "16px Arial";
         ctx.fillStyle = "black";
         ctx.textAlign = "left";
+        ctx.textBaseline = "bottom";
     },
 
     toGameHeaderFontStyle: function (ctx) {
         ctx.font = "30px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
     },
 
     /**********************************************************
