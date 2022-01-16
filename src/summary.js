@@ -14,7 +14,7 @@ export default class Summary {
             axisY: 250 + 300 / 2, // y of xAxis relative to upper left
             yScale: 0.05, // play around with this
             
-            lineColors: ["rgb(255, 0, 0)", "rgb(0, 255, 0)", "rgb(0, 0, 255)"]
+            lineColors: ["#008000", "#FF00FF", "#FFC000"]
         };
         this.graphKey = {
             x: this.graph.x - 57,
