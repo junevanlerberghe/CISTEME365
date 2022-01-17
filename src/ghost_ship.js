@@ -46,11 +46,14 @@ export default class GhostShip extends Ship {
         //this isn't working, curr_y is NaN
         //let curr_y = this.game.ghost_ship.position.y;
         let curr_y = this.position.y;
-
+        let Kp = 10**-300;
+        let Ki = 0;
+        let Kd = 0;
+        /*
         let Kp = 0.000005;
         let Ki = 0.0000001;
         let Kd = 0.0005;
-
+        */
         let curr_err = target_pos_y - curr_y;
         this.errors.push(curr_err);
 
