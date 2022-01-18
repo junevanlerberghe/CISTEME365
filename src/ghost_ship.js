@@ -46,9 +46,31 @@ export default class GhostShip extends Ship {
         //this isn't working, curr_y is NaN
         //let curr_y = this.game.ghost_ship.position.y;
         let curr_y = this.position.y;
+        let Ku = 10**-300;
         let Kp = 10**-300;
         let Ki = 0;
         let Kd = 0;
+        //find a way to calculate period of oscillation here in order to find other constants
+        /*
+        doesnt work
+        let count = 0;
+        let Tu = 0;
+        let initialPos = (this.game.gameHeight - this.height) / 2;
+        let lastPos = curr_y;
+        let currPos = curr_y;
+        if(count == 0){
+            if(curr_y > target_pos_y && lastPos > curr_y) {
+                console.log("lower")
+                Tu = lastPos;
+                count += 1;
+            } else if (curr_y < target_pos_y && lastPos < curr_y){
+                console.log("higher")
+                Tu = lastPos;
+                count += 1;
+            }
+        }
+        console.log(Tu)
+        */
         /*
         let Kp = 0.000005;
         let Ki = 0.0000001;
@@ -56,7 +78,7 @@ export default class GhostShip extends Ship {
         */
         let curr_err = target_pos_y - curr_y;
         this.errors.push(curr_err);
-
+   
         let sum_error = 0;
         for (let i = 0; i < this.errors.length; i++) {
             sum_error += this.errors[i];
