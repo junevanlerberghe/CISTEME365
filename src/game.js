@@ -25,14 +25,19 @@ const OBSTACLE_TYPE = {
 
 export default class Game {
 
-    constructor(gameWidth, gameHeight, gameDifficulty, ghostModeOn) {
-        console.log("difficulty: " + gameDifficulty + ", ghost mode: " + ghostModeOn);
-
+    constructor(gameWidth, gameHeight, gameDifficulty, playerType) {
+        console.log("difficulty: " + gameDifficulty + ", player type: " + playerType);
+        
         // basic game information
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.ghostMode = ghostModeOn;
-
+        this.playerType = playerType;
+        if(playerType != 0) { //0 is 1-player only (no ghost ship)
+            this.ghostMode = true
+        } else {
+            this.ghostMode = false
+        }
+        
         // difficulty/level
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
         this.level = 1;
@@ -42,7 +47,7 @@ export default class Game {
         this.score = 0;
         this.scoreGhost = 0;
 
-        // properites
+        // properties
         this.lives = this.difficulty.lives;
         this.wind = this.difficulty.wind;
         this.goal = this.difficulty.goal;
@@ -61,7 +66,7 @@ export default class Game {
         this.wave3 = new Wave(this);
         this.gate = new Gates(this);
         this.pidGraph = new BarGraph(this);
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.obstacle_pair];//, this.gate];
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
@@ -69,9 +74,12 @@ export default class Game {
 
     start() {
         new InputHandler(this.ship);
-        if (this.ghostMode == "true") {
+        if (this.ghostMode == true) {
             this.gameObjects.push(this.ghost_ship);
             this.gameObjects.push(this.pidGraph);
+        }
+        if(this.playerType != 2) { //if it's not PID only, add the player ship
+            this.gameObjects.push(this.ship);
         }
     }
 
