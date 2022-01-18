@@ -25,14 +25,19 @@ const OBSTACLE_TYPE = {
 
 export default class Game {
 
-    constructor(gameWidth, gameHeight, gameDifficulty, ghostModeOn) {
-        console.log("difficulty: " + gameDifficulty + ", ghost mode: " + ghostModeOn);
-
+    constructor(gameWidth, gameHeight, gameDifficulty, playerType) {
+        console.log("difficulty: " + gameDifficulty + ", player type: " + playerType);
+        
         // basic game information
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.ghostMode = ghostModeOn == "true";
-
+        this.playerType = playerType;
+        if(playerType != 0) { //0 is 1-player only (no ghost ship)
+            this.ghostMode = true
+        } else {
+            this.ghostMode = false
+        }
+        
         // difficulty/level
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
         this.level = 1;
@@ -42,7 +47,7 @@ export default class Game {
         this.score = 0;
         this.scoreGhost = 0;
 
-        // properites
+        // properties
         this.lives = this.difficulty.lives;
         this.wind = this.difficulty.wind;
         this.goal = this.difficulty.goal;
@@ -60,8 +65,7 @@ export default class Game {
         this.wave2 = new Wave(this);
         this.wave3 = new Wave(this);
         this.pidGraph = new BarGraph(this);
-        this.updateObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair, this.ghost_ship, this.pidGraph];
-        this.drawObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];
+        this.gameObjects = [this.wave, this.wave2, this.wave3, this.obstacle_pair];
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
@@ -69,9 +73,12 @@ export default class Game {
 
     start() {
         new InputHandler(this.ship);
-        if (this.ghostMode) {
-            this.drawObjects.push(this.ghost_ship);
-            this.drawObjects.push(this.pidGraph);
+        if (this.ghostMode == true) {
+            this.gameObjects.push(this.ghost_ship);
+            this.gameObjects.push(this.pidGraph);
+        }
+        if(this.playerType != 2) { //if it's not PID only, add the player ship
+            this.gameObjects.push(this.ship);
         }
     }
 
@@ -79,7 +86,7 @@ export default class Game {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
         this.wind.update(timeStamp);
-        this.updateObjects.forEach(x => x.update(dt));
+        this.gameObjects.forEach(x => x.update(dt));
         
         this.totalTime += dt/1000;
 
@@ -128,7 +135,7 @@ export default class Game {
 
     drawRunning(ctx) {
         // draw each item (boat, glaciers, waves)
-        this.drawObjects.forEach(x => x.draw(ctx));
+        this.gameObjects.forEach(x => x.draw(ctx));
     }
 
     drawStats(ctx) {
