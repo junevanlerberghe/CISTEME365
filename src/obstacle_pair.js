@@ -1,5 +1,5 @@
 import { GraphicsUtility } from './graphics_utility.js';
-import {Score} from './score.js'
+import {ScoreHandler} from './score.js'
 const OBSTACLE_TYPE = {
     GLACIER: 0,
     ROCK: 1
@@ -35,8 +35,6 @@ export default class ObstaclePair {
             x: this.gameWidth + 50,
             y: this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth
         };
-        this.position3 = this.position1;
-        this.position4 = this.position2;
 
         // kinematics
         this.maxSpeed = 5;
@@ -48,60 +46,53 @@ export default class ObstaclePair {
         this.position2.x -= this.speed;
 
         //obstaining position of obstacle for new score
-        if (this.position1.x < 45 && this.position1.x > 35){
-            let upperbound = (this.position2.y - this.minimumDistanceBetweenGlaciers*this.passageWidth);
-            let lowerbound = this.position2.y;
-            let midpoint = (lowerbound + upperbound/2); 
-            let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
-            let positionGhost = (2*(this.game.ghost_ship.position.y)+this.game.ghost_ship.height)/2;
-            let oldScoreGhost = this.game.scoreGhost;
-            let oldScore = this.game.score;
-            if (!(lowerbound < this.game.ghost_ship.position.y + this.game.ship.height) && !(upperbound > this.game.ghost_ship.position.y)){
-                this.game.scoreGhost = Score.getScore(midpoint, positionGhost, this.game.scoreGhost);
-            }
-            if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
-                this.game.score = Score.getScore(midpoint, positionShip, this.game.score);
-            }
-            let newScore = this.game.score
-            let newScoreGhost = this.game.scoreGhost
-            this.scoreChange = newScore - oldScore
-            this.scoreChangeGhost = newScoreGhost - oldScoreGhost
-            GraphicsUtility.wordEffectCount = 40
-        }
+        if (this.position1.x < 45 && this.position1.x > 35) { this.updateScore(); }
 
         // resetting/updating when iceberg hits end of screen (player passes iceberg)
-        if (this.position1.x + this.width < -30) {
-            // update position for "new" obstacle
-            this.position1.x = this.gameWidth + 10;
-            this.position2.x = this.gameWidth + 10;
-            //first glacier must be at lowest y=0 and at highest low enough so the bottom glacier covers bottom of screen
-            this.position1.y = Math.random() * (this.gameHeight - (2 * this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth));
-            //got rid of the random for the bottom glacier, since w the levels its gonna be a set passage width
-            this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
-            
-            // update number of obstacles passed
-            if (this.game.lives != this.nLivesLastCycle) {
-                this.nLivesLastCycle = this.game.lives;
-            } else {
-                this.game.obstaclesPassed += 1;
-            }
-
-            if (this.position1.y > 0) console.log("iceberg 1 too low");
-            if (this.position2.y + this.height < this.gameHeight) console.log("iceberg 2 too high");
-        }
+        if (this.position1.x + this.width < -30) { this.resetIceberg(); }
     }
 
-    /*displayMessage(scoreChange){
-        if (scoreChange == 9){
-            alert ('changed by 9')
+    updateScore() {
+        let upperbound = this.position1.y + this.height;
+        let lowerbound = this.position2.y;
+        let midpoint = (lowerbound + upperbound/2); 
+        let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
+        if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
+            ScoreHandler.updateScore(midpoint, positionShip);
+        } else { ScoreHandler.scoreChange = 0; }
+
+        let positionGhost = (2*(this.game.ghost_ship.position.y)+this.game.ghost_ship.height)/2;
+        if (!(lowerbound < this.game.ghost_ship.position.y + this.game.ghost_ship.height) && !(upperbound > this.game.ghost_ship.position.y)){
+            ScoreHandler.updateGhostScore(midpoint, positionGhost);
+        } else { ScoreHandler.ghostScoreChange = 0; }
+
+        GraphicsUtility.wordEffectCount = 40;
+    }
+
+    resetIceberg(){
+        // update position for "new" obstacle
+        this.position1.x = this.gameWidth + 10;
+        this.position2.x = this.gameWidth + 10;
+        //first glacier must be at lowest y=0 and at highest low enough so the bottom glacier covers bottom of screen
+        this.position1.y = Math.random() * (this.gameHeight - (2 * this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth));
+        //got rid of the random for the bottom glacier, since w the levels its gonna be a set passage width
+        this.position2.y = this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth;
+        
+        // update number of obstacles passed
+        if (this.game.lives != this.nLivesLastCycle) {
+            this.nLivesLastCycle = this.game.lives;
+        } else {
+            this.game.obstaclesPassed += 1;
         }
-    }*/
+
+        // if (this.position1.y > 0) console.log("iceberg 1 too low");
+        // if (this.position2.y + this.height < this.gameHeight) console.log("iceberg 2 too high");
+    }
 
     draw(ctx) {
         ctx.globalAlpha = this.alpha
         ctx.drawImage(this.image, this.position1.x, this.position1.y, this.width, this.height);
         ctx.drawImage(this.image, this.position2.x, this.position2.y, this.width, this.height);
-        
     }
 
     /**************************************************************

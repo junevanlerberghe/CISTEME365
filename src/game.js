@@ -11,7 +11,7 @@ import BarGraph from './pid_graph.js';
 import Canal from "./Canal.js"
 import Gates from './Gates.js';
 import Bars from './graph_bars.js';
-import { Score } from './score.js'
+import { ScoreHandler } from './score.js'
 
 const GAMESTATE = {
     GAMEOVER: 0,
@@ -31,7 +31,7 @@ export default class Game {
         // basic game information
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
-        this.ghostMode = ghostModeOn;
+        this.ghostMode = ghostModeOn == "true";
 
         // difficulty/level
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
@@ -59,9 +59,9 @@ export default class Game {
         this.wave = new Wave(this);
         this.wave2 = new Wave(this);
         this.wave3 = new Wave(this);
-        this.gate = new Gates(this);
         this.pidGraph = new BarGraph(this);
-        this.gameObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];//, this.gate];
+        this.updateObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair, this.ghost_ship, this.pidGraph];
+        this.drawObjects = [this.wave, this.wave2, this.wave3, this.ship, this.obstacle_pair];
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
@@ -69,9 +69,9 @@ export default class Game {
 
     start() {
         new InputHandler(this.ship);
-        if (this.ghostMode == "true") {
-            this.gameObjects.push(this.ghost_ship);
-            this.gameObjects.push(this.pidGraph);
+        if (this.ghostMode) {
+            this.drawObjects.push(this.ghost_ship);
+            this.drawObjects.push(this.pidGraph);
         }
     }
 
@@ -79,7 +79,7 @@ export default class Game {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
         this.wind.update(timeStamp);
-        this.gameObjects.forEach(x => x.update(dt));
+        this.updateObjects.forEach(x => x.update(dt));
         
         this.totalTime += dt/1000;
 
@@ -110,20 +110,16 @@ export default class Game {
     draw(ctx) {
         this.drawRunning(ctx);
         this.drawStats(ctx);
+        this.drawPopupEffects(ctx);
         
-        // draw "Level x" as needed
-        if (GraphicsUtility.newLevelEffectCount > 0) GraphicsUtility.drawNewLevelEffect(ctx, this);
-        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawWord(ctx, this, this.obstacle_pair.scoreChange);
-        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawGhostWord(ctx, this, this.obstacle_pair.scoreChangeGhost);
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
             sessionStorage.setItem("totalTime", this.totalTime);
             sessionStorage.setItem("obstaclesPassed", this.obstaclesPassed);
             sessionStorage.setItem("level", this.level);
             sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
-            sessionStorage.setItem("score", this.score);
-            //to be used in comparison bar graph in summary page
-            sessionStorage.setItem("scoreGhost", this.scoreGhost);
+            sessionStorage.setItem("score", ScoreHandler.score);
+            sessionStorage.setItem("scoreGhost", ScoreHandler.scoreGhost); //to be used in comparison bar graph in summary page
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
@@ -132,7 +128,7 @@ export default class Game {
 
     drawRunning(ctx) {
         // draw each item (boat, glaciers, waves)
-        this.gameObjects.forEach(x => x.draw(ctx));
+        this.drawObjects.forEach(x => x.draw(ctx));
     }
 
     drawStats(ctx) {
@@ -147,7 +143,7 @@ export default class Game {
         // lives
         toWrite.push(["lives:", this.lives]);
         // score (new)
-        toWrite.push(["score:", this.score]);
+        toWrite.push(["score:", ScoreHandler.score]);
         // write em out
         for (let i = 0; i < toWrite.length; i++) {
             GraphicsUtility.drawStat(ctx, this, firstStatY + (lineHeight * i), toWrite[i][0], toWrite[i][1]);
@@ -168,6 +164,16 @@ export default class Game {
         // level progress bar
         GraphicsUtility.drawLevelBar(ctx, this);
     }
+
+    drawPopupEffects(ctx) {
+        // draw "Level x" as needed
+        if (GraphicsUtility.newLevelEffectCount > 0) GraphicsUtility.drawNewLevelEffect(ctx, this);
+
+        // draw the score popup (e.g. "Perfect!" or "Hit!")
+        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawScoreWord(ctx, ScoreHandler.scoreChange, this.ship);
+        if (GraphicsUtility.wordEffectCount > 0 && this.ghostMode) GraphicsUtility.drawScoreWord(ctx, ScoreHandler.ghostScoreChange, this.ghost_ship);
+    }
+
 
     drawGameOverWindow(ctx) {
         // window

@@ -1,4 +1,5 @@
 import { LevelUtility } from "./level_utility.js";
+import { ScoreHandler } from "./score.js";
 
 /**************************************************************
  * GRAPHICS UTILITY
@@ -140,30 +141,9 @@ export var GraphicsUtility = {
     },
     // draws the word associated how the boat is in between the gap
     wordEffectCount: 80, //counter
-    drawWord: function (ctx, game, scoreChange){
+    drawScoreWord: function (ctx, scoreChange, ship){
         this.toBodyFontStyle(ctx);
-        var dict = {
-            1: "Start!",
-            0: "Hit!",
-            8: "Good",
-            9: "Great",
-            10: "Perfect!"
-        }
-        ctx.fillText(dict[scoreChange], game.ship.position.x, game.ship.position.y);
-        this.wordEffectCount--;
-    },
-    //same as drawWord function but for ghost so player can compare while playing.
-    drawGhostWord: function (ctx, game, scoreChange){
-        this.toBodyFontStyle(ctx);
-        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
-        var dict = {
-            1: "",
-            0: "Hit!",
-            8: "Good",
-            9: "Great",
-            10: "Perfect!"
-        }
-        ctx.fillText(dict[scoreChange], game.ghost_ship.position.x, game.ghost_ship.position.y);
+        ctx.fillText(ScoreHandler.popupMessagesDict[scoreChange], ship.position.x, ship.position.y);
         this.wordEffectCount--;
     }
 }
