@@ -107,7 +107,7 @@ export default class Game {
             // console.log(this.nextLevelObstaclesPassed);
 
             // augment game variables to increase difficulty
-            LevelUtility.augmentWind(this.level, this.wind);
+            LevelUtility.augmentWind(this.level, this.wind, this.difficulty);
 
             // set up so "Level x" effect shows on screen
             GraphicsUtility.newLevelEffectCount = GraphicsUtility.newLevelEffectDefaultLength;

@@ -17,15 +17,15 @@ export var LevelUtility = {
     },
 
     // increases strength of wind based on the level
-    deltaWindAmplitude: 1.1,
+    deltaWindAmplitude: 1.2,
     deltaWindPeriod: 0.8,
-    augmentWind: function (currLevel, wind) {
+    augmentWind: function (currLevel, wind, difficulty) {
         // augment amp. if amp = 0, set amp to nonzero value
-        if (wind.amplitude < wind.maxAmplitude) wind.amplitude *= this.deltaWindAmplitude;
-        if (wind.amplitude === 0) wind.amplitude = 0.5;
+        if (wind.amplitude < wind.maxAmplitude) wind.amplitude *= this.deltaWindAmplitude * difficulty.windScale;
+        if (wind.amplitude === 0) wind.amplitude = 0.3;
 
         // if period is cyclical, augment period. if acyclical, reverse wind direction
-        if (wind.isCyclical() && wind.period > wind.minPeriod) wind.period *= this.deltaWindPeriod;
+        if (wind.isCyclical() && wind.period > wind.minPeriod) wind.period *= this.deltaWindPeriod / difficulty.windScale;
         if (!wind.isCyclical()) wind.reverseDirection();
 
         console.log("amp: " + wind.amplitude + ", period: " + wind.period);

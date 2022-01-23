@@ -27,12 +27,13 @@ export default class ObstaclePair {
         this.width = 100;
         this.height = this.width * 2403 / 801;
         this.minimumDistanceBetweenGlaciers = 200;
+        this.initialDisplacement = this.gameWidth * 0.75; // how far to the right the first obstacles are placed
         this.position1 = {
-            x:  this.gameWidth + 50,
+            x:  this.gameWidth + this.initialDisplacement,
             y: 0
         };
         this.position2 = {
-            x: this.gameWidth + 50,
+            x: this.gameWidth + this.initialDisplacement,
             y: this.position1.y + this.height + this.minimumDistanceBetweenGlaciers*this.passageWidth
         };
 
