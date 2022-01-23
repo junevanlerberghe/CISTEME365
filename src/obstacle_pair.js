@@ -56,15 +56,16 @@ export default class ObstaclePair {
         let upperbound = this.position1.y + this.height;
         let lowerbound = this.position2.y;
         let midpoint = (lowerbound + upperbound/2); 
-        let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
-        if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
-            ScoreHandler.updateScore(midpoint, positionShip);
-        } else { ScoreHandler.scoreChange = 0; }
 
         let positionGhost = (2*(this.game.ghost_ship.position.y)+this.game.ghost_ship.height)/2;
         if (!(lowerbound < this.game.ghost_ship.position.y + this.game.ghost_ship.height) && !(upperbound > this.game.ghost_ship.position.y)){
             ScoreHandler.updateGhostScore(midpoint, positionGhost);
         } else { ScoreHandler.ghostScoreChange = 0; }
+
+        let positionShip = (2*(this.game.ship.position.y)+this.game.ship.height)/2;
+        if (!(lowerbound < this.game.ship.position.y + this.game.ship.height) && !(upperbound > this.game.ship.position.y)){
+            ScoreHandler.updateScore(midpoint, positionShip);
+        } else { ScoreHandler.scoreChange = 0; }
 
         GraphicsUtility.wordEffectCount = 40;
     }

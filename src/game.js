@@ -126,7 +126,7 @@ export default class Game {
             sessionStorage.setItem("level", this.level);
             sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
             sessionStorage.setItem("score", ScoreHandler.score);
-            sessionStorage.setItem("scoreGhost", ScoreHandler.scoreGhost); //to be used in comparison bar graph in summary page
+            sessionStorage.setItem("scoreGhost", ScoreHandler.ghostScore); //to be used in comparison bar graph in summary page
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
@@ -151,6 +151,11 @@ export default class Game {
         toWrite.push(["lives:", this.lives]);
         // score (new)
         toWrite.push(["score:", ScoreHandler.score]);
+        // score (ghost)
+        //let trouble = this.gameObjects.Contains(this.ghost_ship);
+        if (this.gameObjects.indexOf(this.ghost_ship) > 0){
+            toWrite.push(["ghost:", ScoreHandler.ghostScore]);
+        };
         // write em out
         for (let i = 0; i < toWrite.length; i++) {
             GraphicsUtility.drawStat(ctx, this, firstStatY + (lineHeight * i), toWrite[i][0], toWrite[i][1]);
