@@ -10,17 +10,19 @@ import Wind from './wind.js'
  * difficulty w/ difficulty number
  **************************************************************/
 export default class Difficulty {
-    constructor(label, lives, wind, goal, width, speed) {
+    constructor(label, lives, wind, goal, width, speed, windScale) {
         //goal = number of icebergs to pass to complete level
         //width = percent * how wide the passage is (200), so if we want it smaller, width < 1
         //there's def a better way to implement this ^ but I can't think of anything better rn so feel free to change ofc
         //speed = horizontal speed of game, ex: 0.2x current speed
+        //windScale = modifier to make wind's growth over levels easier/harder
         this.label = label;
         this.lives = lives;
         this.wind = wind;
         this.goal = goal;
         this.width = width;
         this.speed = speed;
+        this.windScale = windScale;
     }
 
 
@@ -37,25 +39,28 @@ export default class Difficulty {
         let wind = new Wind(0, 0, 0);
         let goal = 1;
         let width = 1; //keeping dist the same
-        let speed = 0.1;
-        return new Difficulty(label, lives, wind, goal, width, speed);
+        let speed = 0.07;
+        let windScale = 0.9;
+        return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }
     static difficulty2() {
         let label = "Med";
         let lives = 3;
-        let wind = new Wind(0, 0.5, 0);
+        let wind = new Wind(0, 0.25, 0);
         let goal= 1;
         let width = 1;
-        let speed = 0.1;
-        return new Difficulty(label, lives, wind, goal, width, speed);
+        let speed = 0.07;
+        let windScale = 1;
+        return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }
     static difficulty3() {
         let label = "Hard";
         let lives = 3;
-        let wind = new Wind(0, 1, 0);
+        let wind = new Wind(0, 0.5, 0);
         let goal = 2;
         let width = 0.8; //passage is a little smaller
-        let speed = 0.1;
-        return new Difficulty(label, lives, wind, goal, width, speed);
+        let speed = 0.07;
+        let windScale = 1.1;
+        return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }
 }

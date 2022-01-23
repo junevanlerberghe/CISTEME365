@@ -4,15 +4,15 @@ export default class BarGraph{
     constructor(game){
         //graphics
         const img = new Image();
-        img.src = "assets/PID_graph_frame.PNG";
+        img.src = "assets/PID_graph_frame_resized.PNG";
         this.image = img;
 
         //sizing
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;
-        this.width = 150;
-        this.height = 250;
-        this.graphHeight = 527 * this.height / 695;
+        this.width = 184 * 0.7;
+        this.height = 251 * 0.7;
+        this.graphHeight = 170 * this.height / 251;
 
         //position
         this.position = {
