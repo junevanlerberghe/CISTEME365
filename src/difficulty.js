@@ -39,7 +39,7 @@ export default class Difficulty {
         let wind = new Wind(0, 0, 0);
         let goal = 1;
         let width = 1; //keeping dist the same
-        let speed = 0.07;
+        let speed = 5;
         let windScale = 0.9;
         return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }
@@ -49,7 +49,7 @@ export default class Difficulty {
         let wind = new Wind(0, 0.25, 0);
         let goal= 1;
         let width = 1;
-        let speed = 0.07;
+        let speed = 7;
         let windScale = 1;
         return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }
@@ -59,7 +59,7 @@ export default class Difficulty {
         let wind = new Wind(0, 0.5, 0);
         let goal = 2;
         let width = 0.8; //passage is a little smaller
-        let speed = 0.07;
+        let speed = 8;
         let windScale = 1.1;
         return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }

@@ -38,8 +38,10 @@ export default class ObstaclePair {
         };
 
         // kinematics
-        this.maxSpeed = 5;
-        this.speed = 9;
+        //this.maxSpeed = 5;
+        //this.speed = 9;
+        this.speed = this.game.speed;
+        this.maxSpeed = this.game.speed;
     }
     update(dt) {
         if(!dt) return;
