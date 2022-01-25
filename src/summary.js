@@ -12,7 +12,7 @@ export default class Summary {
             width: 500,
             height: 300,
             axisY: 250 + 300 / 2, // y of xAxis relative to upper left
-            yScale: 0.05, // play around with this
+            yScale: 0.15, // play around with this
             
             lineColors: ["#008000", "#FF00FF", "#FFC000"]
         };
@@ -50,8 +50,8 @@ export default class Summary {
         let textList = [`Level: ${Difficulty.getDifficulty(sessionStorage.getItem("difficulty")).label} ${sessionStorage.getItem("level")}`,
                         `Time: ${this.parseTime(2)}`,
                         `Obstacles dodged: ${sessionStorage.getItem("obstaclesPassed")}`,
-                        `Score: ${sessionStorage.getItem("score")}`,
-                        `Ghost: ${sessionStorage.getItem("scoreGhost")}`,
+                        `Your score: ${sessionStorage.getItem("score")}`,
+                        `Ghost score: ${sessionStorage.getItem("scoreGhost")}`,
                         ]
                         
         GraphicsUtility.drawTextList(ctx, textList, 10, 170, 30);
