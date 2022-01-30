@@ -163,7 +163,7 @@ export default class Game {
 
         // wind
         let windSpeedY = this.gameHeight*(2/5);
-        let windSpeedText = "" + Math.round(Math.abs(this.wind.currentVelocity) * 100)/100;
+        let windSpeedText = "" + Math.round(Math.abs(this.wind.currentVelocity )*100)/5; // 20 is scalar multiplier
         let windDirectionText = "mph " + (this.wind.currentVelocity > 0 ? "S" : "N");
         GraphicsUtility.drawStat(ctx, this, windSpeedY - 30, "wind: ", ""); // draws: "wind:""
         GraphicsUtility.drawStat(ctx, this, windSpeedY, windSpeedText, windDirectionText); // draws: "x mph"

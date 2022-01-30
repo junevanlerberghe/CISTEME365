@@ -32,8 +32,8 @@ export default class GhostShip extends Ship {
 
         // no idea if this is right        
         // update accel to hit target y, but don't go past maxAccel
-        if (output > 0 && this.acceleration < this.maxAcceleration) { this.acceleration += this.deltaAcceleration; }
-        else if (output < 0 &&  this.acceleration > -this.maxAcceleration) { this.acceleration -= this.deltaAcceleration; }
+        if (output > 0 && this.acceleration < this.maxAcceleration) {this.acceleration += this.deltaAcceleration; }
+        else if (output < 0 &&  this.acceleration > -this.maxAcceleration) {this.acceleration = this.acceleration -= this.deltaAcceleration; }
         // copy basic ship's movemnet
         super.updateMovement();
     }
