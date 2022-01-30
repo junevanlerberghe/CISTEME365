@@ -34,10 +34,16 @@ export default class Game {
         this.playerType = playerType;
         if(playerType != 0) { //0 is 1-player only (no ghost ship)
             this.ghostMode = true
+            
         } else {
             this.ghostMode = false
         }
-        
+        if(playerType != 2) { //2 is ghost ship only (no player)
+            this.playerMode = true
+        } else {
+            this.playerMode = false
+        }
+
         // difficulty/level
         this.difficulty = Difficulty.getDifficulty(gameDifficulty);
         this.level = 1;
@@ -61,9 +67,9 @@ export default class Game {
         this.ship = new Ship(this);
         this.ghost_ship = new GhostShip(this);
         this.obstacle_pair = new ObstaclePair(this, null, this.difficulty);
-        this.wave = new Wave(this);
-        this.wave2 = new Wave(this);
-        this.wave3 = new Wave(this);
+        this.wave = new Wave(this,this.difficulty);
+        this.wave2 = new Wave(this, this.difficulty);
+        this.wave3 = new Wave(this, this.difficulty);
         this.pidGraph = new BarGraph(this);
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.obstacle_pair];
 
@@ -125,8 +131,16 @@ export default class Game {
             sessionStorage.setItem("obstaclesPassed", this.obstaclesPassed);
             sessionStorage.setItem("level", this.level);
             sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
-            sessionStorage.setItem("score", ScoreHandler.score);
-            sessionStorage.setItem("scoreGhost", ScoreHandler.ghostScore); //to be used in comparison bar graph in summary page
+            if (this.playerMode){
+                sessionStorage.setItem("score", ScoreHandler.score);
+            } else {
+                sessionStorage.setItem("score", "N/A");
+            }
+            if (this.ghostMode){
+                sessionStorage.setItem("scoreGhost", ScoreHandler.ghostScore); //to be used in comparison bar graph in summary page
+            } else {
+                sessionStorage.setItem("scoreGhost", "N/A");
+            }
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
@@ -150,9 +164,10 @@ export default class Game {
         // lives
         toWrite.push(["lives:", this.lives]);
         // score (new)
-        toWrite.push(["score:", ScoreHandler.score]);
+        if (this.gameObjects.indexOf(this.ship) > 0){
+            toWrite.push(["score:", ScoreHandler.score]);
+        }
         // score (ghost)
-        //let trouble = this.gameObjects.Contains(this.ghost_ship);
         if (this.gameObjects.indexOf(this.ghost_ship) > 0){
             toWrite.push(["ghost:", ScoreHandler.ghostScore]);
         };
@@ -182,7 +197,7 @@ export default class Game {
         if (GraphicsUtility.newLevelEffectCount > 0) GraphicsUtility.drawNewLevelEffect(ctx, this);
 
         // draw the score popup (e.g. "Perfect!" or "Hit!")
-        if (GraphicsUtility.wordEffectCount > 0) GraphicsUtility.drawScoreWord(ctx, ScoreHandler.scoreChange, this.ship);
+        if (GraphicsUtility.wordEffectCount > 0 && this.playerMode) GraphicsUtility.drawScoreWord(ctx, ScoreHandler.scoreChange, this.ship);
         if (GraphicsUtility.wordEffectCount > 0 && this.ghostMode) GraphicsUtility.drawScoreWord(ctx, ScoreHandler.ghostScoreChange, this.ghost_ship);
     }
 

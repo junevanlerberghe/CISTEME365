@@ -2,7 +2,7 @@ import Game from "./game.js";
 import Wind from "./wind.js";
 
 export default class Wave {
-    constructor(game){
+    constructor(game, difficulty){
         // graphics
         this.wavePaths = ["./assets/wave2.png", "./assets/wave3.png"];
         this.waveType = 0;
@@ -25,7 +25,8 @@ export default class Wave {
         };
 
         // movement
-        this.speed = 5;
+        this.baseSpeed = (difficulty.speed);
+        this.speed = this.baseSpeed
 
         // wind
         this.wind = game.wind;
@@ -57,6 +58,7 @@ export default class Wave {
         this.endPosition = this.generateEndPosition();
         this.currentPosition = this.startPosition;
         this.width = this.generateWidth();
+        this.speed = this.baseSpeed + (Math.random()-0.5)*0.2*this.baseSpeed
     }
     generateWaveImage() {
         // 50% chance of short wave image or long wave image
