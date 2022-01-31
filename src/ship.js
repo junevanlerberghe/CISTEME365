@@ -9,7 +9,7 @@ export default class Ship {
     constructor(game, alpha = 1) {
         // graphics
         const img = new Image();
-        img.src = "assets/shipicon.png";
+        img.src = "assets/shipicon_crop.png";
         this.image = img;
         this.alpha = alpha;
 
@@ -17,7 +17,7 @@ export default class Ship {
         this.gameHeight = game.gameHeight;
         this.gameWidth = game.gameWidth;
         this.width = 80;
-        this.height = 80;
+        this.height = 58;
 
         // kinematics
         this.position = {
