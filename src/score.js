@@ -3,6 +3,7 @@ export var ScoreHandler = {
     popupMessagesDict: {
         1: "Start!",
         0: "Hit!",
+        7: "Not Bad",
         8: "Good",
         9: "Great",
         10: "Perfect!"
@@ -34,7 +35,7 @@ export var ScoreHandler = {
         positionObstacle2.y = game.obstacle_pair.position2.y;
         midpoint = (positionObstacle1.y + positionObstacle2.y)/2;
         probably do this in parameters*/
-        return 11 - Math.round(0.01 * Math.abs(midpoint-positionShip)); 
+        return 10 - Math.round(0.05 * Math.abs(midpoint-positionShip)); 
     }
    
 }
