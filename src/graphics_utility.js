@@ -41,6 +41,12 @@ export var GraphicsUtility = {
         ctx.textAlign = "center";
         ctx.textBaseline = "bottom";
     },
+    toGameBodyFontStyle(ctx) {
+        ctx.font = "14px Arial";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+    },
 
     /**********************************************************
      * basic drawing templates
@@ -49,7 +55,7 @@ export var GraphicsUtility = {
         // note: this function is specifically made for drawing stats (eg. lives, score, etc.)
         // during the game phase. as such, it may need adjusting to be used elsewhere
 
-        const leftXMargin = 100; // left end of text will be at gameWidth - this
+        const leftXMargin = 110; // left end of text will be at gameWidth - this
         const rightXMargin = 15; // right end of text will be at gameWidth - this
         this.toBodyFontStyle(ctx);
         ctx.fillText(label, game.gameWidth - leftXMargin, y);

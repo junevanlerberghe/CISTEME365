@@ -1,8 +1,10 @@
 import Ship from "./ship.js"
+import Game from "./game.js"
+let count = 0;
 
 export default class InputHandler {
 
-    constructor(ship) {
+    constructor(ship, game) {
         document.addEventListener("keydown", event => {
             
             switch(event.key) {
@@ -15,7 +17,17 @@ export default class InputHandler {
                     break
 
                 case 'Escape':
-                    alert("Game Paused")
+                    //alert("Game Paused")
+                    if(count == 0) {
+                        count = 1;
+                        game.pauseGame()
+                        console.log('pause')
+                    }
+                    else if(count == 1) {
+                        count = 0;
+                        game.resumeGame()
+                        console.log('resume')
+                    }
                     break
             }
         });
@@ -29,6 +41,7 @@ export default class InputHandler {
                 case 'ArrowUp':
                     if(ship.velocity < 0) ship.stop()
                     break
+
             }
         });
         

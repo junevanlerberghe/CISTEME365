@@ -15,7 +15,8 @@ import { ScoreHandler } from './score.js'
 
 const GAMESTATE = {
     GAMEOVER: 0,
-    RUNNING: 1
+    RUNNING: 1,
+    PAUSED: 2
 };
 
 const OBSTACLE_TYPE = {
@@ -78,7 +79,7 @@ export default class Game {
     }
 
     start() {
-        new InputHandler(this.ship);
+        new InputHandler(this.ship, this);
         if (this.ghostMode == true) {
             this.gameObjects.push(this.ghost_ship);
             this.gameObjects.push(this.pidGraph);
@@ -91,6 +92,14 @@ export default class Game {
     update(dt, timeStamp) {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
+        if(this.gameState === GAMESTATE.PAUSED) {
+            if(document.getElementById('continue').clicked == true) {
+                this.gameState = GAMESTATE.RUNNING;
+            }
+            else {
+                return;
+            }
+        }
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
         
@@ -144,6 +153,10 @@ export default class Game {
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
+        }
+
+        if(this.gameState === GAMESTATE.PAUSED) {
+            this.drawPausedWindow(ctx);
         }
     }
 
@@ -201,13 +214,52 @@ export default class Game {
         if (GraphicsUtility.wordEffectCount > 0 && this.ghostMode) GraphicsUtility.drawScoreWord(ctx, ScoreHandler.ghostScoreChange, this.ghost_ship);
     }
 
+    pauseGame() {
+        this.gameState = GAMESTATE.PAUSED;
+    }
+
+    resumeGame() {
+        this.gameState = GAMESTATE.RUNNING;
+        document.getElementById('summary').style.display = 'none';
+    }
+
+    drawPausedWindow(ctx) {
+        // window
+        ctx.fillStyle = "rgba(0,0,0,0.65)";
+        ctx.fillRect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
+
+        // game over text
+        GraphicsUtility.toGameHeaderFontStyle(ctx);
+        ctx.fillText("GAME PAUSED", this.gameWidth / 2, this.gameHeight / 2);
+        GraphicsUtility.toGameBodyFontStyle(ctx);
+        ctx.fillText("Press esc again to unpause, or See Results to end game", this.gameWidth / 2, this.gameHeight / 2 + 20);
+
+        // button to summary page
+        document.getElementById('summary').style.display = 'block';
+        document.getElementById('summary').style.left = this.gameWidth/2 - 60;
+        document.getElementById('summary').style.top = -280;
+
+        /* tried to add continue button to paused screen, but I couldn't figure out how to resume the game
+        //button to continue
+        document.getElementById('continue').style.display = 'block';
+        document.getElementById('continue').style.left = this.gameWidth/2 - 130;
+        document.getElementById('continue').style.top = -355;
+
+        document.getElementById('continue').onclick = continueButton();
+
+        function continueButton() {
+            let state = GAMESTATE.RUNNING;
+            console.log('running')
+        }
+        */
+    }
 
     drawGameOverWindow(ctx) {
         // window
         ctx.fillStyle = "rgba(0,0,0,0.65)";
         ctx.fillRect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
 
-        // gmae over text
+        // game over text
         GraphicsUtility.toGameHeaderFontStyle(ctx);
         ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
 

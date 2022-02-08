@@ -94,6 +94,13 @@ select {
   padding: 20px;
 }
 
+/*continue button */
+#continue{
+  position: relative;
+  text-align: center;
+  padding: 20px;
+}
+
 /* pid input values */
 /*hide up/down arrows*/
 input::-webkit-outer-spin-button,
