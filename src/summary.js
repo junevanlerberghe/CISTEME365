@@ -173,6 +173,7 @@ export default class Summary {
         // button to index page
         document.getElementById('indexButton').style.display = "block";
         document.getElementById('indexButton').style.left = this.gameWidth/2 - 60;
-        document.getElementById('indexButton').style.top = -280;
+        document.getElementById('indexButton').style.marginLeft = 5;
+        document.getElementById('indexButton').style.marginTop = -43;
     }
 }
