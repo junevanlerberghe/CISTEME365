@@ -3,6 +3,8 @@ export var ScoreHandler = {
     popupMessagesDict: {
         1: "Start!",
         0: "Hit!",
+        5: "Not Bad",
+        6: "Not Bad",
         7: "Not Bad",
         8: "Good",
         9: "Great",
