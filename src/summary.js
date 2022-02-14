@@ -12,7 +12,7 @@ export default class Summary {
             width: 500,
             height: 300,
             axisY: 250 + 300 / 2, // y of xAxis relative to upper left
-            yScale: 0.15, // play around with this
+            yScale: 0.03, // play around with this
             
             lineColors: ["#008000", "#FF00FF", "#FFC000"]
         };
