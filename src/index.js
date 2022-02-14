@@ -9,6 +9,13 @@ function start_game() {
     console.log("Game Started");
     sessionStorage.setItem("difficulty", document.getElementById("difficulty").selectedIndex + 1); // +1 bc difficulties are 1-indexed
     sessionStorage.setItem("playerType", document.getElementById("playerType").selectedIndex);
+    
+    sessionStorage.setItem("useCustomPIDCoeff", document.getElementById("customPIDCoefficientsCheckbox").checked);
+    if (document.getElementById("customPIDCoefficientsCheckbox").checked) {
+        sessionStorage.setItem("customPIDCoefficients", [document.getElementById("pCoefficientInputBox").value,
+        document.getElementById("iCoefficientInputBox").value, document.getElementById("dCoefficientInputBox").value]);
+    }
+    
 }
 
 function change_difficulty() {

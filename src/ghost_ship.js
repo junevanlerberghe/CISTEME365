@@ -9,8 +9,10 @@ import Ship from './ship.js'
 export default class GhostShip extends Ship {
     constructor(game) {
         super(game, 0.5);
-
+        console.log(sessionStorage.getItem("useCustomPIDCoeff"))
         //PID variables
+        this.customCoeff = sessionStorage.getItem("useCustomPIDCoeff") == "true";
+        this.coefficients = this.customCoeff ? this.parsePIDCoefficients(sessionStorage.getItem("customPIDCoefficients")) : [];
         this.errors = [0];
         this.historicPID = [[]]; // keeps track of PID values for each frame
     }
@@ -64,9 +66,9 @@ export default class GhostShip extends Ship {
         //let Ki = 0.0000001;
         //let Kd = 0.0005;
  
-        let Kp = 1*0.5;
-        let Ki = 1*0.005;
-        let Kd = 1*0.5;
+        let Kp = this.customCoeff ? this.coefficients[0] : 1*0.5;
+        let Ki = this.customCoeff ? this.coefficients[1] : 1*0.05;
+        let Kd = this.customCoeff ? this.coefficients[2] : 1*0.5; 
  
         
         let curr_err = target_pos_y - curr_y;
@@ -96,5 +98,21 @@ export default class GhostShip extends Ship {
         */
         // console.log(curr_y);
         //console.log("y: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
+    }
+
+
+    /********************************
+     * HELPER
+     ********************************/
+    parsePIDCoefficients(pidCoeff) {
+        let pidCoeffSplit = pidCoeff.split(',');
+
+        console.log(pidCoeffSplit);
+        let output = [];
+
+        for (let i = 0; i < pidCoeffSplit.length; i ++) { // start at i=1 bc first value in PID History is blank
+            output.push(parseInt(pidCoeffSplit[i]));
+        }
+        return output;
     }
 }
