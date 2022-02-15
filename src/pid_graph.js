@@ -4,7 +4,7 @@ export default class BarGraph{
     constructor(game){
         //graphics
         const img = new Image();
-        img.src = "assets/PID_graph_frame_resized.PNG";
+        img.src = "assets/PID_graph_frame_resized.png";
         this.image = img;
 
         //sizing
