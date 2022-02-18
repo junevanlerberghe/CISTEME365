@@ -136,20 +136,7 @@ export default class Game {
         
         if(this.gameState === GAMESTATE.GAMEOVER) {
             // store data in local storage for summary page to access
-            sessionStorage.setItem("totalTime", this.totalTime);
-            sessionStorage.setItem("obstaclesPassed", this.obstaclesPassed);
-            sessionStorage.setItem("level", this.level);
-            sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
-            if (this.playerMode){
-                sessionStorage.setItem("score", ScoreHandler.score);
-            } else {
-                sessionStorage.setItem("score", "N/A");
-            }
-            if (this.ghostMode){
-                sessionStorage.setItem("scoreGhost", ScoreHandler.ghostScore); //to be used in comparison bar graph in summary page
-            } else {
-                sessionStorage.setItem("scoreGhost", "N/A");
-            }
+            this.saveGameStats()
 
             // draw game over window + button to move to summary page
             this.drawGameOverWindow(ctx);
@@ -234,6 +221,9 @@ export default class Game {
         GraphicsUtility.toGameBodyFontStyle(ctx);
         ctx.fillText("Press esc again to unpause, or See Results to end game", this.gameWidth / 2, this.gameHeight / 2 + 20);
 
+        // save game stats
+        this.saveGameStats()
+
         // button to summary page
         document.getElementById('summary').style.display = 'block';
         document.getElementById('summary').style.left = this.gameWidth/2 - 60;
@@ -272,5 +262,22 @@ export default class Game {
     // helper methods
     generateObstacle() {
         return new ObstaclePair(this, OBSTACLE_TYPE.ROCK);
+    }
+
+    saveGameStats(){
+        sessionStorage.setItem("totalTime", this.totalTime);
+            sessionStorage.setItem("obstaclesPassed", this.obstaclesPassed);
+            sessionStorage.setItem("level", this.level);
+            sessionStorage.setItem("pidHistory", this.ghost_ship.historicPID);
+            if (this.playerMode){
+                sessionStorage.setItem("score", ScoreHandler.score);
+            } else {
+                sessionStorage.setItem("score", "N/A");
+            }
+            if (this.ghostMode){
+                sessionStorage.setItem("scoreGhost", ScoreHandler.ghostScore); //to be used in comparison bar graph in summary page
+            } else {
+                sessionStorage.setItem("scoreGhost", "N/A");
+            }
     }
 }
