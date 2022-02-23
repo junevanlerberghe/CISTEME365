@@ -27,7 +27,7 @@ export default class Ship {
         this.maxSpeed = 4;
         this.velocity = 0;
 
-        this.maxAcceleration = 2;
+        this.maxAcceleration = 3; //2;
         this.acceleration = 0;
         this.deltaAcceleration = 0.5;
 
@@ -53,12 +53,18 @@ export default class Ship {
 
     moveUp() {
         // this.speed = -this.maxSpeed;
-        this.acceleration += (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0);
+        // this.acceleration += (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0);
+        // if (this.acceleration < -this.maxAcceleration) this.acceleration = -this.maxAcceleration;
+
+        this.acceleration = -this.maxAcceleration;
     }
 
     moveDown() {
         // this.speed = this.maxSpeed;
-        this.acceleration += (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0);
+        // this.acceleration += (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0);
+        // if (this.acceleration > this.maxAcceleration) this.acceleration = this.maxAcceleration;
+
+        this.acceleration = this.maxAcceleration;
     }
 
     /**********************************************************
@@ -76,6 +82,11 @@ export default class Ship {
 
     update(dt) {
         if(!dt) return;
+        
+        // update velocity w/ respect to accel, but don't go past maxSpeed
+        if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
+        else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
+        
         this.updateMovement();
         this.checkCollisions();
 
@@ -92,9 +103,6 @@ export default class Ship {
     }
 
     updateMovement() {
-        // update velocity w/ respect to accel, but don't go past maxSpeed
-        if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
-        else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
         // update position w/ respect to velocity (including wind)
         this.position.y += this.velocity + this.wind.currentVelocity;
         // console.log("x: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);

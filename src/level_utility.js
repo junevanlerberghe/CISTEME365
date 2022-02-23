@@ -22,7 +22,7 @@ export var LevelUtility = {
     augmentWind: function (currLevel, wind, difficulty) {
         // augment amp. if amp = 0, set amp to nonzero value
         if (wind.amplitude < wind.maxAmplitude) wind.amplitude *= this.deltaWindAmplitude * difficulty.windScale;
-        if (wind.amplitude === 0) wind.amplitude = 0.3;
+        // if (wind.amplitude === 0) wind.amplitude = 0.3;
 
         // if period is cyclical, augment period. if acyclical, reverse wind direction
         if (wind.isCyclical() && wind.period > wind.minPeriod) wind.period *= this.deltaWindPeriod / difficulty.windScale;

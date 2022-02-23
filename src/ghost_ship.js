@@ -15,6 +15,9 @@ export default class GhostShip extends Ship {
         this.coefficients = this.customCoeff ? this.parsePIDCoefficients(sessionStorage.getItem("customPIDCoefficients")) : [];
         this.errors = [0];
         this.historicPID = [[]]; // keeps track of PID values for each frame
+
+
+        this.time = 0;
     }
 
     draw(ctx) {
@@ -24,6 +27,8 @@ export default class GhostShip extends Ship {
     }
 
     update(dt) {
+        this.time++;
+
         if(!dt) return;
         this.updateMovement();
     }
@@ -33,9 +38,11 @@ export default class GhostShip extends Ship {
         // console.log(output);
 
         // lgoddard edit
-        this.velocity += output*this.maxAcceleration;
-        if(this.velocity>this.maxSpeed) this.velocity = this.maxSpeed;
-        if(this.velocity<-this.maxSpeed) this.velocity = -this.maxSpeed;
+        if(true){//this.time % 60 == 0) {  // update every other
+            this.velocity = output * this.maxSpeed; //+= output; //*this.maxAcceleration; // output [-1, 1]
+            if(this.velocity>this.maxSpeed) this.velocity = this.maxSpeed;
+            if(this.velocity<-this.maxSpeed) this.velocity = -this.maxSpeed;
+        }
 
         // no idea if this is right        
         // update accel to hit target y, but don't go past maxAccel
@@ -85,10 +92,10 @@ export default class GhostShip extends Ship {
         let output = up + ui + ud;
         
         let historicPIDScale = 30; //150 / ((Math.abs(up) + Math.abs(ui) + Math.abs(ud))/3);
-        this.historicPID.push([up * historicPIDScale, ui * historicPIDScale, ui/up * historicPIDScale]);
+        this.historicPID.push([up * historicPIDScale, ui * historicPIDScale, ud * historicPIDScale]);
       //  this.historicPID.push([0.01*curr_err * historicPIDScale, 0.01*sum_error * historicPIDScale, 10*output * historicPIDScale]);
 
-        console.log(up, ui, ui/up)
+        console.log(up, ui, ud)
 
         return output;
         /*
@@ -111,8 +118,10 @@ export default class GhostShip extends Ship {
         let output = [];
 
         for (let i = 0; i < pidCoeffSplit.length; i ++) { // start at i=1 bc first value in PID History is blank
-            output.push(parseInt(pidCoeffSplit[i]));
+            output.push(parseFloat(pidCoeffSplit[i]));
         }
+
+        console.log(output);
         return output;
     }
 }

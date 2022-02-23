@@ -36,11 +36,11 @@ export default class Difficulty {
     static difficulty1() {
         let label = "Easy";
         let lives = 3;
-        let wind = new Wind(0, 0, 0);
+        let wind = new Wind(0, 0, 0); //new Wind(1, 0.5, 0);
         let goal = 1;
         let width = 1; //keeping dist the same
         let speed = 5;
-        let windScale = 0.9;
+        let windScale = 0; //0.9;
         return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }
     static difficulty2() {
