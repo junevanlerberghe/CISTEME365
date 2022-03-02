@@ -23,6 +23,9 @@
 <body>
     <!--this container wraps the entire screen-->
     <div class="container-fluid" id="everything_wrapper">
+        <script>
+            var el = document.getElementById('everything_wrapper');el.webkitRequestFullscreen();
+        </script>
         <div class="row h-100">
             <!-- this holds the content -->
             <div class="col col-sm-12 w-auto m-auto">
@@ -34,7 +37,7 @@
 
                         <a href="index.html"><button id="indexButton" style="margin-top:10px;" type="button"
                             class="btn btn-primary">Play Again</button></a>
-                            <button id="btnFullscreen" type="button">Fullscreen</button>
+                            <button id="btnFullscreen" type="button">Fullscreen</button>;
                             <script> function toggleFullscreen(elem) {
                                 elem = elem || document.documentElement;
                               
@@ -60,11 +63,12 @@
                                     document.webkitExitFullscreen();
                                   }
                                 }
-                              }
-                              
+                            }
                               document.getElementById('btnFullscreen').addEventListener('click', function() {
                                 toggleFullscreen();
-                              }); </script>
+                              }); 
+                            
+                              </script>
                     </div>
                 </div>
                 

@@ -40,7 +40,7 @@ export default class Difficulty {
         let goal = 1;
         let width = 1; //keeping dist the same
         let speed = 5;
-        let windScale = 0; //0.9;
+        let windScale = 0.9;
         return new Difficulty(label, lives, wind, goal, width, speed, windScale);
     }
     static difficulty2() {
