@@ -15,6 +15,7 @@ function start_game() {
         sessionStorage.setItem("customPIDCoefficients", [document.getElementById("pCoefficientInputBox").value,
         document.getElementById("iCoefficientInputBox").value, document.getElementById("dCoefficientInputBox").value]);
     }
+    sessionStorage.setItem("windUse", document.getElementById("windToggleCheckbox").checked);
     
 }
 

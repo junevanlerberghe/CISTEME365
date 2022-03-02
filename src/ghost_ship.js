@@ -9,7 +9,8 @@ import Ship from './ship.js'
 export default class GhostShip extends Ship {
     constructor(game) {
         super(game, 0.5);
-        console.log(sessionStorage.getItem("useCustomPIDCoeff"))
+        console.log(sessionStorage.getItem("useCustomPIDCoeff"));
+
         //PID variables
         this.customCoeff = sessionStorage.getItem("useCustomPIDCoeff") == "true";
         this.coefficients = this.customCoeff ? this.parsePIDCoefficients(sessionStorage.getItem("customPIDCoefficients")) : [];
