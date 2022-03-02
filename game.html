@@ -11,6 +11,11 @@
             border: 1px solid rgba(0, 0, 0, 0);
             background:#0085bb;
         }
+        #exampleImage { cursor:zoom-in; }
+        #exampleImage:-webkit-full-screen { cursor:zoom-out; }
+        #exampleImage:-moz-full-screen { cursor:zoom-out; }
+        #exampleImage:-ms-fullscreen { cursor:zoom-out; }
+        #exampleImage:fullscreen { cursor:zoom-out; }
     </style>
 </head>
 
@@ -31,13 +36,50 @@
 
                         <a><button id="continue" style="margin-top:10px; display: none;" type="button"
                             class="btn btn-primary">Continue</button></a>
+                        
                     </div>
+                    
                 </div>
+                <button id="btnFullscreen" type="button">Fullscreen</button>
+                <script> function toggleFullscreen(elem) {
+                    elem = elem || document.documentElement;
+                  
+                    if (!document.fullscreenElement && !document.mozFullScreenElement &&
+                      !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                      if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                      } else if (elem.msRequestFullscreen) {
+                        elem.msRequestFullscreen();
+                      } else if (elem.mozRequestFullScreen) {
+                        elem.mozRequestFullScreen();
+                      } else if (elem.webkitRequestFullscreen) {
+                        elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                      }
+                    } else {
+                      if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                      } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                      } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                      } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                      }
+                    }
+                  }
+                  
+                  document.getElementById('btnFullscreen').addEventListener('click', function() {
+                    toggleFullscreen();
+                  }); </script>
+                <!--<button onclick = "var el = document.getElementById('everything_wrapper');el.webkitRequestFullscreen();">Go Full Screen!</button>-->
             </div>
         </div>
+
     </div>
 
-    <script type="module" src="src/game_screen.js"></script>
+    <script type="module" src="src/game_screen.js">
+        
+    </script>
 </body>
 
 </html>

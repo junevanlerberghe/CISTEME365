@@ -94,6 +94,13 @@ select {
   padding: 20px;
 }
 
+/* fullscreen button*/
+#btnFullscreen{
+  /*position:relative;
+  text-align: center;
+  padding: 20px;*/
+}
+
 /*continue button */
 #continue{
   position: relative;
