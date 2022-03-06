@@ -24,21 +24,7 @@
     <!--this container wraps the entire screen-->
     <div class="container-fluid" id="everything_wrapper">
         <script>
-            var el = document.getElementById('everything_wrapper');el.webkitRequestFullscreen();
-        </script>
-        <div class="row h-100">
-            <!-- this holds the content -->
-            <div class="col col-sm-12 w-auto m-auto">
-                <div class="row p-4 rounded" id="menu">
-                    <!--this col holds the game canvas-->
-                    <div class="col-7" id="instruction_col">
-                        <canvas id="summaryScreen" width="800" height="600">
-                        </canvas>
-
-                        <a href="index.html"><button id="indexButton" style="margin-top:10px;" type="button"
-                            class="btn btn-primary">Play Again</button></a>
-                            <button id="btnFullscreen" type="button">Fullscreen</button>;
-                            <script> function toggleFullscreen(elem) {
+            function toggleFullscreen(elem) {
                                 elem = elem || document.documentElement;
                               
                                 if (!document.fullscreenElement && !document.mozFullScreenElement &&
@@ -64,6 +50,23 @@
                                   }
                                 }
                             }
+                            if (true){
+                              toggleFullscreen();
+                            };
+        </script>
+        <div class="row h-100">
+            <!-- this holds the content -->
+            <div class="col col-sm-12 w-auto m-auto">
+                <div class="row p-4 rounded" id="menu">
+                    <!--this col holds the game canvas-->
+                    <div class="col-7" id="instruction_col">
+                        <canvas id="summaryScreen" width="800" height="600">
+                        </canvas>
+
+                        <a href="index.html"><button id="indexButton" style="margin-top:10px;" type="button"
+                            class="btn btn-primary">Play Again</button></a>
+                            <button id="btnFullscreen" type="button" style="margin-top:10px;" class="btn btn-secondary" >Fullscreen</button>
+                            <script> 
                               document.getElementById('btnFullscreen').addEventListener('click', function() {
                                 toggleFullscreen();
                               }); 

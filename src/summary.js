@@ -173,7 +173,7 @@ export default class Summary {
         // button to index page
         document.getElementById('indexButton').style.display = "block";
         document.getElementById('indexButton').style.left = this.gameWidth/2 - 60;
-        document.getElementById('indexButton').style.top = -280;
+        //document.getElementById('indexButton').style.top = 50;
         //document.getElementById('btnFullscreen').style.display = "block";
         //document.getElementById('btnFullscreen').style.left = this.gameWidth/2 - 60;
         //document.getElementById('btnFullscreen').style.top = -280;

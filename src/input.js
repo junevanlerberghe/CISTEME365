@@ -16,7 +16,7 @@ export default class InputHandler {
                     ship.moveDown()
                     break
 
-                case 'Escape':
+                case 'Enter':
                     //alert("Game Paused")
                     if(count == 0) {
                         count = 1;
@@ -44,6 +44,21 @@ export default class InputHandler {
 
             }
         });
+        document.addEventListener("keydown", function(e){
+            if (e.key === "Enter"){
+                toggleFullScreen();
+            }
+        },false);
+        /*
+        function toggleFullScreen(){
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+              }
+            }
+        }*/
         
     }
     /*constructor(ship) {
