@@ -24,7 +24,7 @@ export default class Ship {
             x: 60,
             y: (this.gameHeight - this.height) / 2
         };
-        this.maxSpeed = 4;
+        this.maxSpeed = 40;//4;
         this.velocity = 0;
 
         this.maxAcceleration = 3; //2;
@@ -53,18 +53,18 @@ export default class Ship {
 
     moveUp() {
         // this.speed = -this.maxSpeed;
-        // this.acceleration += (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0);
-        // if (this.acceleration < -this.maxAcceleration) this.acceleration = -this.maxAcceleration;
+        this.acceleration += (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0);
+        if (this.acceleration < -this.maxAcceleration) this.acceleration = -this.maxAcceleration;
 
-        this.acceleration = -this.maxAcceleration;
+        // this.acceleration = -this.maxAcceleration;
     }
 
     moveDown() {
         // this.speed = this.maxSpeed;
-        // this.acceleration += (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0);
-        // if (this.acceleration > this.maxAcceleration) this.acceleration = this.maxAcceleration;
+        this.acceleration += (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0);
+        if (this.acceleration > this.maxAcceleration) this.acceleration = this.maxAcceleration;
 
-        this.acceleration = this.maxAcceleration;
+        // this.acceleration = this.maxAcceleration;
     }
 
     /**********************************************************
@@ -104,7 +104,7 @@ export default class Ship {
 
     updateMovement() {
         // update position w/ respect to velocity (including wind)
-        this.position.y += this.velocity + this.wind.currentVelocity;
+        this.position.y += this.game.velocityConstant * (this.velocity + this.wind.currentVelocity);
         // console.log("x: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
 
         if(this.position.y < 0) this.position.y = 0;

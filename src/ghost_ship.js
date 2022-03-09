@@ -39,7 +39,7 @@ export default class GhostShip extends Ship {
         // console.log(output);
 
         // lgoddard edit
-        if(true){//this.time % 60 == 0) {  // update every other
+        if(true) {//this.time % 60 == 0) {  // update every other
             this.velocity = output * this.maxSpeed; //+= output; //*this.maxAcceleration; // output [-1, 1]
             if(this.velocity>this.maxSpeed) this.velocity = this.maxSpeed;
             if(this.velocity<-this.maxSpeed) this.velocity = -this.maxSpeed;
@@ -92,11 +92,12 @@ export default class GhostShip extends Ship {
         let ud = Kd*(curr_err - this.errors.at(-2));
         let output = up + ui + ud;
         
-        let historicPIDScale = 30; //150 / ((Math.abs(up) + Math.abs(ui) + Math.abs(ud))/3);
-        this.historicPID.push([up * historicPIDScale, ui * historicPIDScale, ud * historicPIDScale]);
+        let historicPIDScale = 60; //30; //150 / ((Math.abs(up) + Math.abs(ui) + Math.abs(ud))/3);
+        this.historicPID.push([this.velocity * historicPIDScale, this.position * historicPIDScale, this.velocity * historicPIDScale]);
+        //up * historicPIDScale, ui * historicPIDScale, this.velocity]); //ud * historicPIDScale]);
       //  this.historicPID.push([0.01*curr_err * historicPIDScale, 0.01*sum_error * historicPIDScale, 10*output * historicPIDScale]);
 
-        console.log(up, ui, ud)
+        console.log(this.velocity);//up, ui, ud)
 
         return output;
         /*

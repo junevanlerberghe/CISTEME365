@@ -54,6 +54,8 @@ export default class Game {
         this.score = 0;
         this.scoreGhost = 0;
 
+        this.velocityConstant = 1;//0.1; // multiples all velocities in game
+
         // properties
         this.lives = this.difficulty.lives;
         this.goal = this.difficulty.goal;
