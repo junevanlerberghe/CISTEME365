@@ -41,6 +41,11 @@ export default class Ship {
         this.blinkOnPhase = false; // if true, ship is not drawn (so a flashing effect is created)
         this.blinkPhaseLength = 7;
         this.infiniteLivesMode = false; // testing make sure to set to false before exporting
+
+        this.m = 1;
+        this.g = -0.005;
+        this.F = 0.01;
+        this.b = 0.01;
     }
 
     /**********************************************************
@@ -84,10 +89,10 @@ export default class Ship {
         if(!dt) return;
         
         // update velocity w/ respect to accel, but don't go past maxSpeed
-        if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
-        else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
+        //if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
+        //else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
         
-        this.updateMovement();
+        this.updateMovement(dt);
         this.checkCollisions();
 
         if (this.isCurrentlyImmune()) {
@@ -102,9 +107,14 @@ export default class Ship {
         }
     }
 
-    updateMovement() {
+    updateMovement(dt) {
+        //new velocity
+        this.prevVelocity = this.velocity
+        this.velocity = this.prevVelocity + dt*(this.F*this.acceleration - this.g*this.game.wind.currentVelocity - this.b*this.prevVelocity)/this.m
+        this.position.y += dt*(this.prevVelocity + this.velocity)/2.0
+
         // update position w/ respect to velocity (including wind)
-        this.position.y += this.game.velocityConstant * (this.velocity + this.wind.currentVelocity);
+        //this.position.y += this.game.velocityConstant * (this.velocity + this.wind.currentVelocity);
         // console.log("x: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
 
         if(this.position.y < 0) this.position.y = 0;
