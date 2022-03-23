@@ -36,7 +36,7 @@ export default class Difficulty {
     static difficulty1() {
         let label = "Easy";
         let lives = 3;
-        let wind = new Wind(0, 0, 0); //new Wind(1, 0.5, 0);
+        let wind = new Wind(0, 0.1, 0);
         let goal = 1;
         let width = 1; //keeping dist the same
         let speed = 5;
@@ -56,7 +56,7 @@ export default class Difficulty {
     static difficulty3() {
         let label = "Hard";
         let lives = 3;
-        let wind = new Wind(0, 25, 0); // new Wind(0, 0.5, 0);
+        let wind = new Wind(0, 0.3, 0); // new Wind(0, 0.5, 0);
         let goal = 2;
         let width = 0.8; //passage is a little smaller
         let speed = 8;

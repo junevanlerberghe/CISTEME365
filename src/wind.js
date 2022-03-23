@@ -12,7 +12,7 @@ export default class Wind {
         this.amplitude = amplitude;
         this.period = period;
 
-        this.maxAmplitude = 2;
+        this.maxAmplitude = 0.7;
         this.minCyclicalPeriod = 3000;
 
         this.currentVelocity = baseline;
@@ -26,7 +26,11 @@ export default class Wind {
         } else {
             // case: static wind: constant strenght, switches direction every time passes iceberg
             this.currentVelocity = (this.currentVelocity > 0 ? this.amplitude : -this.amplitude);
-        }        
+        }
+        if (Math.abs(this.amplitude) > this.maxAmplitude) {
+            // cap amplitude
+            this.amplitude = this.maxAmplitude;
+        }
     }
 
     reverseDirection() {

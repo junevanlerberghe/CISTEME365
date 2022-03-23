@@ -35,11 +35,11 @@ export default class InputHandler {
         document.addEventListener("keyup", event => {
             switch(event.key) {
                 case 'ArrowDown':
-                    if(ship.velocity > 0) ship.stop()
+                    ship.stop();
                     break
                     
                 case 'ArrowUp':
-                    if(ship.velocity < 0) ship.stop()
+                    ship.stop();
                     break
 
             }

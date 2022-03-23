@@ -24,10 +24,10 @@ export default class Ship {
             x: 60,
             y: (this.gameHeight - this.height) / 2
         };
-        this.maxSpeed = 40;//4;
+        this.maxSpeed = 9999999999999999;//40;//4;
         this.velocity = 0;
 
-        this.maxAcceleration = 3; //2;
+        this.maxAcceleration = 0.5; //2;
         this.acceleration = 0;
         this.deltaAcceleration = 0.5;
 
@@ -40,7 +40,7 @@ export default class Ship {
         this.immunityTime = 0;
         this.blinkOnPhase = false; // if true, ship is not drawn (so a flashing effect is created)
         this.blinkPhaseLength = 7;
-        this.infiniteLivesMode = false; // testing make sure to set to false before exporting
+        this.infiniteLivesMode = true; // testing make sure to set to false before exporting
 
         this.m = 1;
         this.g = -0.005;
@@ -58,18 +58,18 @@ export default class Ship {
 
     moveUp() {
         // this.speed = -this.maxSpeed;
-        this.acceleration += (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0);
-        if (this.acceleration < -this.maxAcceleration) this.acceleration = -this.maxAcceleration;
+        //this.acceleration += (this.acceleration > -this.maxAcceleration ? -this.deltaAcceleration : 0);
+        //if (this.acceleration < -this.maxAcceleration) this.acceleration = -this.maxAcceleration;
 
-        // this.acceleration = -this.maxAcceleration;
+        this.acceleration = -this.maxAcceleration;
     }
 
     moveDown() {
         // this.speed = this.maxSpeed;
-        this.acceleration += (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0);
-        if (this.acceleration > this.maxAcceleration) this.acceleration = this.maxAcceleration;
+        //this.acceleration += (this.acceleration < this.maxAcceleration ? this.deltaAcceleration : 0);
+        //if (this.acceleration > this.maxAcceleration) this.acceleration = this.maxAcceleration;
 
-        // this.acceleration = this.maxAcceleration;
+        this.acceleration = this.maxAcceleration;
     }
 
     /**********************************************************
