@@ -44,6 +44,8 @@ export default class ObstaclePair {
     }
     update(dt) {
         if(!dt) return;
+        //necessary for pause feature
+        this.speed = this.speed
         this.position1.x -= this.speed;
         this.position2.x -= this.speed;
 

@@ -34,6 +34,8 @@ export default class Wave {
 
     update(dt) {
         if (!dt) return;
+        //necessary for pause feature
+        this.speed = this.speed
         // The multiplier (0.6) serves as a buffer for visual purposes.
         this.currentPosition.y += (0.6)*this.wind.currentVelocity;
         this.currentPosition.x -= this.speed;

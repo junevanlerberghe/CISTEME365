@@ -30,6 +30,11 @@ export default class Game {
         console.log("difficulty: " + gameDifficulty + ", player type: " + playerType);
         
         // basic game information
+        const GAMESTATE = {
+            GAMEOVER: 0,
+            RUNNING: 1,
+            PAUSED: 2
+        };
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
         this.playerType = playerType;
@@ -85,6 +90,7 @@ export default class Game {
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
+        this.pauseClickState = 0
     }
 
     start() {
@@ -101,20 +107,17 @@ export default class Game {
     update(dt, timeStamp) {
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
-        if(this.gameState === GAMESTATE.PAUSED) {
-            if(document.getElementById('continue').clicked == true) {
-                this.gameState = GAMESTATE.RUNNING;
-            }
-            else {
-                return;
-            }
-        }
+        //There are many checkPauseButtons() functions. I think when the game is at certain parts of the loop, the function checkPauseButton()
+        //isn't read so the button click isn't always registered.
+        this.checkPauseButton();
         this.wind.update(timeStamp);
+        this.checkPauseButton();
         this.gameObjects.forEach(x => x.update(dt));
-        
+        this.checkPauseButton();
         this.totalTime += dt/1000;
-
+        this.checkPauseButton();
         this.updateLevel();
+        this.checkPauseButton();
     }
 
     updateLevel() {
@@ -212,10 +215,21 @@ export default class Game {
 
     pauseGame() {
         this.gameState = GAMESTATE.PAUSED;
+        this.obstacle_pair.speed = 0;
+        this.waveSavedSpeed = this.wave.speed;
+        this.wave.speed = 0;
+        this.waveSavedSpeed2 = this.wave2.speed;
+        this.wave2.speed = 0;
+        this.waveSavedSpeed3 = this.wave3.speed;
+        this.wave3.speed = 0;
     }
 
     resumeGame() {
         this.gameState = GAMESTATE.RUNNING;
+        this.obstacle_pair.speed = this.speed;
+        this.wave.speed = this.waveSavedSpeed;
+        this.wave2.speed = this.waveSavedSpeed2;
+        this.wave3.speed = this.waveSavedSpeed3;
         document.getElementById('summary').style.display = 'none';
     }
 
@@ -228,7 +242,7 @@ export default class Game {
         GraphicsUtility.toGameHeaderFontStyle(ctx);
         ctx.fillText("GAME PAUSED", this.gameWidth / 2, this.gameHeight / 2);
         GraphicsUtility.toGameBodyFontStyle(ctx);
-        ctx.fillText("Press esc again to unpause, or See Results to end game", this.gameWidth / 2, this.gameHeight / 2 + 20);
+        ctx.fillText("Press Enter again to unpause, or See Results to end game", this.gameWidth / 2, this.gameHeight / 2 + 20);
 
         // save game stats
         this.saveGameStats()
@@ -271,6 +285,19 @@ export default class Game {
     // helper methods
     generateObstacle() {
         return new ObstaclePair(this, OBSTACLE_TYPE.ROCK);
+    }
+
+    checkPauseButton() {
+        document.getElementById('pause').addEventListener('click', button=>{
+            this.pauseClickState += 1
+            if (this.pauseClickState % 2 == 0){
+            this.pauseGame();
+            document.getElementById('pause').innerHTML="Resume"
+            }else{
+            this.resumeGame();
+            document.getElementById('pause').innerHTML="Pause"
+            }
+        })
     }
 
     saveGameStats(){

@@ -91,7 +91,6 @@ export default class Ship {
         // update velocity w/ respect to accel, but don't go past maxSpeed
         //if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
         //else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
-        
         this.updateMovement(dt);
         this.checkCollisions();
 
