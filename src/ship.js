@@ -20,6 +20,7 @@ export default class Ship {
         this.height = 58;
 
         // kinematics
+        this.updateMovementConst = true;
         this.position = {
             x: 60,
             y: (this.gameHeight - this.height) / 2
@@ -87,11 +88,12 @@ export default class Ship {
 
     update(dt) {
         if(!dt) return;
-        
         // update velocity w/ respect to accel, but don't go past maxSpeed
         //if (this.acceleration > 0 && this.velocity < this.maxSpeed) { this.velocity += this.acceleration; }
         //else if (this.acceleration < 0 &&  this.velocity > -this.maxSpeed) { this.velocity += this.acceleration; }
-        this.updateMovement(dt);
+        if (this.updateMovementConst){
+            this.updateMovement(dt);
+        }
         this.checkCollisions();
 
         if (this.isCurrentlyImmune()) {

@@ -20,6 +20,8 @@ export default class GhostShip extends Ship {
         this.game = game;
         this.time = 0;
         
+        this.updateMovementConst = true;
+        
     }
 
     draw(ctx) {
@@ -32,7 +34,9 @@ export default class GhostShip extends Ship {
         this.time++;
 
         if(!dt) return;
-        this.updateMovement(dt);
+        if(this.updateMovementConst){
+            this.updateMovement(dt);
+        }
     }
 
     updateMovement(dt) {

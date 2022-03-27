@@ -215,6 +215,8 @@ export default class Game {
 
     pauseGame() {
         this.gameState = GAMESTATE.PAUSED;
+        this.ship.updateMovementConst = false;
+        this.ghost_ship.updateMovementConst = false;
         this.obstacle_pair.speed = 0;
         this.waveSavedSpeed = this.wave.speed;
         this.wave.speed = 0;
@@ -226,6 +228,8 @@ export default class Game {
 
     resumeGame() {
         this.gameState = GAMESTATE.RUNNING;
+        this.ship.updateMovementConst = true;
+        this.ghost_ship.updateMovementConst = true;
         this.obstacle_pair.speed = this.speed;
         this.wave.speed = this.waveSavedSpeed;
         this.wave2.speed = this.waveSavedSpeed2;
