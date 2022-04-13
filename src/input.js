@@ -16,7 +16,7 @@ export default class InputHandler {
                     ship.moveDown()
                     break
 
-                case 'Enter':
+                /*case 'Enter':
                     //alert("Game Paused")
                     if(count == 0) {
                         count = 1;
@@ -28,7 +28,7 @@ export default class InputHandler {
                         game.resumeGame()
                         console.log('resume')
                     }
-                    break
+                    break*/
             }
         });
 
@@ -44,7 +44,7 @@ export default class InputHandler {
 
             }
         });
-        document.addEventListener("keydown", function(e){
+        /*document.addEventListener("keydown", function(e){
             if (e.key === "Enter"){
                 toggleFullScreen();
             }

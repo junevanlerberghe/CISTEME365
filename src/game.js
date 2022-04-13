@@ -16,7 +16,8 @@ import { ScoreHandler } from './score.js'
 const GAMESTATE = {
     GAMEOVER: 0,
     RUNNING: 1,
-    PAUSED: 2
+    PAUSED: 2,
+    START: 3
 };
 
 const OBSTACLE_TYPE = {
@@ -33,7 +34,8 @@ export default class Game {
         const GAMESTATE = {
             GAMEOVER: 0,
             RUNNING: 1,
-            PAUSED: 2
+            PAUSED: 2,
+            START: 3
         };
         this.gameHeight = gameHeight;
         this.gameWidth = gameWidth;
@@ -90,7 +92,12 @@ export default class Game {
 
         // game state!
         this.gameState = GAMESTATE.RUNNING;
-        this.pauseClickState = 0
+        this.pauseClickState = 0;
+
+        //wave info
+        this.waveSavedSpeed = this.wave.speed;
+        this.waveSavedSpeed2 = this.wave2.speed;
+        this.waveSavedSpeed3 = this.wave3.speed;
     }
 
     start() {
@@ -105,18 +112,18 @@ export default class Game {
     }
 
     update(dt, timeStamp) {
+        //this.startGame();             began working moving everything to one page
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
         //There are many checkPauseButtons() functions. I think when the game is at certain parts of the loop, the function checkPauseButton()
         //isn't read so the button click isn't always registered.
-        this.checkPauseButton();
         this.wind.update(timeStamp);
-        this.checkPauseButton();
         this.gameObjects.forEach(x => x.update(dt));
-        this.checkPauseButton();
         this.totalTime += dt/1000;
-        this.checkPauseButton();
         this.updateLevel();
+    }
+
+    input(dt){
         this.checkPauseButton();
     }
 
@@ -156,6 +163,10 @@ export default class Game {
 
         if(this.gameState === GAMESTATE.PAUSED) {
             this.drawPausedWindow(ctx);
+        }
+
+        if(this.gameState === GAMESTATE.START) {
+            this.drawStartWindow(ctx);
         }
     }
 
@@ -237,6 +248,19 @@ export default class Game {
         document.getElementById('summary').style.display = 'none';
     }
 
+    startGame() {
+        this.gameState = GAMESTATE.START;
+        this.ship.updateMovementConst = false;
+        this.ghost_ship.updateMovementConst = false;
+        this.obstacle_pair.speed = 0;
+        this.waveSavedSpeed = this.wave.speed;
+        this.wave.speed = 0;
+        this.waveSavedSpeed2 = this.wave2.speed;
+        this.wave2.speed = 0;
+        this.waveSavedSpeed3 = this.wave3.speed;
+        this.wave3.speed = 0;
+    }
+
     drawPausedWindow(ctx) {
         // window
         ctx.fillStyle = "rgba(0,0,0,0.65)";
@@ -269,6 +293,18 @@ export default class Game {
             console.log('running')
         }
         */
+    }
+
+    drawStartWindow(ctx) {
+        ctx.fillStyle = "rgba(255,255,255,0.1)";
+        ctx.fillRect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
+        GraphicsUtility.toGameHeaderFontStyle(ctx);
+        ctx.fillText("Page", this.gameWidth/2, this.gameHeight/2);
+        GraphicsUtility.toGameBodyFontStyle(ctx);
+        ctx.fillText("[Insert Game Info]", this.gameWidth/2, this.gameHeight/2 +20);
+        document.getElementById('start').style.display = 'block';
+        document.getElementById('start').style.left = this.gameWidth/2 - 60;
+        document.getElementById('start').style.top = -280
     }
 
     drawGameOverWindow(ctx) {

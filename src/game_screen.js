@@ -15,13 +15,15 @@ game.start();
 let lastTime = 0
 function gameLoop(timeStamp) {
     let dt = timeStamp - lastTime;
+    game.input(dt);
     lastTime = timeStamp;
-
+    game.input(dt);
     ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    
+    game.input(dt);
     game.update(dt, timeStamp);
+    game.input(dt);
     game.draw(ctx);
-
+    game.input(dt);
     requestAnimationFrame(gameLoop);
 }
 
