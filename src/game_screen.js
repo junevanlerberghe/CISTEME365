@@ -3,6 +3,32 @@ import Game from './game.js'
 let canvas = document.getElementById('gameScreen');
 let ctx = canvas.getContext('2d');
 
+/* Setting Current Slider Values */
+var slider = document.getElementById("pSlider");
+var output = document.getElementById("pval");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+var slider2 = document.getElementById("iSlider");
+var output2 = document.getElementById("ival");
+output2.innerHTML = slider2.value;
+
+slider2.oninput = function() {
+  output2.innerHTML = this.value;
+}
+
+var slider3 = document.getElementById("dSlider");
+var output3 = document.getElementById("dval");
+output3.innerHTML = slider3.value;
+
+slider3.oninput = function() {
+  output3.innerHTML = this.value;
+}
+/* End Setting Values */
+
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
 

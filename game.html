@@ -22,10 +22,31 @@
 <body>
     <!--this container wraps the entire screen-->
     <div class="container-fluid" id="everything_wrapper">
-        <div class="row h-100">
+        <div class="row h-50">
+          <!-- Styling the Sliders -->
+          <div class="sliders" style="display: flex; justify-content: space-between; width: 100%; margin-top:20px; margin-bottom: 20px;">
+
+            <span>P Value: <span id="pval"></span></span>
+            <span class="slidecontainer">
+              
+              <input type="range" min="0.0" max="1.0" value="0.5" step="0.05" id="pSlider">
+            </span>
+            <span>I Value: <span id="ival"></span></span>
+            <span class="slidecontainer">
+              
+              <input type="range" min="0.0" max="1.0" value="0.5" step="0.05" id="iSlider">
+            </span>
+            <span>D Value: <span id="dval"></span></span>
+            <span class="slidecontainer">
+              
+              <input type="range" min="0.0" max="1.0" value="0.5" step="0.05" id="dSlider">
+            </span>
+
+          </div>
             <!-- this holds the content -->
             <div class="col col-sm-12 w-auto m-auto" id="something">
                 <div class="row p-4 rounded" id="menu">
+
                     <!--this col holds the game canvas-->
                     <div class="col-7" id="instruction_col">
                         <canvas id="gameScreen" width="800" height="600">
@@ -44,7 +65,10 @@
                         
                     </div>
                     
+                    
                 </div>
+                
+                
                 <button id="btnFullscreen" type="button" style="margin-top:5px" class="btn btn-secondary">Fullscreen</button>
                 <script> function toggleFullscreen(elem) {
                     elem = elem || document.documentElement;
