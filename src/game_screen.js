@@ -8,7 +8,7 @@ const GAME_HEIGHT = 600;
 
 ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
-let game = new Game(GAME_WIDTH, GAME_HEIGHT, sessionStorage.getItem("difficulty"), sessionStorage.getItem("playerType"));
+let game = new Game(GAME_WIDTH, GAME_HEIGHT, sessionStorage.getItem("difficulty"), sessionStorage.getItem("playerType"), sessionStorage.getItem("windType"));
 
 game.start();
 

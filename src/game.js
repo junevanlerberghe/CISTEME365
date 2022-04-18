@@ -27,9 +27,9 @@ const OBSTACLE_TYPE = {
 
 export default class Game {
 
-    constructor(gameWidth, gameHeight, gameDifficulty, playerType) {
+    constructor(gameWidth, gameHeight, gameDifficulty, playerType, windType) {
         console.log("difficulty: " + gameDifficulty + ", player type: " + playerType);
-        
+        console.log("windType" + windType)
         // basic game information
         const GAMESTATE = {
             GAMEOVER: 0,
@@ -53,7 +53,7 @@ export default class Game {
         }
 
         // difficulty/level
-        this.difficulty = Difficulty.getDifficulty(gameDifficulty);
+        this.difficulty = Difficulty.getDifficulty(gameDifficulty, windType);
         this.level = 1;
         this.obstaclesPassed = 0;
         this.nextLevelObstaclesPassed = this.obstaclesPassed + LevelUtility.getFibonacci(this.level); // when obstacles passed hits this #, level goes up

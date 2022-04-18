@@ -16,6 +16,7 @@ function start_game() {
         document.getElementById("iCoefficientInputBox").value, document.getElementById("dCoefficientInputBox").value]);
     }
     sessionStorage.setItem("windUse", document.getElementById("windToggleCheckbox").checked);
+    sessionStorage.setItem("windType", document.getElementById("windTypeCheckbox").checked);
     
 }
 
