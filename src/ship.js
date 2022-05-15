@@ -41,7 +41,7 @@ export default class Ship {
         this.immunityTime = 0;
         this.blinkOnPhase = false; // if true, ship is not drawn (so a flashing effect is created)
         this.blinkPhaseLength = 7;
-        this.infiniteLivesMode = true; // testing make sure to set to false before exporting
+        this.infiniteLivesMode = false; // testing make sure to set to false before exporting
 
         this.m = 1;
         this.g = -0.005;
