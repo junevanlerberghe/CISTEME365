@@ -28,9 +28,9 @@ slider3.oninput = function() {
   output3.innerHTML = this.value;
 }
 /* End Setting Values */
-
-const GAME_WIDTH = 800;
-const GAME_HEIGHT = 600;
+//if you're changing the game width and/or height, also change it on line 55 in game.html
+const GAME_WIDTH = 700;
+const GAME_HEIGHT = 500;
 
 ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 

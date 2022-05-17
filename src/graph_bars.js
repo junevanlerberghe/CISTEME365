@@ -9,7 +9,7 @@ var individualBar = {
     color: ""
 }
 // template bar struct constructor
-function MakeIndividualBar(x, y = 600 - 107, width = 20, height = 0, color = "rgba(0, 0, 0, 1)") {
+function MakeIndividualBar(x, y = 500 - 107, width = 20, height = 0, color = "rgba(0, 0, 0, 1)") {
     let tmp = JSON.parse(JSON.stringify(individualBar));
     tmp.x = x;
     tmp.y = y;

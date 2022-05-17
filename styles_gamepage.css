@@ -6,5 +6,6 @@ img {
   /* this code is so that buttons to transverse pages don't affect height of the content box.
   it's like kinda bad programming but it's an easy solution o well */
   overflow: hidden;
-  height: 648px;
+  height: 600px;
+  width: 850px;
 }​

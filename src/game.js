@@ -112,6 +112,7 @@ export default class Game {
     }
 
     update(dt, timeStamp) {
+   
         //this.startGame();             began working moving everything to one page
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
@@ -121,16 +122,15 @@ export default class Game {
         this.gameObjects.forEach(x => x.update(dt));
         this.totalTime += dt/1000;  
 
-        console.log('update game')
-
         var sliderd = document.getElementById("dval");
         var slideri = document.getElementById("ival");
         var sliderp = document.getElementById("pval");
         sessionStorage.setItem("pSlider", sliderp.textContent)
         sessionStorage.setItem("iSlider", slideri.textContent)
         sessionStorage.setItem("dSlider", sliderd.textContent)
-       
+
         this.updateLevel();
+        
     }
 
     input(dt){
@@ -280,7 +280,7 @@ export default class Game {
         GraphicsUtility.toGameHeaderFontStyle(ctx);
         ctx.fillText("GAME PAUSED", this.gameWidth / 2, this.gameHeight / 2);
         GraphicsUtility.toGameBodyFontStyle(ctx);
-        ctx.fillText("Press Enter again to unpause, or See Results to end game", this.gameWidth / 2, this.gameHeight / 2 + 20);
+        ctx.fillText("Press Resume to unpause, or See Results to end game", this.gameWidth / 2, this.gameHeight / 2 + 20);
 
         // save game stats
         this.saveGameStats()
@@ -335,8 +335,9 @@ export default class Game {
     // helper methods
     generateObstacle() {
         return new ObstaclePair(this, OBSTACLE_TYPE.ROCK);
-    }
+    }  
 
+    
     checkPauseButton() {
         document.getElementById('pause').addEventListener('click', button=>{
             this.pauseClickState += 1
@@ -349,6 +350,22 @@ export default class Game {
             }
         })
     }
+
+    /*
+    checkPauseButton() {
+        document.getElementById('pause').addEventListener('click', button=>{
+            this.pauseClickState *= -1
+            console.log(this.pauseClickState)
+            if (this.pauseClickState < 0) {
+                this.pauseGame();
+                document.getElementById('pause').innerHTML="Resume"
+            } else {
+                this.resumeGame();
+                document.getElementById('pause').innerHTML="Pause"
+            }
+        })
+    }
+    */
 
     saveGameStats(){
         sessionStorage.setItem("totalTime", this.totalTime);
