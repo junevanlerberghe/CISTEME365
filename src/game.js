@@ -121,6 +121,8 @@ export default class Game {
         this.gameObjects.forEach(x => x.update(dt));
         this.totalTime += dt/1000;  
 
+        console.log('update game')
+
         var sliderd = document.getElementById("dval");
         var slideri = document.getElementById("ival");
         var sliderp = document.getElementById("pval");
