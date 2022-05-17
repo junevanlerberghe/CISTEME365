@@ -14,6 +14,16 @@ export default class GhostShip extends Ship {
         //PID variables
         this.customCoeff = sessionStorage.getItem("useCustomPIDCoeff") == "true";
         this.coefficients = this.customCoeff ? this.parsePIDCoefficients(sessionStorage.getItem("customPIDCoefficients")) : [];
+        if(this.coefficients.length > 0) {
+            document.getElementById("pSlider").value = this.coefficients[0]
+            document.getElementById("iSlider").value = this.coefficients[1]
+            document.getElementById("dSlider").value = this.coefficients[2]
+
+            document.getElementById("pval").innerHTML = this.coefficients[0]
+            document.getElementById("ival").innerHTML = this.coefficients[1]
+            document.getElementById("dval").innerHTML = this.coefficients[2]
+        }
+
         this.errors = [0];
         this.historicPID = [[]]; // keeps track of PID values for each frame
 
