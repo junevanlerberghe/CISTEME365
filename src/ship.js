@@ -95,7 +95,7 @@ export default class Ship {
             this.updateMovement(dt);
         }
         this.checkCollisions();
-
+        console.log('ship update')
         if (this.isCurrentlyImmune()) {
             this.immunityTime--;
             
