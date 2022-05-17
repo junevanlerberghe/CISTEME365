@@ -73,10 +73,18 @@ export default class GhostShip extends Ship {
         //let Ki = 0.0000001;
         //let Kd = 0.0005;
  
+        /*
         let Kp = this.customCoeff ? this.coefficients[0] : 1*0.5;
         let Ki = this.customCoeff ? this.coefficients[1] : 1*0.05;
-        let Kd = this.customCoeff ? this.coefficients[2] : 1*0.5; 
- 
+        var Kd = this.customCoeff ? this.coefficients[2] : 1*0.5; 
+        */
+        this.sliderCoeffP = sessionStorage.getItem("pSlider")
+        this.sliderCoeffI = sessionStorage.getItem("iSlider")
+        this.sliderCoeffD = sessionStorage.getItem("dSlider")
+        let Kd = this.sliderCoeffD
+        let Ki = this.sliderCoeffI
+        let Kp = this.sliderCoeffP
+        console.log(Kd, Ki, Kp)
         
         let curr_err = target_pos_y - curr_y;
         this.errors.push(curr_err);

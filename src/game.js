@@ -119,7 +119,15 @@ export default class Game {
         //isn't read so the button click isn't always registered.
         this.wind.update(timeStamp);
         this.gameObjects.forEach(x => x.update(dt));
-        this.totalTime += dt/1000;
+        this.totalTime += dt/1000;  
+
+        var sliderd = document.getElementById("dval");
+        var slideri = document.getElementById("ival");
+        var sliderp = document.getElementById("pval");
+        sessionStorage.setItem("pSlider", sliderp.textContent)
+        sessionStorage.setItem("iSlider", slideri.textContent)
+        sessionStorage.setItem("dSlider", sliderd.textContent)
+       
         this.updateLevel();
     }
 
