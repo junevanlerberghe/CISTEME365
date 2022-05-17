@@ -10,10 +10,12 @@ export default class InputHandler {
             switch(event.key) {
                 case 'ArrowUp':
                     ship.moveUp()
+                    event.preventDefault();
                     break
 
                 case 'ArrowDown':
                     ship.moveDown()
+                    event.preventDefault();
                     break
 
                 /*case 'Enter':
@@ -36,10 +38,12 @@ export default class InputHandler {
             switch(event.key) {
                 case 'ArrowDown':
                     ship.stop();
+                    event.preventDefault();
                     break
                     
                 case 'ArrowUp':
                     ship.stop();
+                    event.preventDefault();
                     break
 
             }
