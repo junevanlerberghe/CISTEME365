@@ -41,6 +41,7 @@ game.start();
 let lastTime = 0
 function gameLoop(timeStamp) {
     let dt = timeStamp - lastTime;
+    console.log('dt', dt)
     game.input(dt);
     lastTime = timeStamp;
     game.input(dt);
