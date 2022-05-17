@@ -4,8 +4,7 @@
 /* Containers */
 #everything_wrapper {
   height: 130vh; 
-  width: 150vh;
-
+  
   background-image: url(./assets/background.jpg);
   background-repeat: no-repeat;
   /*background-size: 1800px 900px;*/
