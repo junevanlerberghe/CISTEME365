@@ -79,6 +79,7 @@ export default class Game {
 
         // stats to track for summary screen
         this.totalTime = 0;
+        this.frameCount = 0;
 
         // game objects (note wind is not a gameObject since it updates differently)
         this.ship = new Ship(this);
@@ -111,25 +112,57 @@ export default class Game {
         }
     }
 
+    setDT(dt) {
+        this.frames = Math.floor(dt/16);
+        if(this.frames == 0) {
+            this.fastFrames = Math.floor(dt/5);
+        }
+    }
+
     update(dt, timeStamp) {
-   
-        //this.startGame();             began working moving everything to one page
-        if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
-        if(this.gameState === GAMESTATE.GAMEOVER) return;
-        //There are many checkPauseButtons() functions. I think when the game is at certain parts of the loop, the function checkPauseButton()
-        //isn't read so the button click isn't always registered.
-        this.wind.update(timeStamp);
-        this.gameObjects.forEach(x => x.update(dt));
-        this.totalTime += dt/1000;  
+        //if the computer is slower, update frames more frequently
+        for(let i = 0; i < this.frames; i++) {
+            //this.startGame();             began working moving everything to one page
+            if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
+            if(this.gameState === GAMESTATE.GAMEOVER) return;
+            //There are many checkPauseButtons() functions. I think when the game is at certain parts of the loop, the function checkPauseButton()
+            //isn't read so the button click isn't always registered.
+            this.wind.update(timeStamp);
+            this.gameObjects.forEach(x => x.update(dt));
+            this.totalTime += dt/1000;  
 
-        var sliderd = document.getElementById("dval");
-        var slideri = document.getElementById("ival");
-        var sliderp = document.getElementById("pval");
-        sessionStorage.setItem("pSlider", sliderp.textContent)
-        sessionStorage.setItem("iSlider", slideri.textContent)
-        sessionStorage.setItem("dSlider", sliderd.textContent)
+            var sliderd = document.getElementById("dval");
+            var slideri = document.getElementById("ival");
+            var sliderp = document.getElementById("pval");
+            sessionStorage.setItem("pSlider", sliderp.textContent)
+            sessionStorage.setItem("iSlider", slideri.textContent)
+            sessionStorage.setItem("dSlider", sliderd.textContent)
 
-        this.updateLevel();
+            this.updateLevel();
+        }
+        //if the computer is faster, update frames slower
+        if(this.frames <= 0) {
+            if(this.frameCount % this.fastFrames == 0) {
+                    //this.startGame();             began working moving everything to one page
+                if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
+                if(this.gameState === GAMESTATE.GAMEOVER) return;
+                //There are many checkPauseButtons() functions. I think when the game is at certain parts of the loop, the function checkPauseButton()
+                //isn't read so the button click isn't always registered.
+                this.wind.update(timeStamp);
+                this.gameObjects.forEach(x => x.update(dt));
+                this.totalTime += dt/1000;  
+
+                var sliderd = document.getElementById("dval");
+                var slideri = document.getElementById("ival");
+                var sliderp = document.getElementById("pval");
+                sessionStorage.setItem("pSlider", sliderp.textContent)
+                sessionStorage.setItem("iSlider", slideri.textContent)
+                sessionStorage.setItem("dSlider", sliderd.textContent)
+
+                this.updateLevel();
+            }
+        }
+        this.frameCount++;
         
     }
 
