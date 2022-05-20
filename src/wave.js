@@ -37,7 +37,7 @@ export default class Wave {
         //necessary for pause feature
         this.speed = this.speed
         // The multiplier (0.6) serves as a buffer for visual purposes.
-        this.currentPosition.y += (0.6)*this.wind.currentVelocity;
+        this.currentPosition.y += (1)*this.wind.currentVelocity;
         this.currentPosition.x -= this.speed;
         this.opacityControl()
         // when object hits endPosition delete it

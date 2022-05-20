@@ -266,7 +266,7 @@ export default class Game {
         }
 
         // wind
-        let windSpeedY = this.gameHeight*(2/5);
+        let windSpeedY = this.gameHeight*(1/2);
         let windSpeedText = "" + Math.round(Math.abs(this.wind.currentVelocity )*100)/5; // 20 is scalar multiplier
         let windDirectionText = "mph " + (this.wind.currentVelocity > 0 ? "S" : "N");
         GraphicsUtility.drawStat(ctx, this, windSpeedY - 30, "wind: ", ""); // draws: "wind:""
@@ -274,8 +274,8 @@ export default class Game {
 
         let arrowXMargin = 130;
         let arrowLengthStretch = 100; // arrow will be drawn to length of windVelocity * this
-        GraphicsUtility.drawArrow(ctx, this.gameWidth - arrowXMargin, this.gameHeight*(2/5),
-            this.gameWidth - arrowXMargin, this.gameHeight*(2/5) + this.wind.currentVelocity * arrowLengthStretch);
+        GraphicsUtility.drawArrow(ctx, this.gameWidth - arrowXMargin, this.gameHeight*(1/2),
+            this.gameWidth - arrowXMargin, this.gameHeight*(1/2) + this.wind.currentVelocity * arrowLengthStretch);
 
         // level progress bar
         GraphicsUtility.drawLevelBar(ctx, this);
@@ -334,9 +334,9 @@ export default class Game {
 
         // game over text
         GraphicsUtility.toGameHeaderFontStyle(ctx);
-        ctx.fillText("GAME PAUSED", this.gameWidth / 2, this.gameHeight / 2);
+        ctx.fillText("GAME PAUSED", this.gameWidth / 2, 2 * this.gameHeight / 5);
         GraphicsUtility.toGameBodyFontStyle(ctx);
-        ctx.fillText("Press Resume to unpause, or See Results to end game", this.gameWidth / 2, this.gameHeight / 2 + 20);
+        ctx.fillText("Press Resume to unpause, or See Results to end game", this.gameWidth / 2, 2 * this.gameHeight / 5 + 20);
 
         // save game stats
         this.saveGameStats()
@@ -380,7 +380,7 @@ export default class Game {
 
         // game over text
         GraphicsUtility.toGameHeaderFontStyle(ctx);
-        ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
+        ctx.fillText("GAME OVER", this.gameWidth / 2, 2 * this.gameHeight / 5);
 
         // button to summary page
         document.getElementById('summary').style.display = 'block';
