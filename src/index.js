@@ -3,6 +3,7 @@ var difficulty = 1
 document.getElementById("start").onclick = start_game;
 document.getElementById("difficulty").onclick = change_difficulty;
 document.getElementById("playerType").onclick = changePlayerType;
+document.getElementById("windType").onclick = changeWindType;
 document.getElementById("customPIDCoefficientsCheckbox").onclick = showCustomCoeffBoxes;
 
 function start_game() {
@@ -15,9 +16,7 @@ function start_game() {
         sessionStorage.setItem("customPIDCoefficients", [document.getElementById("pCoefficientInputBox").value,
         document.getElementById("iCoefficientInputBox").value, document.getElementById("dCoefficientInputBox").value]);
     }
-    sessionStorage.setItem("windUse", document.getElementById("windToggleCheckbox").checked);
-    sessionStorage.setItem("windType", document.getElementById("windTypeCheckbox").checked);
-    
+    sessionStorage.setItem("windType", document.getElementById("windType").selectedIndex);
 }
 
 function change_difficulty() {
@@ -25,6 +24,10 @@ function change_difficulty() {
 }
 function changePlayerType() {
     console.log("change player type: " + document.getElementById("playerType").selectedIndex);
+    showCustomCoeffBoxes();
+}
+function changeWindType() {
+    console.log("change wind type: " + document.getElementById("windType").selectedIndex);
     showCustomCoeffBoxes();
 }
 

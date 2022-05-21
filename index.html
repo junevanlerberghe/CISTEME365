@@ -26,16 +26,18 @@
         <div class="row p-4 rounded" id="menu">
           <!--this col holds the tutorial for how to play the game-->
           <div class="col-7" id="instruction_col">
-            <h2>Instructions</h2>
+            <h2>How to Play</h2>
             <ol>
-              <li>Select your difficulty.</li>
-              <li>Selecting Ghost Mode will allow you to see what the computer is doing.</li>
+              <li>Select your difficulty and game mode.</li>
               <li>Use the up and down arrow keys to steer your ship.</li>
               <li>Avoid the icebergs and see the power of PID control.</li>
-              <li>Click the wind button to include wind.</li>
+            </ol>
+            <h2>Settings</h2>
+            <ol>
+              <li>A game mode with the PID will show you the PID controller in action</li>
+              <li>Check the wind button to play with wind.</li>
               <li>"Extra Difficulty" makes the wind constantly change!</li>
               <li>Click "Pause" to pause and unpause.</li>
-              <li>Good luck and have fun!</li>
             </ol>
           </div>
           <!--this column holds all buttons and options (e.g. start, difficulty, etc.)-->
@@ -44,7 +46,7 @@
             <div class="dropdown">
               <!--difficulty drop down menu-->
               <label>Select Difficulty:</label>
-              <select name="difficulty" id="difficulty" style="margin:7px">
+              <select name="difficulty" id="difficulty" style="margin:4px">
                 <option>Easy</option>
                 <option>Medium</option>
                 <option>Hard</option>
@@ -52,26 +54,26 @@
             </div>
             <!-- ghostmode switch - goddard suggestion -->
             <div class="dropdown">
-              <label>Select Player Type:</label>
-              <select name="playerType" id="playerType" style="margin:7px">
+              <label>Select Game Mode:</label>
+              <select name="playerType" id="playerType" style="margin:4px">
                 <option>1-player</option>
                 <option>1-player vs PID</option>
                 <option>PID only</option>
+              </select>
+            </div>
+            <!--toggle wind-->
+            <div class="dropdown">
+              <label>Select Wind Type:</label>
+              <select name="windType" id="windType" style="margin:4px">
+                <option>No wind</option>
+                <option>Constant wind</option>
+                <option>Sinusodial wind (extra hard!)</option>
               </select>
             </div>
             <!--custom pid values checkbox  -->
             <div class="form-check" id = "customPIDCoefficients" style="display:none">
               <input type="checkbox" class="form-check-input" id="customPIDCoefficientsCheckbox">
               <label class="form-check-label" for="customPIDCoefficientsCheckbox">Custom PID Coefficients</label>
-            </div>
-            <!--toggle wind checkbox  -->
-            <div class="form-check" id = "windToggle">
-              <input type="checkbox" class="form-check-input" id="windToggleCheckbox">
-              <label class="form-check-label" for="windToggleCheckbox">Wind</label>
-            </div>
-            <div class="form-check" id = "windType">
-              <input type="checkbox" class="form-check-input" id="windTypeCheckbox">
-              <label class="form-check-label" for="windTypeCheckbox">Extra Difficulty</label>
             </div>
             <!-- PID values -->
             <div class="input-group input-group-sm" id="customPIDCoefficientsInput" style="display:none">

@@ -52,8 +52,13 @@ export default class Game {
             this.playerMode = false
         }
 
-        // difficulty/level
+        // difficulty/wind
+        this.windType = parseInt(sessionStorage.getItem("windType"));
+        console.log(this.windType);
         this.difficulty = Difficulty.getDifficulty(gameDifficulty, windType);
+        this.wind = this.difficulty.wind;
+
+        // level/score
         this.level = 1;
         this.obstaclesPassed = 0;
         this.nextLevelObstaclesPassed = this.obstaclesPassed + LevelUtility.getFibonacci(this.level); // when obstacles passed hits this #, level goes up
@@ -68,14 +73,6 @@ export default class Game {
         this.goal = this.difficulty.goal;
         this.width = this.difficulty.width;
         this.speed = this.difficulty.speed;
-
-        //wind toggle
-        console.log(sessionStorage.getItem("windUse"))
-        if(sessionStorage.getItem("windUse") == "false") {
-            this.wind = new Wind(0, 0, 0);
-        } else {
-            this.wind = this.difficulty.wind;
-        }
 
         // stats to track for summary screen
         this.totalTime = 0;

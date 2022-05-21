@@ -3,11 +3,10 @@
  ***********************************************************/
 /* Containers */
 #everything_wrapper {
-  height: 130vh; 
+  height: 100vh;
   
   background-image: url(./assets/background.jpg);
   background-repeat: no-repeat;
-  /*background-size: 1800px 900px;*/
   background-size: cover;
   background-position: center;
 }
