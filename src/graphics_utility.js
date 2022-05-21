@@ -108,13 +108,33 @@ export var GraphicsUtility = {
         this.newLevelEffectCount--;
     },
 
+    drawButton: function(ctx, game, text, padding = 30, color="#0075FF") {
+        // get width of button background
+        this.toBodyFontStyle(ctx);
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        let width = ctx.measureText(text).width + padding*2;
+        let height = ctx.measureText(text).actualBoundingBoxDescent + padding*2;
+
+        // draw button bg
+        let x = (game.gameWidth - width)/2;
+        let y = game.gameHeight - 280;
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, width, height);
+
+        console.log(x,y,width,height);
+        // draw button text
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText(text, game.gameWidth/2, y + height/2);
+    },
+
     /**********************************************************
      * drawing level bar
      **********************************************************/
     // default stats
     levelBarX: 30, // default x start
     levelBarY: 15, // default y start
-    levelBarDefaultWidth: 800 - 30 * 2, // dfeault width
+    levelBarDefaultWidth: 700 - 30 * 2, // dfeault width
     levelBarHeight: 10, // default height
     // draws the entire level bar (transparent total bar, opaque progress bar, and numerical stat)
     drawLevelBar: function (ctx, game) {

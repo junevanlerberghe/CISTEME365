@@ -54,7 +54,6 @@ export default class Game {
 
         // difficulty/wind
         this.windType = parseInt(sessionStorage.getItem("windType"));
-        console.log(this.windType);
         this.difficulty = Difficulty.getDifficulty(gameDifficulty, windType);
         this.wind = this.difficulty.wind;
 
@@ -380,9 +379,10 @@ export default class Game {
         ctx.fillText("GAME OVER", this.gameWidth / 2, 2 * this.gameHeight / 5);
 
         // button to summary page
-        document.getElementById('summary').style.display = 'block';
-        document.getElementById('summary').style.left = this.gameWidth/2 - 60;
-        document.getElementById('summary').style.top = -280;
+        // document.getElementById('summary').style.display = 'block';
+        // document.getElementById('summary').style.left = this.gameWidth/2 - 60;
+        // document.getElementById('summary').style.top = -280;
+        GraphicsUtility.drawButton(ctx, this, "See Results");
     }
 
     // helper methods

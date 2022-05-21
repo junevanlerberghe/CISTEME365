@@ -114,7 +114,7 @@ export default class GhostShip extends Ship {
         //up * historicPIDScale, ui * historicPIDScale, this.velocity]); //ud * historicPIDScale]);
       //  this.historicPID.push([0.01*curr_err * historicPIDScale, 0.01*sum_error * historicPIDScale, 10*output * historicPIDScale]);
 
-        console.log(this.velocity);//up, ui, ud)
+        // console.log(this.velocity);//up, ui, ud)
 
         return output;
         /*
