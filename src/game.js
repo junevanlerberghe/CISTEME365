@@ -116,6 +116,7 @@ export default class Game {
     }
 
     update(dt, timeStamp) {
+        /*
         //this.startGame();             began working moving everything to one page
         if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
         if(this.gameState === GAMESTATE.GAMEOVER) return;
@@ -133,9 +134,9 @@ export default class Game {
         sessionStorage.setItem("dSlider", sliderd.textContent)
 
         this.updateLevel();
-        
+        */
         //if the computer is slower, update frames more frequently
-        /*
+        
         for(let i = 0; i < this.frames; i++) {
             console.log("UPDATE")
             //this.startGame();             began working moving everything to one page
@@ -156,7 +157,7 @@ export default class Game {
 
             this.updateLevel();
         }
-        */
+        
         //if the computer is faster, update frames slower
         /*
         if(this.frames <= 0) {
