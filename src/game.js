@@ -134,18 +134,22 @@ export default class Game {
         sessionStorage.setItem("dSlider", sliderd.textContent)
 
         this.updateLevel();
-        */
-        //if the computer is slower, update frames more frequently
         
+        //if the computer is slower, update frames more frequently
+        */
         for(let i = 0; i < this.frames; i++) {
-            console.log("UPDATE")
             //this.startGame();             began working moving everything to one page
             if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
             if(this.gameState === GAMESTATE.GAMEOVER) return;
             //There are many checkPauseButtons() functions. I think when the game is at certain parts of the loop, the function checkPauseButton()
             //isn't read so the button click isn't always registered.
             this.wind.update(timeStamp);
-            this.gameObjects.forEach(x => x.update(dt));
+            //this.gameObjects.forEach(x => x.update(dt));
+            //these objects are updated inside the loop since they need to be moving faster
+            this.wave.update(dt)
+            this.wave2.update(dt)
+            this.wave3.update(dt)
+            this.obstacle_pair.update(dt)
             this.totalTime += dt/1000;  
 
             var sliderd = document.getElementById("dval");
@@ -157,6 +161,10 @@ export default class Game {
 
             this.updateLevel();
         }
+        //ships should not move faster, so they are updated only once each loop
+        this.ship.update(dt)
+        this.ghost_ship.update(dt)
+
         
         //if the computer is faster, update frames slower
         /*
@@ -383,7 +391,11 @@ export default class Game {
         // document.getElementById('summary').style.display = 'block';
         // document.getElementById('summary').style.left = this.gameWidth/2 - 60;
         // document.getElementById('summary').style.top = -280;
-        GraphicsUtility.drawButton(ctx, this, "See Results");
+        //GraphicsUtility.drawButton(ctx, this, "See Results");
+
+        document.getElementById('summary').style.display = 'block';
+        document.getElementById('summary').style.left = this.gameWidth/2 - 60;
+        document.getElementById('summary').style.top = -280;
     }
 
     // helper methods
