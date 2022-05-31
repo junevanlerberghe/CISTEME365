@@ -86,45 +86,6 @@
                           </span>
 
                         </div>
-
-                        <!-- Code is up here to go inside the white border, looks better but for some reason the buttons dissapear while paused
-                        so can't resume game *** also i think these buttons will look best on the right hand side of the game *** -->
-                        <!--
-                        <button id="btnFullscreen" type="button" style="margin-top:5px" class="btn btn-secondary">Fullscreen</button>
-                        <script> function toggleFullscreen(elem) {
-                            elem = elem || document.documentElement;
-                          
-                            if (!document.fullscreenElement && !document.mozFullScreenElement &&
-                              !document.webkitFullscreenElement && !document.msFullscreenElement) {
-                              if (elem.requestFullscreen) {
-                                elem.requestFullscreen();
-                              } else if (elem.msRequestFullscreen) {
-                                elem.msRequestFullscreen();
-                              } else if (elem.mozRequestFullScreen) {
-                                elem.mozRequestFullScreen();
-                              } else if (elem.webkitRequestFullscreen) {
-                                elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                              }
-                            } else {
-                              if (document.exitFullscreen) {
-                                document.exitFullscreen();
-                              } else if (document.msExitFullscreen) {
-                                document.msExitFullscreen();
-                              } else if (document.mozCancelFullScreen) {
-                                document.mozCancelFullScreen();
-                              } else if (document.webkitExitFullscreen) {
-                                document.webkitExitFullscreen();
-                              }
-                            }
-                          }
-                          
-                          document.getElementById('btnFullscreen').addEventListener('click', function() {
-                            toggleFullscreen();
-                          }); </script>
-                          
-                          <button id="pause" type="button" style="margin-top:5px" class="btn btn-secondary">Pause</button>
-                      -->
-
                     </div>
                     
                 
@@ -161,8 +122,14 @@
                     toggleFullscreen();
                   }); </script>
                   
-                  <button id="pause" type="button" style="margin-top:5px" class="btn btn-secondary">Pause</button>
-
+                  <button id="pause" type="button" style="margin-top:5px" class="btn btn-secondary" >Pause</button>
+                  <script>
+                    var clicks = 1;
+                    function linkClick() {
+                      document.getElementById('pause').value = clicks++;
+                      console.log('Clicks', document.getElementById('pause').value)
+                    }
+                  </script>
                 <!--<button onclick = "var el = document.getElementById('everything_wrapper');el.webkitRequestFullscreen();">Go Full Screen!</button>-->
             </div>
         </div>

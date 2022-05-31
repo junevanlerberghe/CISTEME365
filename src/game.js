@@ -134,9 +134,9 @@ export default class Game {
         sessionStorage.setItem("dSlider", sliderd.textContent)
 
         this.updateLevel();
-        
-        //if the computer is slower, update frames more frequently
         */
+
+        //if the computer is slower, update frames more frequently
         for(let i = 0; i < this.frames; i++) {
             //this.startGame();             began working moving everything to one page
             if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
@@ -150,6 +150,10 @@ export default class Game {
             this.wave2.update(dt)
             this.wave3.update(dt)
             this.obstacle_pair.update(dt)
+            if (this.ghostMode == true) {
+                this.pidGraph.update(dt)
+            }
+            
             this.totalTime += dt/1000;  
 
             var sliderd = document.getElementById("dval");
@@ -162,35 +166,12 @@ export default class Game {
             this.updateLevel();
         }
         //ships should not move faster, so they are updated only once each loop
-        this.ship.update(dt)
-        this.ghost_ship.update(dt)
-
-        
-        //if the computer is faster, update frames slower
-        /*
-        if(this.frames <= 0) {
-            if(this.frameCount % this.fastFrames == 0) {
-                    //this.startGame();             began working moving everything to one page
-                if(this.lives <= 0) this.gameState = GAMESTATE.GAMEOVER;
-                if(this.gameState === GAMESTATE.GAMEOVER) return;
-                //There are many checkPauseButtons() functions. I think when the game is at certain parts of the loop, the function checkPauseButton()
-                //isn't read so the button click isn't always registered.
-                this.wind.update(timeStamp);
-                this.gameObjects.forEach(x => x.update(dt));
-                this.totalTime += dt/1000;  
-
-                var sliderd = document.getElementById("dval");
-                var slideri = document.getElementById("ival");
-                var sliderp = document.getElementById("pval");
-                sessionStorage.setItem("pSlider", sliderp.textContent)
-                sessionStorage.setItem("iSlider", slideri.textContent)
-                sessionStorage.setItem("dSlider", sliderd.textContent)
-
-                this.updateLevel();
-            }
+        if (this.ghostMode == true) {
+            this.ghost_ship.update(dt)
         }
-        this.frameCount++;
-        */
+        if(this.playerType != 2) {
+            this.ship.update(dt)
+        }
         
     }
 
@@ -405,6 +386,15 @@ export default class Game {
 
     
     checkPauseButton() {
+        /*trying to fix pause button again 
+        if(document.getElementById('pause').value % 2 == 0) {
+            this.resumeGame();
+            document.getElementById('pause').innerHTML="Pause"
+        } else {
+            this.pauseGame();
+            document.getElementById('pause').innerHTML="Resume"
+        }
+        */
         document.getElementById('pause').addEventListener('click', button=>{
             this.pauseClickState += 1
             if (this.pauseClickState % 2 == 0){
@@ -415,6 +405,7 @@ export default class Game {
             document.getElementById('pause').innerHTML="Pause"
             }
         })
+        
     }
 
     /*
