@@ -19,7 +19,7 @@
     </style>
 </head>
 
-<body onload="alert('Please click the left arrow to go into full screen! \n (After clicking ok)')">
+<body>
     <!--this container wraps the entire screen-->
     <div class="container-fluid" id="everything_wrapper">
         <div class="row h-50">
@@ -54,6 +54,9 @@
                     <div class="col-7" id="instruction_col">
                         <canvas id="gameScreen" width="700" height="500">
                         </canvas>
+
+                        <!-- <button id="btnFullscreenStart" type="button" style="margin-top:10px" class="btn btn-secondary" visibility=hidden value=false>Fullscreen</button> -->
+                        <button id="okay" type="button" style="margin-top:10px" class="btn btn-secondary" visibility=hidden value=false>Got it!</button>
 
                         <a href="summary.html"><button id="summary" style="margin-top:10px; display: none;" type="button"
                             class="btn btn-primary">See Results</button></a>
@@ -90,10 +93,11 @@
                     
                 
                 </div>
-                <button id="btnFullscreen" type="button" style="margin-top:5px" class="btn btn-secondary">Fullscreen</button>
+                <button id="btnFullscreen" type="button" style="margin-top:5px" class="btn btn-secondary" value=false>Fullscreen</button>
+                
                 <script> function toggleFullscreen(elem) {
                     elem = elem || document.documentElement;
-                  
+
                     if (!document.fullscreenElement && !document.mozFullScreenElement &&
                       !document.webkitFullscreenElement && !document.msFullscreenElement) {
                       if (elem.requestFullscreen) {
@@ -116,8 +120,21 @@
                         document.webkitExitFullscreen();
                       }
                     }
+                    document.getElementById('btnFullscreen').value = true;
                   }
                   
+                  function click() {
+                    document.getElementById('okay').value = true;
+                  }
+
+                  //document.getElementById('btnFullscreenStart').addEventListener('click', function() {
+                  //       toggleFullscreen();
+                  //     }); 
+
+                  document.getElementById('okay').addEventListener('click', function() {
+                          click();
+                        }); 
+
                   document.getElementById('btnFullscreen').addEventListener('click', function() {
                     toggleFullscreen();
                   }); </script>

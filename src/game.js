@@ -88,7 +88,7 @@ export default class Game {
         this.gameObjects = [this.wave, this.wave2, this.wave3, this.obstacle_pair];
 
         // game state!
-        this.gameState = GAMESTATE.RUNNING;
+        this.gameState = GAMESTATE.START;
         this.pauseClickState = 0;
 
         //wave info
@@ -218,7 +218,8 @@ export default class Game {
         }
 
         if(this.gameState === GAMESTATE.START) {
-            this.drawStartWindow(ctx);
+            //this.drawStartWindow(ctx);
+            this.drawFirstAlertWindow(ctx);
         }
     }
 
@@ -345,6 +346,36 @@ export default class Game {
             console.log('running')
         }
         */
+    }
+
+    drawFirstAlertWindow(ctx) {
+        this.ship.updateMovementConst = false;
+        this.ghost_ship.updateMovementConst = false;
+        this.obstacle_pair.speed = 0;
+        this.waveSavedSpeed = this.wave.speed;
+        this.wave.speed = 0;
+        this.waveSavedSpeed2 = this.wave2.speed;
+        this.wave2.speed = 0;
+        this.waveSavedSpeed3 = this.wave3.speed;
+        this.wave3.speed = 0;
+
+        // window
+        ctx.fillStyle = "rgba(0,0,0,1)";
+        ctx.fillRect(this.gameWidth/4, this.gameHeight/4, this.gameWidth/2, this.gameHeight/2);
+
+        // game over text
+        GraphicsUtility.toGameBodyFontStyle(ctx);
+        ctx.fillText("Please first click the full screen button", this.gameWidth / 2, 2 * this.gameHeight / 5);
+        ctx.fillText("below the game to go into full screen!", this.gameWidth / 2, 2 * this.gameHeight / 5 + 20);
+        document.getElementById('okay').visibility = 'visible'
+        document.getElementById('okay').style.left = this.gameWidth/2 - 60;
+        document.getElementById('okay').style.top = -280
+       
+        if(document.getElementById('okay').value == 'true') {
+            document.getElementById('okay').hidden = true
+            this.resumeGame();
+        }
+        
     }
 
     drawStartWindow(ctx) {

@@ -95,10 +95,17 @@ select {
 }
 
 /* fullscreen button*/
-#btnFullscreen{
+#btnFullscreenstart{
   /*position:relative;
   text-align: center;
-  padding: 20px;*/
+  padding: 20px;
+  */
+}
+
+#okay{
+  position:relative;
+  text-align: center;
+  padding: 20px;
 }
 
 /*continue button */
