@@ -16,6 +16,12 @@ function start_game() {
         sessionStorage.setItem("customPIDCoefficients", [document.getElementById("pCoefficientInputBox").value,
         document.getElementById("iCoefficientInputBox").value, document.getElementById("dCoefficientInputBox").value]);
     }
+    sessionStorage.setItem("fullScreen", document.getElementById("fullScreenCheckbox").checked)
+    console.log("full screen", document.getElementById("fullScreenCheckbox"))
+    if(document.getElementById("fullScreenCheckbox").checked) {
+        document.getElementById("btnFullscreen").checked = true
+        console.log("fullscreen", document.getElementById("btnFullscreen").checked)
+    }
     sessionStorage.setItem("windType", document.getElementById("windType").selectedIndex);
 }
 

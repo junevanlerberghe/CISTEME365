@@ -18,6 +18,10 @@ export default class InputHandler {
                     event.preventDefault();
                     break
 
+                case 'ArrowLeft':
+                    document.getElementById('btnFullscreen').click()
+                    break
+
                 /*case 'Enter':
                     //alert("Game Paused")
                     if(count == 0) {

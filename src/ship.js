@@ -113,7 +113,7 @@ export default class Ship {
         this.prevVelocity = this.velocity
         this.velocity = this.prevVelocity + dt*(this.F*this.acceleration - this.g*this.game.wind.currentVelocity - this.b*this.prevVelocity)/this.m
         this.position.y += dt*(this.prevVelocity + this.velocity)/2.0
-
+        console.log(dt)
         // update position w/ respect to velocity (including wind)
         //this.position.y += this.game.velocityConstant * (this.velocity + this.wind.currentVelocity);
         // console.log("x: " + this.position.y + ", v: " + this.velocity + ", a: " + this.acceleration);
