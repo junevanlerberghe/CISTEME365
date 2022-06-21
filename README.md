@@ -1,37 +1,13 @@
-## Welcome to GitHub Pages
+# Ship Steering Game to learn PID Control
 
-You can use the [editor on GitHub](https://github.com/junevanlerberghe/CISTEME365/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+Welcome! This game can be played online at: https://junevanlerberghe.github.io/CISTEME365/. The first page has all of the instructions needed to play along with some settings.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+You can play as a single player, ghost player (PID) or both. As 1-player, you are steering the ship to get between the obstacles as close to the middle as you can. The ghost ship moves automatically according to PID control. You can control the PID constants at the bottom of the screen to see how each part (P, I, D) affects the ghost ship's movement. The graph on the bottom right depicts how hard each aspect of the PID is working to get the ship in the right place.
 
-### Markdown
+![image](https://user-images.githubusercontent.com/18633635/174692738-801d122e-cfe9-4ad7-b9c7-56a82c183b23.png)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Code Structure
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/junevanlerberghe/CISTEME365/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+There are 3 html files that represent each of the three game pages (index, game, summary).
+The JavaScript files are all found in the src folder and they control the game play.
+The Assets folder contains the images used in the game.
