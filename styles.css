@@ -9,7 +9,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  touch-action: none;
 }
 #menu {
   background: rgba(255, 255, 255, 0.9);
