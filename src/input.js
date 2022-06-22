@@ -55,7 +55,7 @@ export default class InputHandler {
 
         document.addEventListener("touchstart", startTouch, false);
         document.addEventListener("touchmove", moveTouch, false);
-        document.addEventListener("touchend", stopTouch, false);
+        //document.addEventListener("touchend", stopTouch, false);
         document.body.classList.add("stop-scrolling")
                     
         // Swipe Up / Down / Left / Right
