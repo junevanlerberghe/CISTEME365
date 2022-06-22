@@ -21,7 +21,12 @@ body {
 /***********************************************************
  * design: buttons + dropdown stuff
  ***********************************************************/
-.switch {
+ .stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+}
+
+ .switch {
   position: relative;
   display: inline-block;
   width: 42px !important;
