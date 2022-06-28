@@ -69,6 +69,11 @@
                         <a><button id="continue" style="margin-top:10px; display: none;" type="button"
                             class="btn btn-primary">Continue</button></a>
 
+                        <div class="buttons">
+                          <button id="pause" type="button" style="margin-top:-450px; margin-left:720px" class="btn btn-secondary" >Pause</button>
+                          <button id="btnFullscreen" type="button" style="margin-top:-500px; margin-left:710px" class="btn btn-secondary" value=false>Fullscreen</button>
+                        </div>
+
                         <!-- Styling the Sliders -->
                         <div class="sliders" style="display: flex; justify-content: space-between; width: 180%; margin-top:20px; margin-bottom: 20px;">
 
@@ -93,7 +98,7 @@
                     
                 
                 </div>
-                <button id="btnFullscreen" type="button" style="margin-top:5px" class="btn btn-secondary" value=false>Fullscreen</button>
+                <!--<button id="btnFullscreen" type="button" style="margin-top:5px" class="btn btn-secondary" value=false>Fullscreen</button>-->
                 
                 <script> function toggleFullscreen(elem) {
                     elem = elem || document.documentElement;
@@ -139,7 +144,7 @@
                     toggleFullscreen();
                   }); </script>
                   
-                  <button id="pause" type="button" style="margin-top:5px" class="btn btn-secondary" >Pause</button>
+                  <!--<button id="pause" type="button" style="margin-top:5px" class="btn btn-secondary" >Pause</button>-->
                   <script>
                     var clicks = 1;
                     function linkClick() {
