@@ -34,9 +34,10 @@ export default class Difficulty {
     static getDifficulty(difficulty, windType) {
         var to_return;
         // set up difficulty
+        console.log("in function", difficulty)
         if (difficulty == 1) to_return = this.difficulty1();
-        if (difficulty == 2) to_return = this.difficulty2();
-        if (difficulty == 3) to_return = this.difficulty3();
+        else if (difficulty == 2) to_return = this.difficulty2();
+        else if (difficulty == 3) to_return = this.difficulty3();
         else to_return = this.difficulty1();
 
         // change wind based on wind type

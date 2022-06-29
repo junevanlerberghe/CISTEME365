@@ -55,6 +55,7 @@ export default class Game {
         // difficulty/wind
         this.windType = parseInt(sessionStorage.getItem("windType"));
         this.difficulty = Difficulty.getDifficulty(gameDifficulty, windType);
+        
         this.wind = this.difficulty.wind;
 
         // level/score

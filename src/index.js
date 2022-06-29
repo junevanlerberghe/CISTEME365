@@ -5,11 +5,14 @@ document.getElementById("difficulty").onclick = change_difficulty;
 document.getElementById("playerType").onclick = changePlayerType;
 document.getElementById("windType").onclick = changeWindType;
 document.getElementById("customPIDCoefficientsCheckbox").onclick = showCustomCoeffBoxes;
+//sessionStorage.setItem("windType", document.getElementById("windType").selectedIndex);
 
 function start_game() {
     console.log("Game Started");
+    sessionStorage.setItem("windType", document.getElementById("windType").selectedIndex);
     sessionStorage.setItem("difficulty", document.getElementById("difficulty").selectedIndex + 1); // +1 bc difficulties are 1-indexed
     sessionStorage.setItem("playerType", document.getElementById("playerType").selectedIndex);
+    
     
     sessionStorage.setItem("useCustomPIDCoeff", document.getElementById("customPIDCoefficientsCheckbox").checked);
     if (document.getElementById("customPIDCoefficientsCheckbox").checked) {
@@ -22,7 +25,7 @@ function start_game() {
         document.getElementById("btnFullscreen").checked = true
         console.log("fullscreen", document.getElementById("btnFullscreen").checked)
     }
-    sessionStorage.setItem("windType", document.getElementById("windType").selectedIndex);
+    
 }
 
 function change_difficulty() {
