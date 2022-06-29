@@ -366,7 +366,7 @@ export default class Game {
         // game over text
         GraphicsUtility.toGameBodyFontStyle(ctx);
         ctx.fillText("Please first click the full screen button", this.gameWidth / 2, 2 * this.gameHeight / 5);
-        ctx.fillText("below the game to go into full screen!", this.gameWidth / 2, 2 * this.gameHeight / 5 + 20);
+        ctx.fillText("on the side of the game to go into full screen!", this.gameWidth / 2, 2 * this.gameHeight / 5 + 20);
         document.getElementById('okay').visibility = 'visible'
         document.getElementById('okay').style.left = this.gameWidth/2 - 60;
         document.getElementById('okay').style.top = -280
